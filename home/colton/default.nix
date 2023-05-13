@@ -20,7 +20,7 @@
 		./programs/starship.nix
 		./programs/tealdeer.nix
 		./programs/vscode.nix
-		./programs/zellij.nix
+		./programs/zellij
 		./programs/zoxide.nix
 		./programs/zsh.nix
 	];
