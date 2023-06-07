@@ -99,20 +99,18 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "utils": "utils"
+        ]
       },
       "locked": {
-        "lastModified": 1680504486,
-        "narHash": "sha256-u9Bj3Sexn77VSz1yPXCx8EPJ6S9J6Q7aUc3O4mBvApQ=",
-        "owner": "cdmistman",
+        "lastModified": 1686142265,
+        "narHash": "sha256-IP0xPa0VYqxCzpqZsg3iYGXarUF+4r2zpkhwdHy9WsM=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "f0c7516f2fff52e0efe39d408b852dc243363b88",
+        "rev": "39c7d0a97a77d3f31953941767a0822c94dc01f5",
         "type": "github"
       },
       "original": {
-        "owner": "cdmistman",
-        "ref": "nushell-add-login-file",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
@@ -276,21 +274,6 @@
         "home-manager": "home-manager",
         "mkAlias": "mkAlias",
         "nixpkgs": "nixpkgs_2"
-      }
-    },
-    "utils": {
-      "locked": {
-        "lastModified": 1676283394,
-        "narHash": "sha256-XX2f9c3iySLCw54rJ/CZs+ZK6IQy7GXNY4nSOyu2QG4=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "3db36a8b464d0c4532ba1c7dda728f4576d6d073",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
       }
     }
   },

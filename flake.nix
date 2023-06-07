@@ -15,7 +15,7 @@
 		devenv.url = "github:cachix/devenv/latest";
 
 		home-manager = {
-			url = "github:cdmistman/home-manager/nushell-add-login-file";
+			url = "github:nix-community/home-manager";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
