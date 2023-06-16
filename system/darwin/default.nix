@@ -46,7 +46,8 @@ inputs.darwin.lib.darwinSystem {
 				experimental-features = "nix-command flakes";
 				extra-nix-path = "nixpkgs=flake:nixpkgs";
 
-				sandbox = true;
+				# TODO: https://github.com/NixOS/nix/issues/8485
+				# sandbox = true;
 
 				trusted-users = [ "root" "colton" ];
 			};
