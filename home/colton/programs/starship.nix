@@ -1,29 +1,5 @@
-{ pkgs, ... }: {
+{
 	programs.starship = {
-		# TODO: using prerelease until v1.15.0 is cut, likely in June
-		# it includes https://github.com/starship/starship/pull/5052
-		package = with pkgs; starship.overrideAttrs (drv: rec {
-			version = "1.15.0-prerelease";
-			name = "starship-${version}";
-
-			src = fetchFromGitHub {
-				owner = "starship";
-				repo = "starship";
-				rev = "b0b05228084110068fd686d67cab28d0ba54fbd2";
-				hash = "sha256-GrM+0rwMXK5nYWJi/pmm49Sch8NnGW11qjbsd/GlwkE=";
-			};
-
-			preBuild = ''
-				HOME=$TMPDIR
-			'';
-
-			cargoDeps = drv.cargoDeps.overrideAttrs (lib.const {
-				name = "${name}-vendor.tar.gz";
-				inherit src;
-				outputHash = "sha256-tURVtw/tzEyNEe0uww+8OMn0b+Fdh3/uTWSYBSrjdvQ=";
-			});
-		});
-
 		enable = true;
 		enableBashIntegration = true;
 		enableNushellIntegration = true;
