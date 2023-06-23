@@ -51,7 +51,7 @@
 			la = "ls -a";
 			ll = "ls -l";
 			lla = "ls -al";
-			tree = "ls --tree";
+			tree = "${pkgs.lsd}/bin/lsd -L --tree";
 		};
 	};
 }
