@@ -11,6 +11,7 @@
 		username = "colton";
 
 		packages = with pkgs; [
+			cachix
 			docker
 			du-dust
 			fd
