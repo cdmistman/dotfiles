@@ -2,9 +2,6 @@
 	description = "My (cdmistman/colton) Nix config";
 
 	inputs = {
-		# TODO: use nixos/nixpkgs-unstable, have to wait for starship 1.15.0
-		# to release, likely in June
-		# nixpkgs.url = "github:cdmistman/nixpkgs";
 		nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
 		darwin = {
