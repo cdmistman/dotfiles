@@ -49,6 +49,11 @@
 						networking.computerName = "Colton’s Replit MacBook Pro";
 						networking.hostName = "donn-replit-mbp";
 					}
+					{
+						home-manager.users.colton.home.sessionPath = [
+							"$HOME/.google-cloud-sdk/bin"
+						];
+					}
 				];
 			};
 		};
