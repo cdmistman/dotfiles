@@ -18,6 +18,7 @@ inputs.darwin.lib.darwinSystem {
 
 		./environment.nix
 		./fonts.nix
+		./nix.nix
 		./system.nix
 
 		./scripts/aliasApplications.nix
@@ -40,17 +41,6 @@ inputs.darwin.lib.darwinSystem {
 		}
 
 		{
-			nix.settings = {
-				auto-optimise-store = true;
-
-				experimental-features = "nix-command flakes";
-				extra-nix-path = "nixpkgs=flake:nixpkgs";
-
-				sandbox = true;
-
-				trusted-users = [ "root" "colton" ];
-			};
-
 			programs.bash.enable = true;
 			programs.zsh = {
 				enable = true;

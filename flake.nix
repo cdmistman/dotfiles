@@ -33,8 +33,10 @@
 
 				modules = [
 					{
-						networking.computerName = "Colton’s MacBook Pro";
-						networking.hostName = "donn-mbp";
+						networking = {
+							computerName = "Colton’s MacBook Pro";
+							hostName = "donn-mbp";
+						};
 					}
 				];
 			};
@@ -46,13 +48,17 @@
 
 				modules = [
 					{
-						networking.computerName = "Colton’s Replit MacBook Pro";
-						networking.hostName = "donn-replit-mbp";
-					}
-					{
-						home-manager.users.colton.home.sessionPath = [
-							"$HOME/.google-cloud-sdk/bin"
-						];
+						home-manager.users.colton = {
+							# TODO: get nixpkgs-packaged google-cloud-sdk working
+							home.sessionPath = [
+								"$HOME/.google-cloud-sdk/bin"
+							];
+						};
+
+						networking = {
+							computerName = "Colton’s Replit MacBook Pro";
+							hostName = "donn-replit-mbp";
+						};
 					}
 				];
 			};
