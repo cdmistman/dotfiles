@@ -1,6 +1,3 @@
-{
-	enableGUI,
-	...
-}: {
-	programs.vscode.enable = enableGUI;
+{enableGUI, ...}: {
+  programs.vscode.enable = enableGUI;
 }

@@ -1,12 +1,9 @@
-{
-	pkgs,
-	...
-}: {
-	environment = {
-		loginShell = "/bin/zsh";
+{pkgs, ...}: {
+  environment = {
+    loginShell = "/bin/zsh";
 
-		systemPackages = with pkgs; [
-			cachix
-		];
-	};
+    systemPackages = with pkgs; [
+      cachix
+    ];
+  };
 }

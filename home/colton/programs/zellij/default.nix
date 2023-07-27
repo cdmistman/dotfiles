@@ -1,7 +1,7 @@
 {
-	home.file.".config/zellij/config.kdl".source = ./config.kdl;
+  home.file.".config/zellij/config.kdl".source = ./config.kdl;
 
-	programs.zellij = {
-		enable = true;
-	};
+  programs.zellij = {
+    enable = true;
+  };
 }

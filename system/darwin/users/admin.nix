@@ -1,14 +1,11 @@
-{
-	pkgs,
-	...
-}: {
-	users.users.admin = {
-		createHome = true;
+{pkgs, ...}: {
+  users.users.admin = {
+    createHome = true;
 
-		description = "Admin user";
+    description = "Admin user";
 
-		home = "/Users/admin";
+    home = "/Users/admin";
 
-		isHidden = true;
-	};
+    isHidden = true;
+  };
 }

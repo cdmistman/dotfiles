@@ -1,14 +1,14 @@
-{ pkgs, ... }: {
-	programs.gh = {
-		enable = true;
-		enableGitCredentialHelper = true;
+{pkgs, ...}: {
+  programs.gh = {
+    enable = true;
+    enableGitCredentialHelper = true;
 
-		settings = {
-			editor = "${pkgs.helix}/bin/hx";
+    settings = {
+      editor = "${pkgs.helix}/bin/hx";
 
-			git_protocol = "ssh";
+      git_protocol = "ssh";
 
-			prompt = "enabled";
-		};
-	};
+      prompt = "enabled";
+    };
+  };
 }

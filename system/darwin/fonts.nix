@@ -1,18 +1,15 @@
-{
-	pkgs,
-	...
-}: {
-	fonts = {
-		fontDir.enable = true;
+{pkgs, ...}: {
+  fonts = {
+    fontDir.enable = true;
 
-		fonts = [
-			(pkgs.nerdfonts.override {
-				fonts = [
-					"FiraCode"
-					"FiraMono"
-					"Hack"
-				];
-			})
-		];
-	};
+    fonts = [
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "FiraMono"
+          "Hack"
+        ];
+      })
+    ];
+  };
 }

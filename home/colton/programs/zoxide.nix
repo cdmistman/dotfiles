@@ -1,8 +1,8 @@
 {
-	programs.zoxide = {
-		enable = true;
-		enableBashIntegration = true;
-		enableNushellIntegration = true;
-		enableZshIntegration = true;
-	};
+  programs.zoxide = {
+    enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+    enableZshIntegration = true;
+  };
 }

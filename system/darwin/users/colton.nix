@@ -1,11 +1,11 @@
 {
-	users.users.colton = {
-		createHome = false;
+  users.users.colton = {
+    createHome = false;
 
-		description = "Colton Donnelly";
+    description = "Colton Donnelly";
 
-		home = "/Users/colton";
+    home = "/Users/colton";
 
-		isHidden = false;
-	};
+    isHidden = false;
+  };
 }

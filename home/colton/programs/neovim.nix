@@ -1,17 +1,17 @@
-{ pkgs, ... }: {
-	programs.neovim = {
-		enable = true;
+{pkgs, ...}: {
+  programs.neovim = {
+    enable = true;
 
-		defaultEditor = true;
+    defaultEditor = true;
 
-		plugins = with pkgs.vimPlugins; [
-			nvim-treesitter.withAllGrammars
+    plugins = with pkgs.vimPlugins; [
+      nvim-treesitter.withAllGrammars
 
-			SchemaStore-nvim
-			Shade-nvim
-		];
+      SchemaStore-nvim
+      Shade-nvim
+    ];
 
-		vimAlias = true;
-		vimdiffAlias = true;
-	};
+    vimAlias = true;
+    vimdiffAlias = true;
+  };
 }

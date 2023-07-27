@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   nix = {
     package = pkgs.nixVersions.nix_2_16;
 
@@ -21,7 +21,7 @@
 
       sandbox = true;
 
-      trusted-users = [ "root" "colton" ];
+      trusted-users = ["root" "colton"];
     };
   };
 }

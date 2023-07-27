@@ -1,40 +1,40 @@
 # courtesy of https://github.com/kamalmarhubi/dotfiles-nix/blob/f8f5ad4f899b07beb881e4391bd60425f6ae2de0/darwin.nix
 {
-	config,
-	inputs,
-	lib,
-	pkgs,
-	system,
-	...
+  config,
+  inputs,
+  lib,
+  pkgs,
+  system,
+  ...
 }: let
-	mkalias = inputs.mkAlias.outputs.apps.${system}.default.program;
+  mkalias = inputs.mkAlias.outputs.apps.${system}.default.program;
 in {
-	disabledModules = ["targets/darwin/linkapps.nix"];
+  disabledModules = ["targets/darwin/linkapps.nix"];
 
-	home.activation.aliasApplications =
-		lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
-			let
-				apps = pkgs.buildEnv {
-					name = "home-manager-applications";
-					paths = config.home.packages;
-					pathsToLink = "/Applications";
-				};
-			in lib.hm.dag.entryAfter ["linkGeneration"] ''
-				echo "Linking Home Manager applications..."
+  home.activation.aliasApplications = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (
+    let
+      apps = pkgs.buildEnv {
+        name = "home-manager-applications";
+        paths = config.home.packages;
+        pathsToLink = "/Applications";
+      };
+    in
+      lib.hm.dag.entryAfter ["linkGeneration"] ''
+        echo "Linking Home Manager applications..."
 
-				# only link per-user applications
-				app_path="$HOME/Applications/Home Manager Apps"
-				tmp_path=$(mktemp -dt "home-manager-applications.XXXXXX") || exit 1
+        # only link per-user applications
+        app_path="$HOME/Applications/Home Manager Apps"
+        tmp_path=$(mktemp -dt "home-manager-applications.XXXXXX") || exit 1
 
-				if [[ -d "$app_path" ]]; then
-					$DRY_RUN_CMD rm -rf "$app_path"
-				fi
+        if [[ -d "$app_path" ]]; then
+        	$DRY_RUN_CMD rm -rf "$app_path"
+        fi
 
-				${pkgs.fd}/bin/fd \
-					-t l -d 1 . ${apps}/Applications \
-					-x $DRY_RUN_CMD ${mkalias} -L {} "$tmp_path/{/}"
+        ${pkgs.fd}/bin/fd \
+        	-t l -d 1 . ${apps}/Applications \
+        	-x $DRY_RUN_CMD ${mkalias} -L {} "$tmp_path/{/}"
 
-				$DRY_RUN_CMD mv "$tmp_path" "$app_path"
-			''
-		);
+        $DRY_RUN_CMD mv "$tmp_path" "$app_path"
+      ''
+  );
 }

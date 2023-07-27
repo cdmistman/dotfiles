@@ -1,5 +1,5 @@
 {
-	imports = [
-		./aliasApplications.nix
-	];
+  imports = [
+    ./aliasApplications.nix
+  ];
 }

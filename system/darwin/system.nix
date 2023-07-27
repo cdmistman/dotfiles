@@ -1,51 +1,51 @@
 {
-	system.defaults = {
-		NSGlobalDomain = {
-			AppleEnableMouseSwipeNavigateWithScrolls = true;
-			AppleEnableSwipeNavigateWithScrolls = true;
+  system.defaults = {
+    NSGlobalDomain = {
+      AppleEnableMouseSwipeNavigateWithScrolls = true;
+      AppleEnableSwipeNavigateWithScrolls = true;
 
-			AppleInterfaceStyle = "Dark";
+      AppleInterfaceStyle = "Dark";
 
-			AppleShowAllFiles = true;
-			AppleShowScrollBars = "Always";
+      AppleShowAllFiles = true;
+      AppleShowScrollBars = "Always";
 
-			NSDocumentSaveNewDocumentsToCloud = false;
+      NSDocumentSaveNewDocumentsToCloud = false;
 
-			"com.apple.keyboard.fnState" = false;
-			"com.apple.mouse.tapBehavior" = 1;
-			"com.apple.sound.beep.feedback" = 0;
-		};
+      "com.apple.keyboard.fnState" = false;
+      "com.apple.mouse.tapBehavior" = 1;
+      "com.apple.sound.beep.feedback" = 0;
+    };
 
-		dock = {
-			autohide = true;
-			showhidden = true;
-			tilesize = 40;
-		};
+    dock = {
+      autohide = true;
+      showhidden = true;
+      tilesize = 40;
+    };
 
-		finder = {
-			AppleShowAllFiles = true;
+    finder = {
+      AppleShowAllFiles = true;
 
-			CreateDesktop = false;
+      CreateDesktop = false;
 
-			FXEnableExtensionChangeWarning = false;
-			FXPreferredViewStyle = "clmv";
+      FXEnableExtensionChangeWarning = false;
+      FXPreferredViewStyle = "clmv";
 
-			QuitMenuItem = true;
+      QuitMenuItem = true;
 
-			ShowPathbar = true;
-			ShowStatusBar = true;
-		};
+      ShowPathbar = true;
+      ShowStatusBar = true;
+    };
 
-		magicmouse.MouseButtonMode = "TwoButton";
+    magicmouse.MouseButtonMode = "TwoButton";
 
-		trackpad = {
-			Clicking = true;
-			TrackpadThreeFingerDrag = false;
-		};
-	};
+    trackpad = {
+      Clicking = true;
+      TrackpadThreeFingerDrag = false;
+    };
+  };
 
-	system.keyboard = {
-		enableKeyMapping = true;
-		remapCapsLockToEscape = true;
-	};
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToEscape = true;
+  };
 }

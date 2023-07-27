@@ -1,5 +1,5 @@
 {
-	programs.bottom = {
-		enable = true;
-	};
+  programs.bottom = {
+    enable = true;
+  };
 }
