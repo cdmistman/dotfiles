@@ -44,6 +44,11 @@ inputs.darwin.lib.darwinSystem {
 			programs.bash.enable = true;
 			programs.zsh.enable = true;
 
+			programs.vim = {
+				enable = true;
+				enableSensible = true;
+			};
+
 			security.pam.enableSudoTouchIdAuth = true;
 
 			services.nix-daemon.enable = true;
