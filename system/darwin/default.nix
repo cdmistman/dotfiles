@@ -35,7 +35,7 @@ inputs.darwin.lib.darwinSystem {
 			};
 
 			home-manager.sharedModules = [
-				../../home/common
+				../../home/_common
 			];
 
 			home-manager.users.colton = import ../../home/colton;
