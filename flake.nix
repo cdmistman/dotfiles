@@ -4,6 +4,11 @@
 	inputs = {
 		nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+		# cachix = {
+		# 	url = "github:cachix/cachix/latest";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
+
 		darwin = {
 			url = "github:LnL7/nix-darwin";
 			inputs.nixpkgs.follows = "nixpkgs";

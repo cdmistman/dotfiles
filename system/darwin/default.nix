@@ -22,6 +22,7 @@ inputs.darwin.lib.darwinSystem {
 		./system.nix
 
 		./scripts/aliasApplications.nix
+
 		./users/colton.nix
 		./users/admin.nix
 
@@ -51,6 +52,7 @@ inputs.darwin.lib.darwinSystem {
 
 			security.pam.enableSudoTouchIdAuth = true;
 
+			services.cachix-agent.enable = true;
 			services.nix-daemon.enable = true;
 		}
 	];
