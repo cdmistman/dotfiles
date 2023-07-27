@@ -42,16 +42,7 @@ inputs.darwin.lib.darwinSystem {
 
 		{
 			programs.bash.enable = true;
-			programs.zsh = {
-				enable = true;
-
-				# for some reason, i'm not getting this in my shell init.
-				loginShellInit = ''
-					if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-						. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-					fi
-				'';
-			};
+			programs.zsh.enable = true;
 
 			security.pam.enableSudoTouchIdAuth = true;
 
