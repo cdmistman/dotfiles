@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs.gh = {
     enable = true;
-    enableGitCredentialHelper = true;
+    gitCredentialHelper.enable = true;
 
     settings = {
       editor = "${pkgs.helix}/bin/hx";
