@@ -6,9 +6,8 @@
     userName = "Colton Donnelly";
 
     aliases = {
-      c = "commit";
-      ca = "!git add -A && git commit";
-      cam = "!git add -A && git commit -m";
+      ca = "commit -a";
+      cam = "commit -am";
       cm = "commit -m";
 
       ignore = "update-index --assume-unchanged";
