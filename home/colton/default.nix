@@ -1,5 +1,7 @@
-{
+{ inputs, ... }: {
   imports = [
+    inputs.nix-index-db.hmModules.nix-index
+
     ./editorconfig.nix
     ./home
     ./nix.nix
