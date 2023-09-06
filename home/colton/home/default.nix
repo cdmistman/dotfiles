@@ -13,6 +13,7 @@
     packages = with pkgs;
       [
         cachix
+        comma
         docker
         du-dust
         fd
