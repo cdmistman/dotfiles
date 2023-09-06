@@ -30,7 +30,7 @@
       FXEnableExtensionChangeWarning = false;
       FXPreferredViewStyle = "clmv";
 
-      QuitMenuItem = true;
+      QuitMenuItem = false;
 
       ShowPathbar = true;
       ShowStatusBar = true;
