@@ -20,6 +20,7 @@
         jless
         jq
         nil
+	nixpkgs-review
         procs
         ripgrep
         sd
