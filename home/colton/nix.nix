@@ -5,10 +5,10 @@
 
   nix.package = lib.mkDefault pkgs.nixVersions.nix_2_17;
 
-  nix.registry.my = {
+  nix.registry.me = {
     from = {
       type = "indirect";
-      id = "my";
+      id = "me";
     };
 
     to = {
