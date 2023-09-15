@@ -22,5 +22,9 @@
 
       url."ssh://git@github.com".insteadOf = "github";
     };
+
+    ignores = [
+      ".direnv"
+    ];
   };
 }
