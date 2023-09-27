@@ -3,7 +3,7 @@
     allowUnfree = true;
   };
 
-  nix.package = lib.mkDefault pkgs.nixVersions.nix_2_17;
+  nix.package = lib.mkDefault pkgs.nixVersions.nix_2_18;
 
   nix.registry.me = {
     from = {

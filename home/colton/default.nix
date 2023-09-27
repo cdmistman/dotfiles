@@ -15,7 +15,7 @@
     ./programs/git.nix
     ./programs/helix.nix
     ./programs/lsd.nix
-    ./programs/neovim.nix
+    ./programs/neovim
     ./programs/nix-index.nix
     ./programs/nushell
     ./programs/skim.nix

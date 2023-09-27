@@ -4,6 +4,16 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
+    auto-save-nvim = {
+      url = "github:okuuva/auto-save.nvim";
+      flake = false;
+    };
+
+    copilot-lua = {
+      url = "github:zbirenbaum/copilot.lua";
+      flake = false;
+    };
+
     darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,6 +32,11 @@
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nvim-tree-lua = {
+      url = "github:nvim-tree/nvim-tree.lua";
+      flake = false;
     };
   };
 
