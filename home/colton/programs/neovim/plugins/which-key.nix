@@ -3,12 +3,12 @@
 {
   type = "lua";
   plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "auto-save-nvim";
-    src = inputs.auto-save-nvim;
+    name = "which-key-nvim";
+    src = inputs.which-key-nvim;
   };
 
   config = ''
-    require("auto-save").setup()
+    require("which-key").setup()
   '';
 }
 

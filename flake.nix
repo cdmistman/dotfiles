@@ -9,13 +9,18 @@
       flake = false;
     };
 
-    copilot-lua = {
-      url = "github:zbirenbaum/copilot.lua";
+    copilot-vim = {
+      url = "github:github/copilot.vim";
       flake = false;
     };
 
     darwin = {
       url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fenix = {
+      url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,8 +39,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvim-lspconfig = {
+      url = "github:neovim/nvim-lspconfig";
+      flake = false;
+    };
+
     nvim-tree-lua = {
       url = "github:nvim-tree/nvim-tree.lua";
+      flake = false;
+    };
+
+    rust-tools-nvim = {
+      url = "github:simrat39/rust-tools.nvim";
+      flake = false;
+    };
+
+    which-key-nvim = {
+      url = "github:folke/which-key.nvim";
       flake = false;
     };
   };

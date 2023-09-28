@@ -3,15 +3,8 @@
 {
   type = "lua";
   plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "copilot-lua";
-    src = inputs.copilot-lua;
+    name = "copilot-vim";
+    src = inputs.copilot-vim;
   };
-  config = ''
-    require("copilot").setup({})
-
-    vim.api.nvim_create_autocmd({"InsertEnter"}, {
-      command = "silent! Copilot"
-    })
-  '';
 }
 

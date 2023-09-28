@@ -15,9 +15,6 @@
     defaultEditor = true;
 
     plugins = with pkgs.vimPlugins; [
-      editorconfig-nvim
-      which-key-nvim
-
       nvim-treesitter.withAllGrammars
     ];
 

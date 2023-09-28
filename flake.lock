@@ -16,19 +16,19 @@
         "type": "github"
       }
     },
-    "copilot-lua": {
+    "copilot-vim": {
       "flake": false,
       "locked": {
-        "lastModified": 1695274805,
-        "narHash": "sha256-UqdPuLf8EPG3aGqj0yk9lTxkDUOdoEc9CRbINJZFcyg=",
-        "owner": "zbirenbaum",
-        "repo": "copilot.lua",
-        "rev": "1a8032ae496916ccc7a7a52ee79194fbef29f462",
+        "lastModified": 1695250747,
+        "narHash": "sha256-7Qfsx4g4FeovOZmV5erFzJKNCkGSGL12gkFIz7cxxek=",
+        "owner": "github",
+        "repo": "copilot.vim",
+        "rev": "998cf5ab1b85e844c7e8edb864a997e590df7182",
         "type": "github"
       },
       "original": {
-        "owner": "zbirenbaum",
-        "repo": "copilot.lua",
+        "owner": "github",
+        "repo": "copilot.vim",
         "type": "github"
       }
     },
@@ -49,6 +49,27 @@
       "original": {
         "owner": "LnL7",
         "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "fenix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-analyzer-src": "rust-analyzer-src"
+      },
+      "locked": {
+        "lastModified": 1695795747,
+        "narHash": "sha256-XJSUxeaNLJwV1G428zcEbnflZpXA46syQIqUpX/I2WU=",
+        "owner": "nix-community",
+        "repo": "fenix",
+        "rev": "1f42ae94a17632a9021820d279b23e53e3c10f90",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "fenix",
         "type": "github"
       }
     },
@@ -128,6 +149,22 @@
         "type": "github"
       }
     },
+    "nvim-lspconfig": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695699913,
+        "narHash": "sha256-9uH3ZpZ7zk/84agbagNxUZL49h+P5j7gew+2h04psvg=",
+        "owner": "neovim",
+        "repo": "nvim-lspconfig",
+        "rev": "bfdf2e91e7297a54bcc09d3e092a12bff69a1cf4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "neovim",
+        "repo": "nvim-lspconfig",
+        "type": "github"
+      }
+    },
     "nvim-tree-lua": {
       "flake": false,
       "locked": {
@@ -147,13 +184,66 @@
     "root": {
       "inputs": {
         "auto-save-nvim": "auto-save-nvim",
-        "copilot-lua": "copilot-lua",
+        "copilot-vim": "copilot-vim",
         "darwin": "darwin",
+        "fenix": "fenix",
         "home-manager": "home-manager",
         "mkAlias": "mkAlias",
         "nix-index-db": "nix-index-db",
         "nixpkgs": "nixpkgs",
-        "nvim-tree-lua": "nvim-tree-lua"
+        "nvim-lspconfig": "nvim-lspconfig",
+        "nvim-tree-lua": "nvim-tree-lua",
+        "rust-tools-nvim": "rust-tools-nvim",
+        "which-key-nvim": "which-key-nvim"
+      }
+    },
+    "rust-analyzer-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695737913,
+        "narHash": "sha256-TDnQ5qOnDa1sIIJxJtUCYifAQ71h78A+Xoci2PkcR4I=",
+        "owner": "rust-lang",
+        "repo": "rust-analyzer",
+        "rev": "3b1b58c225d35414d90078dc7e06ca74a49cad0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "ref": "nightly",
+        "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-tools-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689033186,
+        "narHash": "sha256-jtfyDxifchznUupLSao6nmpVqaX1yO0xN+NhqS9fgxg=",
+        "owner": "simrat39",
+        "repo": "rust-tools.nvim",
+        "rev": "0cc8adab23117783a0292a0c8a2fbed1005dc645",
+        "type": "github"
+      },
+      "original": {
+        "owner": "simrat39",
+        "repo": "rust-tools.nvim",
+        "type": "github"
+      }
+    },
+    "which-key-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690570286,
+        "narHash": "sha256-B1+EHd2eH/EbD5Kip9PfhdPyyGfIkD6rsx0Z3rXvb5w=",
+        "owner": "folke",
+        "repo": "which-key.nvim",
+        "rev": "7ccf476ebe0445a741b64e36c78a682c1c6118b7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "which-key.nvim",
+        "type": "github"
       }
     }
   },
