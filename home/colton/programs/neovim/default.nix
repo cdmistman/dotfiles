@@ -11,8 +11,8 @@ let
     { name = "comment.nvim"; src = comment-nvim; }
     { name = "nvim-cmp"; src = inputs.nvim-cmp; }
     { name = "nvim-lspconfig"; src = nvim-lspconfig; }
-    { name = "nvim-treesitter-context"; src = nvim-treesitter-context; }
     { name = "neo-tree.nvim"; src = neo-tree-nvim; }
+    { name = "nvim-treesitter-context"; src = nvim-treesitter-context; }
     { name = "rust-tools.nvim"; src = rust-tools-nvim; }
     { name = "telescope.nvim"; src = telescope-nvim; }
     { name = "twilight-nvim"; src = twilight-nvim; }
