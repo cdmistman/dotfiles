@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "bufferline-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695205521,
+        "narHash": "sha256-MQMpXMgUpZA0E9TunzjXeOQxDWSCTogXbvi9VJnv4Kw=",
+        "owner": "akinsho",
+        "repo": "bufferline.nvim",
+        "rev": "6ecd37e0fa8b156099daedd2191130e083fb1490",
+        "type": "github"
+      },
+      "original": {
+        "owner": "akinsho",
+        "repo": "bufferline.nvim",
+        "type": "github"
+      }
+    },
     "comment-nvim": {
       "flake": false,
       "locked": {
@@ -130,6 +146,22 @@
         "type": "github"
       }
     },
+    "neoscroll-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691664967,
+        "narHash": "sha256-4nhsl/zi0JyuPFCpqfQt5nDw5VzQ/cc21mIt7n6vbuU=",
+        "owner": "karb94",
+        "repo": "neoscroll.nvim",
+        "rev": "4bc0212e9f2a7bc7fe7a6bceb15b33e39f0f41fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "karb94",
+        "repo": "neoscroll.nvim",
+        "type": "github"
+      }
+    },
     "nix-index-db": {
       "inputs": {
         "nixpkgs": [
@@ -163,6 +195,22 @@
         "owner": "nixos",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "noice-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695630605,
+        "narHash": "sha256-CcoRTC6xSF2LCxMTsLeSa3ruk6dW/Qt3ypSnV0Mi/1g=",
+        "owner": "folke",
+        "repo": "noice.nvim",
+        "rev": "396f9146529130904e07c45e90ecdbfa607534f3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "noice.nvim",
         "type": "github"
       }
     },
@@ -217,14 +265,17 @@
     "root": {
       "inputs": {
         "auto-save-nvim": "auto-save-nvim",
+        "bufferline-nvim": "bufferline-nvim",
         "comment-nvim": "comment-nvim",
         "darwin": "darwin",
         "fenix": "fenix",
         "home-manager": "home-manager",
         "mkAlias": "mkAlias",
         "neo-tree-nvim": "neo-tree-nvim",
+        "neoscroll-nvim": "neoscroll-nvim",
         "nix-index-db": "nix-index-db",
         "nixpkgs": "nixpkgs",
+        "noice-nvim": "noice-nvim",
         "nvim-cmp": "nvim-cmp",
         "nvim-lspconfig": "nvim-lspconfig",
         "nvim-treesitter-context": "nvim-treesitter-context",

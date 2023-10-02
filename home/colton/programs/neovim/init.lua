@@ -14,12 +14,15 @@ which_key.setup()
 
 require('auto-save').setup()
 
+require('bufferline').setup()
+
 local cmp = require('cmp')
 cmp.setup({
+	-- TODO: use whichkey instead
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		[','] = cmp.mapping.complete(),
+		-- [','] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm({ select = false }),
 	}),
@@ -108,20 +111,31 @@ do
 		})
 	end
 
-	lsp.tsserver.setup({
+	opts = {
 		capabilities = capabilities,
 		on_attach = on_attach,
-		cmd = { "typescript-language-server", "--stdio" },
-	})
+	}
+
+	lsp.nil_ls.setup(opts)
+	lsp.tsserver.setup(opts)
 
 	require('rust-tools').setup({
+		capabilities = capabilities,
+		on_attach = on_attach,
 		server = {
-			capabilities = capabilities,
-			on_attach = on_attach,
-			cmd = { "rust-analyzer" },
+			settings = {
+				['rust-analyzer'] = {
+					check = {
+						extraArgs = { "--target-dir", "target/rust-analyzer/check" },
+					},
+				},
+			},
 		},
 	})
 end
+
+require('neoscroll').setup()
+-- TODO: keymaps
 
 require('neo-tree').setup({
 	sort_case_insensitive = true,
@@ -130,7 +144,12 @@ require('neo-tree').setup({
 			indent_size = 1,
 		},
 	},
+	window = {
+		position = "left",
+	},
 })
+
+require('noice').setup()
 
 require('telescope').setup()
 which_key.register({

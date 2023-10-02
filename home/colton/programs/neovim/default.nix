@@ -8,10 +8,13 @@
 let
   raw-plugins = with inputs; [
     { name = "auto-save.nvim"; src = auto-save-nvim; }
+    { name = "bufferline.nvim"; src = bufferline-nvim; }
     { name = "comment.nvim"; src = comment-nvim; }
+    { name = "neoscroll.nvim"; src = neoscroll-nvim; }
     { name = "nvim-cmp"; src = inputs.nvim-cmp; }
     { name = "nvim-lspconfig"; src = nvim-lspconfig; }
     { name = "neo-tree.nvim"; src = neo-tree-nvim; }
+    { name = "noice.nvim"; src = noice-nvim; }
     { name = "nvim-treesitter-context"; src = nvim-treesitter-context; }
     { name = "rust-tools.nvim"; src = rust-tools-nvim; }
     { name = "telescope.nvim"; src = telescope-nvim; }
@@ -55,8 +58,11 @@ in
       let
         inherit (inputs.fenix.packages.${system}) rust-analyzer;
 
+        inherit (pkgs) nil;
+
         inherit (pkgs.nodePackages_latest) typescript-language-server;
       in [
+        nil
         rust-analyzer
         typescript-language-server
       ];

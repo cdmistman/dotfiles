@@ -9,6 +9,11 @@
       flake = false;
     };
 
+    bufferline-nvim = {
+      url = "github:akinsho/bufferline.nvim";
+      flake = false;
+    };
+
     comment-nvim = {
       url = "github:numToStr/comment.nvim";
       flake = false;
@@ -34,9 +39,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neoscroll-nvim = {
+      url = "github:karb94/neoscroll.nvim";
+      flake = false;
+    };
+
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    noice-nvim = {
+      url = "github:folke/noice.nvim";
+      flake = false;
     };
 
     nvim-cmp = {
