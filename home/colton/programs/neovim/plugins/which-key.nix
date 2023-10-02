@@ -1,9 +1,8 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 
 {
-  type = "lua";
-  plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "which-key-nvim";
+  plugin = {
+    name = "which-key.nvim";
     src = inputs.which-key-nvim;
   };
 

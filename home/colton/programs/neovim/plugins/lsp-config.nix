@@ -1,14 +1,15 @@
 { inputs, pkgs, ... }:
 
 {
-  type = "lua";
-  plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  plugin = {
     name = "nvim-lspconfig";
-    src = "${inputs.nvim-lspconfig}";
+    src = inputs.nvim-lspconfig;
   };
 
   config = ''
     local lsp = require("lspconfig")
+
+    vim.g.lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     vim.g.lsp_on_attach = function(client, buffer)
       local which_key = require("which-key")
@@ -25,27 +26,23 @@
           s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
           n = { "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", "Go to next diagnostic" },
           p = { "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>", "Go to previous diagnostic" },
-        }
-      }, {
-        buffer = buffer,
-        mode = "n",
-        noremap = true,
-        silent = true,
-      })
-
-      which_key.register({
-        ["<leader>"] = {
-          c = {
-            name = "Code",
-            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
-            f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
-            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-          },
         },
       }, {
         buffer = buffer,
         mode = "n",
-        noremap = true,
+        silent = true,
+      })
+
+      which_key.register({
+        c = {
+          name = "Code",
+          a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
+          f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+          r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+        },
+      }, {
+        buffer = buffer,
+        mode = "n",
         prefix = "<leader>",
         silent = true,
       })

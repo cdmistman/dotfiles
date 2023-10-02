@@ -9,8 +9,8 @@
       flake = false;
     };
 
-    copilot-vim = {
-      url = "github:github/copilot.vim";
+    comment-nvim = {
+      url = "github:numToStr/comment.nvim";
       flake = false;
     };
 
@@ -39,18 +39,38 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvim-cmp = {
+      url = "github:hrsh7th/nvim-cmp";
+      flake = false;
+    };
+
     nvim-lspconfig = {
       url = "github:neovim/nvim-lspconfig";
       flake = false;
     };
 
-    nvim-tree-lua = {
-      url = "github:nvim-tree/nvim-tree.lua";
+    neo-tree-nvim = {
+      url = "github:nvim-neo-tree/neo-tree.nvim/v3.x";
+      flake = false;
+    };
+
+    nvim-treesitter-context = {
+      url = "github:nvim-treesitter/nvim-treesitter-context";
       flake = false;
     };
 
     rust-tools-nvim = {
       url = "github:simrat39/rust-tools.nvim";
+      flake = false;
+    };
+
+    telescope-nvim = {
+      url = "github:nvim-telescope/telescope.nvim";
+      flake = false;
+    };
+
+    twilight-nvim = {
+      url = "github:folke/twilight.nvim";
       flake = false;
     };
 

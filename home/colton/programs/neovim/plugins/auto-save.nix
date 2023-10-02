@@ -1,9 +1,8 @@
-{ inputs, pkgs, ... }:
+{ inputs, ... }:
 
 {
-  type = "lua";
-  plugin = pkgs.vimUtils.buildVimPluginFrom2Nix {
-    name = "auto-save-nvim";
+  plugin = {
+    name = "auto-save.nvim";
     src = inputs.auto-save-nvim;
   };
 
