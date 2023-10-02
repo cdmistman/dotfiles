@@ -98,7 +98,7 @@ do
 					"Code action",
 				},
 				f = {
-					"<cmd>lua vim.lsp.buf.formatting()<cr>",
+					"<cmd>lua vim.lsp.buf.format()<cr>",
 					"Format",
 				},
 				r = {
