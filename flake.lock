@@ -198,19 +198,19 @@
         "type": "github"
       }
     },
-    "nvim-tree-lua": {
+    "nvim-treesitter-context": {
       "flake": false,
       "locked": {
-        "lastModified": 1695716495,
-        "narHash": "sha256-Fkchn7UuIHPmVFFrx1kzsE2lviJrAFAe9tHu73HnS/w=",
-        "owner": "nvim-tree",
-        "repo": "nvim-tree.lua",
-        "rev": "934469b9b6df369e198fb3016969e56393b0dc07",
+        "lastModified": 1696153803,
+        "narHash": "sha256-2sKjcayX57G4jIegY1PiPSA3WB3YRr9Vvf8ABb6PzfU=",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-context",
+        "rev": "bc19b78e9c705d67be98d56e9fab96470af45f33",
         "type": "github"
       },
       "original": {
-        "owner": "nvim-tree",
-        "repo": "nvim-tree.lua",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter-context",
         "type": "github"
       }
     },
@@ -227,7 +227,7 @@
         "nixpkgs": "nixpkgs",
         "nvim-cmp": "nvim-cmp",
         "nvim-lspconfig": "nvim-lspconfig",
-        "nvim-tree-lua": "nvim-tree-lua",
+        "nvim-treesitter-context": "nvim-treesitter-context",
         "rust-tools-nvim": "rust-tools-nvim",
         "telescope-nvim": "telescope-nvim",
         "twilight-nvim": "twilight-nvim",
