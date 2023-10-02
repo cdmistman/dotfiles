@@ -116,6 +116,7 @@ do
 		on_attach = on_attach,
 	}
 
+	lsp.gopls.setup(opts)
 	lsp.nil_ls.setup(opts)
 	lsp.tsserver.setup(opts)
 
