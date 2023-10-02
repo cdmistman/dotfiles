@@ -25,8 +25,6 @@
         ripgrep
         sd
         tokei
-
-        nodePackages.graphite-cli
       ]
       ++ (
         if !enableGUI

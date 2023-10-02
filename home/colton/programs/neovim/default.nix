@@ -58,10 +58,11 @@ in
       let
         inherit (inputs.fenix.packages.${system}) rust-analyzer;
 
-        inherit (pkgs) nil;
+        inherit (pkgs) gopls nil;
 
         inherit (pkgs.nodePackages_latest) typescript-language-server;
       in [
+        gopls
         nil
         rust-analyzer
         typescript-language-server
