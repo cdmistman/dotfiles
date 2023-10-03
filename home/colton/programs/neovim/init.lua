@@ -22,7 +22,7 @@ cmp.setup({
 	mapping = cmp.mapping.preset.insert({
 		['<C-b>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		-- [','] = cmp.mapping.complete(),
+		['<C-Space>'] = cmp.mapping.complete(),
 		['<C-e>'] = cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm({ select = false }),
 	}),
@@ -32,7 +32,7 @@ cmp.setup({
 		end
 	},
 	sources = cmp.config.sources({
-		{ name = 'nvim-lsp' },
+		{ name = 'nvim_lsp' },
 		{ name = 'vsnip' }
 	}, {
 		name = 'buffer',
