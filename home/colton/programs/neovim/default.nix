@@ -18,7 +18,6 @@ let
     { name = "nvim-treesitter-context"; src = nvim-treesitter-context; }
     { name = "rust-tools.nvim"; src = rust-tools-nvim; }
     { name = "telescope.nvim"; src = telescope-nvim; }
-    { name = "twilight-nvim"; src = twilight-nvim; }
     { name = "which-key.nvim"; src = which-key-nvim; }
   ];
 

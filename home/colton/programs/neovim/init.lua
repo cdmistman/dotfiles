@@ -176,8 +176,3 @@ which_key.register({
 })
 
 require('treesitter-context').setup()
-
-require('twilight').setup()
-vim.api.nvim_create_autocmd({ "UIEnter" }, {
-	command = "TwilightEnable",
-})
