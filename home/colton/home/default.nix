@@ -3,6 +3,7 @@
   pkgs,
   ...
 }: {
+  xdg.enable = true;
   home = {
     file = import ./files.nix;
 
@@ -60,3 +61,4 @@
     };
   };
 }
+
