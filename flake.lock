@@ -68,6 +68,22 @@
         "type": "github"
       }
     },
+    "doomemacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695417511,
+        "narHash": "sha256-WfAclTOfTSJglNe7Z+pVxFBQokD37Be6W9a3LoLN6Rk=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "844a82c4a0cacbb5a1aa558c88675ba1a9ee80a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "type": "github"
+      }
+    },
     "emacs-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -324,6 +340,7 @@
         "bufferline-nvim": "bufferline-nvim",
         "comment-nvim": "comment-nvim",
         "darwin": "darwin",
+        "doomemacs": "doomemacs",
         "emacs-overlay": "emacs-overlay",
         "fenix": "fenix",
         "home-manager": "home-manager",
