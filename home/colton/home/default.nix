@@ -15,13 +15,14 @@
       [
         cachix
         comma
+        direnv
         docker
         du-dust
         fd
         jless
         jq
         nil
-	nixpkgs-review
+        nixpkgs-review
         procs
         ripgrep
         sd
@@ -61,4 +62,3 @@
     };
   };
 }
-

@@ -18,6 +18,10 @@
       "*.lock" = {
         indent_style = "unset";
       };
+
+      "*.el" = {
+        indent_style = "space";
+      };
     };
   };
 }

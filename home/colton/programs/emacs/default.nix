@@ -6,6 +6,79 @@
   ...
 }:
 
+let
+  tree-sitter-modules =
+    let
+      # TODO:
+      # - bash
+      # - cmake
+      # - dart
+      # - elixir
+      # - erlang
+      # - graphql
+      # - haskell
+      # - html
+      # - http
+      # - julia
+      # - kotlin
+      # - lua
+      # - nickel
+      # - nix
+      # - nu
+      # - ocaml
+      # - ocaml-interface
+      # - perl
+      # - php
+      # - prisma
+      # - pug
+      # - scss
+      # - svelte
+      # - toml
+      # - vue
+      # - zig
+      grammars = lib.genAttrs
+        [
+          "c"
+          "c-sharp"
+          "cpp"
+          "css"
+          "dockerfile"
+          "elisp"
+          "go"
+          "gomod"
+          # "hjson"
+          "java"
+          "javascript"
+          # "jsdoc"
+          "json"
+          # "json5"
+          "python"
+          "ruby"
+          "rust"
+          "tsx"
+          "typescript"
+          "yaml"
+        ]
+        (g: builtins.getAttr "tree-sitter-${g}" pkgs.tree-sitter-grammars);
+    in pkgs.runCommandCC
+      "tree-sitter-modules"
+      {}
+      ''
+        mkdir $out
+
+        ${
+          lib.concatMapStringsSep
+            "\n"
+            (g:
+              let
+                parser-path = (builtins.getAttr g grammars) + "/parser";
+                ext = if pkgs.stdenv.isDarwin then "dylib" else "so";
+              in "cp \"${parser-path}\" $out/libtree-sitter-${g}.${ext}")
+            (builtins.attrNames grammars)
+        }
+      '';
+in
+
 {
   nixpkgs.overlays = [
     inputs.emacs-overlay.overlays.emacs
@@ -19,12 +92,10 @@
         executable = true;
       };
 
-  services.emacs.enable = pkgs.stdenv.isLinux;
-
   programs.emacs = {
     enable = true;
 
-    package = pkgs.emacs29-pgtk.overrideAttrs (old: {
+    package = pkgs.emacs29.overrideAttrs (old: {
       patches =
         (old.patches or [ ])
         ++ [
@@ -50,20 +121,76 @@
           })
         ];
     });
+
+    extraPackages = epkgs: with epkgs; [
+      company
+      direnv
+      dockerfile-mode
+      evil
+      flycheck
+      graphql-mode
+      helm
+      helm-lsp
+      helm-xref
+      hl-todo
+      lsp-mode
+      lsp-treemacs
+      lsp-ui
+      nix-mode
+      paredit
+      svelte-mode
+      timu-caribbean-theme
+      treemacs
+      treemacs-evil
+      which-key
+    ];
   };
 
-  home.file.".doom.d" = {
+  home.file.".emacs.d" = {
     recursive = true;
-    source = ./.;
+    source = pkgs.symlinkJoin {
+      name = ".emacs.d";
+      paths = [
+        # ./.
+
+        (pkgs.writeTextDir "nix-generated.el"
+          ''
+            (setq nix/direnv "${pkgs.direnv}/bin/direnv")
+            (setq nix/tree-sitter-dir "${tree-sitter-modules}")
+
+            ; TODO:
+            ; - dockerfile - not on nixpkgs
+            ; - graphql
+            ; - hjson? - does vscode-json-language-server support it?
+            ; - nu - i'm pretty sure this can come from env though
+            ; - ocaml
+            ; - perl?
+            ; - php
+            ; - prisma?
+            ; - pug
+            ; - python
+            ; - ruby
+            ; - scala
+            ; - scheme?
+            ; - svelte
+            ; - toml
+            ; - vue
+            ; - zig
+
+            ; lsp
+            (setq nixpkgs/bash-language-server "${pkgs.nodePackages_latest.bash-language-server}/bin/bash-language-server")
+            (setq nixpkgs/clangd "${pkgs.llvmPackages_10.clang-unwrapped}/bin/clangd")
+            (setq nixpkgs/gopls "${pkgs.gopls}/bin/gopls")
+            (setq nixpkgs/nixd "${pkgs.nixd}/bin/nixd")
+            (setq nixpkgs/rust-analyzer "${pkgs.fenix.latest.withComponents [ "rust-src" "rust-std" "rust-analyzer" ]}/bin/rust-analyzer")
+            (setq nixpkgs/svelte-language-server "${pkgs.nodePackages_latest.svelte-language-server}/bin/svelteserver")
+            (setq nixpkgs/vscode-css-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-css-language-server")
+            (setq nixpkgs/vscode-eslint-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-eslint-language-server")
+            (setq nixpkgs/vscode-html-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-html-language-server")
+            (setq nixpkgs/vscode-json-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-json-language-server")
+            (setq nixpkgs/vscode-markdown-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-markdown-language-server")
+          '')
+      ];
+    };
   };
-
-  # home.file.".emacs.d" = {
-  #   source = "${inputs.doomemacs}";
-  #   recursive = true;
-  # };
-
-  # xdg.configFile."emacs" = {
-  #   source = ./.;
-  #   recursive = true;
-  # };
 }
