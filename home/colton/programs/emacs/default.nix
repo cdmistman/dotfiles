@@ -17,7 +17,6 @@ let
       # - erlang
       # - graphql
       # - haskell
-      # - html
       # - http
       # - julia
       # - kotlin
@@ -32,7 +31,6 @@ let
       # - prisma
       # - pug
       # - scss
-      # - svelte
       # - toml
       # - vue
       # - zig
@@ -47,6 +45,7 @@ let
           "go"
           "gomod"
           # "hjson"
+          "html"
           "java"
           "javascript"
           # "jsdoc"
@@ -55,6 +54,7 @@ let
           "python"
           "ruby"
           "rust"
+          "svelte"
           "tsx"
           "typescript"
           "yaml"
@@ -154,9 +154,25 @@ in
         # ./.
 
         (pkgs.writeTextDir "nix-generated.el"
-          ''
-            (setq nix/direnv "${pkgs.direnv}/bin/direnv")
-            (setq nix/tree-sitter-dir "${tree-sitter-modules}")
+          (let
+            nodepkgs = pkgs.nodePackages_latest;
+            typescript-language-server = pkgs.symlinkJoin {
+              name = "typescript-language-server";
+              paths = [
+                nodepkgs.typescript-language-server
+              ];
+              buildInputs = [
+                pkgs.makeWrapper
+              ];
+              postInstall = ''n
+                wrapProgram $out/bin/typescript-language-server
+              '';
+            };
+           in ''
+            ;; additional paths
+            (setq nixpkgs/direnv "${pkgs.direnv}/bin/direnv")
+            (setq nixpkgs/tree-sitter-dir "${tree-sitter-modules}")
+            (setq nixpkgs/typescript "${nodepkgs.typescript}")
 
             ; TODO:
             ; - dockerfile - not on nixpkgs
@@ -177,19 +193,20 @@ in
             ; - vue
             ; - zig
 
-            ; lsp
-            (setq nixpkgs/bash-language-server "${pkgs.nodePackages_latest.bash-language-server}/bin/bash-language-server")
+            ;; lsp
+            (setq nixpkgs/bash-language-server "${nodepkgs.bash-language-server}/bin/bash-language-server")
             (setq nixpkgs/clangd "${pkgs.llvmPackages_10.clang-unwrapped}/bin/clangd")
             (setq nixpkgs/gopls "${pkgs.gopls}/bin/gopls")
             (setq nixpkgs/nixd "${pkgs.nixd}/bin/nixd")
             (setq nixpkgs/rust-analyzer "${pkgs.fenix.latest.withComponents [ "rust-src" "rust-std" "rust-analyzer" ]}/bin/rust-analyzer")
-            (setq nixpkgs/svelte-language-server "${pkgs.nodePackages_latest.svelte-language-server}/bin/svelteserver")
-            (setq nixpkgs/vscode-css-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-css-language-server")
-            (setq nixpkgs/vscode-eslint-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-eslint-language-server")
-            (setq nixpkgs/vscode-html-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-html-language-server")
-            (setq nixpkgs/vscode-json-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-json-language-server")
-            (setq nixpkgs/vscode-markdown-language-server "${pkgs.nodePackages_latest.vscode-langservers-extracted}/bin/vscode-markdown-language-server")
-          '')
+            (setq nixpkgs/svelte-language-server "${nodepkgs.svelte-language-server}/bin/svelteserver")
+            (setq nixpkgs/typescript-language-server "${typescript-language-server}/bin/typescript-language-server")
+            (setq nixpkgs/vscode-css-language-server "${nodepkgs.vscode-langservers-extracted}/bin/vscode-css-language-server")
+            (setq nixpkgs/vscode-eslint-language-server "${nodepkgs.vscode-langservers-extracted}/bin/vscode-eslint-language-server")
+            (setq nixpkgs/vscode-html-language-server "${nodepkgs.vscode-langservers-extracted}/bin/vscode-html-language-server")
+            (setq nixpkgs/vscode-json-language-server "${nodepkgs.vscode-langservers-extracted}/bin/vscode-json-language-server")
+            (setq nixpkgs/vscode-markdown-language-server "${nodepkgs.vscode-langservers-extracted}/bin/vscode-markdown-language-server")
+          ''))
       ];
     };
   };

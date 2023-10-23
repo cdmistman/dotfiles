@@ -1,5 +1,6 @@
 ;;; -*- lexical-binding: t; -*-
 (load (concat user-emacs-directory "nix-generated"))
+(load (concat user-emacs-directory "lib"))
 
 (setq auto-save-file-name-transforms
       '(("\\`/.*/\\([^/]+\\)\\'" "~/.emacs.d/auto-save/\\1" "sha256")))
@@ -15,6 +16,7 @@
 (load-theme 'timu-caribbean t)
 
 (global-display-line-numbers-mode)
+(global-hl-line-mode)
 
 (add-hook 'after-init-hook 'global-hl-todo-mode)
 
@@ -35,21 +37,17 @@
 (add-hook 'after-init-hook 'global-company-mode)
 
 (require 'direnv)
-(setq direnv--executable nix/direnv)
+(setq direnv--executable nixpkgs/direnv)
 (direnv-mode)
 
 (require 'helm)
 (require 'helm-autoloads)
 
 (require 'treemacs)
-(require 'treemacs-evil)
 
 (load (concat user-emacs-directory "languages"))
 (add-hook 'treesit-lang-mode-hook
           (lambda () (setq-local treesit-font-lock-level 4)))
-
-(require 'evil)
-(evil-mode 1)
 
 (load (concat user-emacs-directory "keybinds"))
 

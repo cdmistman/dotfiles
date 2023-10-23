@@ -7,9 +7,11 @@
 (require 'lsp-mode)
 (require 'treesit)
 
-(setq treesit-extra-load-path (list nix/tree-sitter-dir))
+(setq treesit-extra-load-path `(,nixpkgs/tree-sitter-dir))
 (setq lsp-bash--bash-ls-server-command `(,nixpkgs/bash-language-server "start"))
 (setq lsp-clients--clangd-command `(,nixpkgs/clangd))
+(setq lsp-clients-typescript-tls-path `(,nixpkgs/typescript-language-server "--stdio"))
+(setq lsp-clients-typescript-project-ts-server-path (path/join nixpkgs/typescript "lib" "node_modules" "typescript" "lib"))
 (setq lsp-css--server-command `(,nixpkgs/vscode-css-language-server "--stdio"))
 (setq lsp-eslint-server-command `(,nixpkgs/vscode-eslint-language-server "--stdio"))
 (setq lsp-go-gopls-server-path nixpkgs/gopls)
@@ -65,6 +67,10 @@
 ;; graphql
 (require 'graphql-mode)
 
+;; html
+(autoload 'html-ts-mode (path/join user-emacs-directory "languages" "html") nil t)
+(add-to-list 'auto-mode-alist '("\\.html\\'" . html-ts-mode))
+
 ;; java
 (override--treesit 'java)
 
@@ -106,3 +112,19 @@
 (require 'svelte-mode)
 (add-to-list 'auto-mode-alist '("\\.svelte\\'" . svelte-mode))
 (setq svelte-display-submode-name t)
+
+;; typescript
+(add-hook 'typescript-ts-mode-hook 'lsp-deferred)
+;; (setq svelte--typescript-submode 'typescript-ts-mode)
+(defun svelte--load-typescript-submode ()
+  "Load `typescript-mode' and patch it."
+  (when (require 'typescript-ts-mode nil t)
+    (customize-set-variable 'typescript-indent-level svelte-basic-offset)
+    (defconst svelte--typescript-submode
+      (svelte--construct-submode 'typescript-mode
+                                 :name "TypeScript"
+                                 :end-tag "</script>"
+                                 :syntax-table typescript-mode-syntax-table
+                                 :propertize #'typescript-syntax-propertize
+                                 :indent-function #'js-indent-line
+                                 :keymap typescript-mode-map))))
