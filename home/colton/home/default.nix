@@ -22,6 +22,7 @@
         jless
         jq
         nil
+        nixd
         nixpkgs-review
         procs
         ripgrep
