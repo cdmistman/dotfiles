@@ -12,8 +12,6 @@ vim.opt.termguicolors = true
 local which_key = require('which-key')
 which_key.setup()
 
-require('auto-save').setup()
-
 require('bufferline').setup()
 
 local cmp = require('cmp')
@@ -174,5 +172,3 @@ which_key.register({
 		},
 	},
 })
-
-require('treesitter-context').setup()

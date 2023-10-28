@@ -5,45 +5,33 @@
   ...
 }:
 
-let
-  raw-plugins = with inputs; [
-    { name = "auto-save.nvim"; src = auto-save-nvim; }
-    { name = "bufferline.nvim"; src = bufferline-nvim; }
-    { name = "comment.nvim"; src = comment-nvim; }
-    { name = "neoscroll.nvim"; src = neoscroll-nvim; }
-    { name = "nvim-cmp"; src = inputs.nvim-cmp; }
-    { name = "nvim-lspconfig"; src = nvim-lspconfig; }
-    { name = "neo-tree.nvim"; src = neo-tree-nvim; }
-    { name = "noice.nvim"; src = noice-nvim; }
-    { name = "nvim-treesitter-context"; src = nvim-treesitter-context; }
-    { name = "rust-tools.nvim"; src = rust-tools-nvim; }
-    { name = "telescope.nvim"; src = telescope-nvim; }
-    { name = "which-key.nvim"; src = which-key-nvim; }
-  ];
-
-  plugins = builtins.map pkgs.vimUtils.buildVimPluginFrom2Nix raw-plugins;
-in
-
 {
   programs.neovim = {
     enable = true;
 
     defaultEditor = true;
 
-    plugins = plugins ++ (with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
+      bufferline-nvim
       cmp-nvim-lsp
       cmp-nvim-lsp-document-symbol
       cmp-nvim-lsp-signature-help
       cmp-vsnip
-
+      comment-nvim
       copilot-vim
+      neoscroll-nvim
+      neo-tree-nvim
+      noice-nvim
       nui-nvim
       nvim-treesitter.withAllGrammars
-
+      nvim-cmp
+      nvim-lspconfig
       plenary-nvim
-
+      rust-tools-nvim
+      telescope-nvim
       vim-vsnip
-    ]);
+      which-key-nvim
+    ];
 
     withNodeJs = true;
 

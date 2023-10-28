@@ -11,7 +11,6 @@
     ./programs/bat.nix
     ./programs/bottom.nix
     ./programs/direnv.nix
-    ./programs/emacs
     ./programs/gh.nix
     ./programs/git.nix
     ./programs/helix.nix

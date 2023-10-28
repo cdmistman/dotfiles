@@ -4,33 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    auto-save-nvim = {
-      url = "github:okuuva/auto-save.nvim";
-      flake = false;
-    };
-
-    bufferline-nvim = {
-      url = "github:akinsho/bufferline.nvim";
-      flake = false;
-    };
-
-    comment-nvim = {
-      url = "github:numToStr/comment.nvim";
-      flake = false;
-    };
-
     darwin = {
       url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    doomemacs = {
-      url = "github:doomemacs/doomemacs";
-      flake = false;
-    };
-
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -49,11 +24,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neoscroll-nvim = {
-      url = "github:karb94/neoscroll.nvim";
-      flake = false;
-    };
-
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -62,51 +32,6 @@
     nixd = {
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    noice-nvim = {
-      url = "github:folke/noice.nvim";
-      flake = false;
-    };
-
-    nvim-cmp = {
-      url = "github:hrsh7th/nvim-cmp";
-      flake = false;
-    };
-
-    nvim-lspconfig = {
-      url = "github:neovim/nvim-lspconfig";
-      flake = false;
-    };
-
-    neo-tree-nvim = {
-      url = "github:nvim-neo-tree/neo-tree.nvim/v3.x";
-      flake = false;
-    };
-
-    nvim-treesitter-context = {
-      url = "github:nvim-treesitter/nvim-treesitter-context";
-      flake = false;
-    };
-
-    rust-tools-nvim = {
-      url = "github:simrat39/rust-tools.nvim";
-      flake = false;
-    };
-
-    telescope-nvim = {
-      url = "github:nvim-telescope/telescope.nvim";
-      flake = false;
-    };
-
-    twilight-nvim = {
-      url = "github:folke/twilight.nvim";
-      flake = false;
-    };
-
-    which-key-nvim = {
-      url = "github:folke/which-key.nvim";
-      flake = false;
     };
   };
 
