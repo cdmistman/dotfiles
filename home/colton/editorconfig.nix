@@ -22,6 +22,11 @@
       "*.el" = {
         indent_style = "space";
       };
+
+      "*.zig\.*" = {
+        indent_style = "space";
+        indent_size = 4;
+      };
     };
   };
 }
