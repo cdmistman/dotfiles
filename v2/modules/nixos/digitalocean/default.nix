@@ -1,8 +1,7 @@
 # a lot of this is just the auto-generated files from https://github.com/elitak/nixos-infect
-args @ {
+{
   config,
   lib,
-  modulesPath,
   ...
 }:
 with lib; let
@@ -13,7 +12,6 @@ in {
   };
 
   config = mkIf cfg.enable (
-    # (import (modulesPath + "/profiles/qemu-guest.nix") args) //
   {
     nixpkgs-profiles.qemu-guest.enable = true;
 

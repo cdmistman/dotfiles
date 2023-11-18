@@ -11,6 +11,6 @@ with lib; let
 in {
   options.nixpkgs-profiles.qemu-guest.enable = mkEnableOption (mdDoc "Enable QEMU guest profile from nixpkgs.");
 
-  # config = mkIf cfg.enable (builtins.trace mod mod);
-  config = {};
+  config = mkIf cfg.enable (builtins.trace mod mod);
+  # config = {};
 }
