@@ -33,6 +33,13 @@
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvim = {
+      url = "github:cdmistman/nvim";
+      inputs.fenix.follows = "fenix";
+      inputs.nixd.follows = "nixd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
