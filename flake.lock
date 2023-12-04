@@ -659,7 +659,9 @@
         "substitute-nvim": "substitute-nvim",
         "telescope-nvim": "telescope-nvim",
         "todo-comments-nvim": "todo-comments-nvim",
-        "tokyonight-nvim": "tokyonight-nvim",
+        "tokyonight-nvim": [
+          "tokyonight"
+        ],
         "vim-vsnip": "vim-vsnip",
         "which-key-nvim": "which-key-nvim",
         "yanky-nvim": "yanky-nvim"
@@ -815,7 +817,8 @@
         "nix-index-db": "nix-index-db",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs",
-        "nvim": "nvim"
+        "nvim": "nvim",
+        "tokyonight": "tokyonight"
       }
     },
     "rust-analyzer-src": {
@@ -932,7 +935,7 @@
         "type": "github"
       }
     },
-    "tokyonight-nvim": {
+    "tokyonight": {
       "flake": false,
       "locked": {
         "lastModified": 1698229236,

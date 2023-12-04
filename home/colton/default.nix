@@ -14,6 +14,7 @@
     ./programs/gh.nix
     ./programs/git.nix
     ./programs/helix.nix
+    ./programs/kitty
     ./programs/lsd.nix
     ./programs/neovim.nix
     ./programs/nix-index.nix

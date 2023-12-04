@@ -39,6 +39,12 @@
       inputs.fenix.follows = "fenix";
       inputs.nixd.follows = "nixd";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.tokyonight-nvim.follows = "tokyonight";
+    };
+
+    tokyonight = {
+      url = "github:folke/tokyonight.nvim";
+      flake = false;
     };
   };
 
