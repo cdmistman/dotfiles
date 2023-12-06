@@ -1,26 +1,30 @@
 {
   inputs,
+  pkgs,
   ...
 }: {
-  programs.kitty = {
+  # programs.kitty = {
+  #   enable = true;
+  #
+  #   extraConfig = "include my_config.conf";
+  #
+  #   font = {
+  #     name = "Fira Code Retina";
+  #     size = 14;
+  #   };
+  #
+  #   shellIntegration = {
+  #     enableBashIntegration = true;
+  #     enableZshIntegration = true;
+  #   };
+  # };
+  home.packages = [
+    pkgs.kitty
+  ];
+
+  xdg.configFile."kitty/kitty.conf" = {
     enable = true;
-
-    extraConfig = "include my_config.conf";
-
-    font = {
-      name = "Fira Code Retina";
-      size = 14;
-    };
-
-    shellIntegration = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-  };
-
-  xdg.configFile."kitty/my_config.conf" = {
-    enable = true;
-    source = ./my_config.conf;
+    source = ./kitty.conf;
   };
 
   xdg.configFile."kitty/themes" = {
