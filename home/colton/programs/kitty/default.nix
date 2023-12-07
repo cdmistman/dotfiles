@@ -1,36 +1,32 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }: {
-  # programs.kitty = {
-  #   enable = true;
-  #
-  #   extraConfig = "include my_config.conf";
-  #
-  #   font = {
-  #     name = "Fira Code Retina";
-  #     size = 14;
-  #   };
-  #
-  #   shellIntegration = {
-  #     enableBashIntegration = true;
-  #     enableZshIntegration = true;
-  #   };
-  # };
   home.packages = [
     pkgs.kitty
   ];
 
-  xdg.configFile."kitty/kitty.conf" = {
+  xdg.configFile.kitty = {
     enable = true;
-    source = ./kitty.conf;
-  };
+    source = pkgs.symlinkJoin {
+      name = "kitty-config";
+      paths = let
+        my-conf = builtins.path { path = ./.; filter = (path: _: (builtins.baseNameOf path) != "default.nix"); };
 
-  xdg.configFile."kitty/themes" = {
-    enable = true;
-    source = "${inputs.tokyonight}/extras/kitty";
-    recursive = true;
+        themes = pkgs.stdenvNoCC.mkDerivation {
+          name = "kitty-themes";
+          buildCommand = ''
+            mkdir -p $out/themes
+            for theme in ${inputs.tokyonight}/extras/kitty/*; do
+              local theme_name=$(basename $theme)
+              ln -s $theme $out/themes/$theme_name
+            done
+          '';
+        };
+      in [ my-conf themes ];
+    };
   };
 }
 
