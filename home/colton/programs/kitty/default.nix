@@ -12,6 +12,7 @@
     enable = true;
     source = pkgs.symlinkJoin {
       name = "kitty-config";
+      recursive = true;
       paths = let
         my-conf = builtins.path { path = ./.; filter = (path: _: (builtins.baseNameOf path) != "default.nix"); };
 
