@@ -667,11 +667,11 @@
         "yanky-nvim": "yanky-nvim"
       },
       "locked": {
-        "lastModified": 1701830934,
-        "narHash": "sha256-18jie6GZ+xwGNzQrMzlLbqS9YxLt+EJaH+smer+tOLM=",
+        "lastModified": 1701842855,
+        "narHash": "sha256-5mqDUovn6P9rSnTCwiIL23VAfgG7XLTEIx6gGU26i08=",
         "owner": "cdmistman",
         "repo": "nvim",
-        "rev": "bcfd215bcd846cecc657f7da84b268f55a0d7f9d",
+        "rev": "4bc07f186382194ea22e6b738b73710267e00966",
         "type": "github"
       },
       "original": {
