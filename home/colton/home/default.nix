@@ -24,6 +24,7 @@
         nil
         nixd
         nixpkgs-review
+        obsidian
         procs
         ripgrep
         sd
