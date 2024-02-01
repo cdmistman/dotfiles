@@ -10,22 +10,12 @@
     };
   };
 
-  outputs = inputs: let
-    lib = inputs.snowfall-lib.mkLib {
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
       inherit inputs;
       src = ./.;
+      snowfall.namespace = "dots";
 
-      snowfall = {
-        namespace = "dots";
-
-        meta = {
-          name = "dotfiles";
-          title = "cdmistman's dotfiles";
-        };
-      };
-    };
-  in
-    lib.mkFlake {
       outputs-builder = channels: {
         formatter = channels.nixpkgs.alejandra;
       };
