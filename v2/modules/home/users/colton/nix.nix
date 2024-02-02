@@ -1,10 +1,6 @@
 { inputs, lib, pkgs, config, ... }:
 
 lib.mkIf config.mistman.users.colton.enable {
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
   nixpkgs.overlays = [
     inputs.fenix.overlays.default
     inputs.nixd.overlays.default
