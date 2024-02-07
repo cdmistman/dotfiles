@@ -15,6 +15,11 @@
         name = "Colton Donnelly";
         email = "colton@donn.io";
       };
+
+      git = {
+        auto-local-branch = true;
+        push-branch-prefix = "cad/push-";
+      };
     };
   };
 }
