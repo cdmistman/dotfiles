@@ -1,8 +1,6 @@
 {
   enableGUI,
-  inputs,
   pkgs,
-  system,
   ...
 }: {
   xdg.enable = true;
@@ -31,8 +29,6 @@
         ripgrep
         sd
         tokei
-
-        inputs.jujutsu.packages.${system}.jujutsu
       ];
 
     sessionPath = [
