@@ -63,7 +63,7 @@
         {
           home-manager = {
             useGlobalPkgs = true;
-            useUserPackages = true;
+            # useUserPackages = true;
           };
         }
       ];
