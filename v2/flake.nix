@@ -59,8 +59,30 @@
         allowUnfree = true;
       };
 
+      homes.modules = [
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+          };
+        }
+      ];
+
       outputs-builder = channels: {
         formatter = channels.nixpkgs.alejandra;
       };
+
+      systems.hosts.donn-mbp.modules = [
+        {
+          networking = {
+            computerName = "Colton’s MacBook Pro";
+            hostName = "donn-mbp";
+          };
+        }
+      ];
+
+      # systems.modules = [
+      #   inputs.home-manager.darwinModules.home-manager
+      # ];
     };
 }
