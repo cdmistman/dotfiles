@@ -57,9 +57,16 @@
 
       channels-config = {
         allowUnfree = true;
+
+        overlays = [
+          inputs.fenix.overlays.default
+          inputs.nixd.overlays.default
+        ];
       };
 
       homes.modules = [
+        inputs.nix-index-db.hmModules.nix-index
+
         {
           home-manager = {
             useGlobalPkgs = true;

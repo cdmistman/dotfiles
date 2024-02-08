@@ -7,7 +7,7 @@ in
 
 # Thanks pperanich! https://github.com/nix-community/home-manager/issues/1341#issuecomment-1870352014
 {
-  config = mkIf (lib.traceVal pkgs.stdenv.hostPlatform.isDarwin) {
+  config = mkIf pkgs.stdenv.hostPlatform.isDarwin {
     home = {
       # Install MacOS applications to the user Applications folder. Also update Docked applications
       extraActivationPath = with pkgs; [

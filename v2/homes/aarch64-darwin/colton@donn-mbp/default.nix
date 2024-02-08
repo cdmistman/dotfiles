@@ -1,9 +1,7 @@
 {
   mistman = {
-    users.colton = {
-      enable = true;
-      gui = true;
-    };
+    profile.enable = true;
+    gui-apps.enable = true;
   };
 }
 
