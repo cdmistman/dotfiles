@@ -37,6 +37,11 @@ in
       trusted-users = [ "root" ];
     };
 
+    security.pam.enableSudoTouchIdAuth = true;
+
+    services.cachix-agent.enable = true;
+    services.nix-daemon.enable = true;
+
     system.defaults = {
       NSGlobalDomain = {
         AppleEnableMouseSwipeNavigateWithScrolls = true;
