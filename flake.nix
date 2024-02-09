@@ -1,31 +1,45 @@
 {
-  description = "My (cdmistman/colton) Nix config";
+  description = "cdmistman's rewritten dotfiles using Snowfall.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
+    # it's a snowfall flake
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # config inputs
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # personal inputs
+    nvim = {
+      url = "github:cdmistman/nvim";
+      inputs.fenix.follows = "fenix";
+      inputs.nixd.follows = "nixd";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.tokyonight-nvim.follows = "tokyonight";
+    };
+
+    tokyonight.url = "github:folke/tokyonight.nvim";
+
+    # util inputs
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     jujutsu = {
-      url = "github:martinvonz/jj/v0.13.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    mkAlias = {
-      url = "github:reckenrode/mkAlias";
+      url = "github:martinvonz/jj/v0.14.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -38,90 +52,66 @@
       url = "github:nix-community/nixd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nvim = {
-      url = "github:cdmistman/nvim";
-      inputs.fenix.follows = "fenix";
-      inputs.nixd.follows = "nixd";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.tokyonight-nvim.follows = "tokyonight";
-    };
-
-    tokyonight = {
-      url = "github:folke/tokyonight.nvim";
-      flake = false;
-    };
   };
 
-  outputs = inputs @ {
-    home-manager,
-    nixpkgs,
-    ...
-  }: {
-    darwinConfigurations = {
-      donn-mbp = import ./system/darwin {
-        inherit inputs;
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
+      snowfall.namespace = "mistman";
 
-        system = "aarch64-darwin";
+      overlays = [
+        inputs.fenix.overlays.default
+        inputs.nixd.overlays.default
+        (super: self: {
+          inherit (inputs.jujutsu.packages.${super.stdenv.hostPlatform.system}) jujutsu;
+        })
+      ];
 
-        modules = [
-          {
-            networking = {
-              computerName = "Colton’s MacBook Pro";
-              hostName = "donn-mbp";
-            };
-          }
-        ];
+      channels-config = {
+        allowUnfree = true;
       };
 
-      donn-replit-mbp = import ./system/darwin {
-        inherit inputs;
-
-        system = "aarch64-darwin";
-
-        modules = [
-          {
-            home-manager.users.colton = {pkgs, ...}: {
-              # TODO: get nixpkgs-packaged google-cloud-sdk working
-              home.sessionPath = [
-                "$HOME/.google-cloud-sdk/bin"
-              ];
-
-              home.sessionVariables = {
-                CLOUDSDK_PYTHON = "${pkgs.python3.withPackages (ps: with ps; [numpy])}/bin/python3";
-                CLOUDSDK_PYTHON_SITEPACKAGES = "1";
-                CLOUDSDK_LOCATION = "$HOME/.google-cloud-sdk";
-              };
-            };
-
-            networking = {
-              computerName = "Colton’s Replit MacBook Pro";
-              hostName = "donn-replit-mbp";
-            };
-          }
-        ];
+      outputs-builder = channels: {
+        formatter = channels.nixpkgs.alejandra;
       };
+
+      homes.users."colton@donn-replit-devvm".modules = [
+        inputs.nix-index-db.hmModules.nix-index
+      ];
+
+      systems.modules.darwin = [
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+
+            sharedModules = [
+              inputs.nix-index-db.hmModules.nix-index
+            ];
+          };
+        }
+      ];
+
+      systems.hosts.donn-mbp.modules = [
+        {
+          networking = {
+            computerName = "Colton’s MacBook Pro";
+            hostName = "donn-mbp";
+          };
+        }
+      ];
+
+      systems.hosts.donn-replit-mbp.modules = [
+        {
+          networking = {
+            computerName = "Colton’s Replit MacBook Pro";
+            hostName = "donn-replit-mbp";
+          };
+        }
+      ];
+
+      # systems.modules = [
+      #   inputs.home-manager.darwinModules.home-manager
+      # ];
     };
-
-    homeConfigurations.replit-devvm = let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        extraSpecialArgs = {
-          inherit inputs system;
-
-          enableGUI = false;
-        };
-
-        modules = [
-          (import ./home/colton)
-          {
-            home.homeDirectory = "/home/colton";
-          }
-        ];
-      };
-  };
 }
