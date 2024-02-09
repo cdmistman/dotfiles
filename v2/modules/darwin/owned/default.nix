@@ -1,11 +1,15 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.mistman.darwin-config;
+  inherit (lib) mkEnableOption mkIf;
+
+  cfg = config.mistman.owned;
 in
 
 {
-  options.mistman.darwin-config.enable = lib.mkEnableOption "darwin-config";
+  options.mistman.owned = {
+    enable = mkEnableOption "configurations for my owned darwin machines";
+  };
 
   config = lib.mkIf cfg.enable {
     environment = {
@@ -34,7 +38,7 @@ in
       auto-optimise-store = true;
       experimental-features = "nix-command flakes";
       sandbox = false;
-      trusted-users = [ "root" ];
+      trusted-users = [ "root" "colton" "admin" ];
     };
 
     security.pam.enableSudoTouchIdAuth = true;
@@ -91,5 +95,20 @@ in
       enableKeyMapping = true;
       remapCapsLockToEscape = true;
     };
+
+    users.users.admin = {
+      createHome = true;
+      description = "Admin user";
+      home = "/Users/admin";
+      isHidden = false;
+    };
+
+    users.users.colton = {
+      createHome = false;
+      description = "coolton";
+      home = "/Users/colton";
+      isHidden = false;
+    };
   };
 }
+
