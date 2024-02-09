@@ -16,21 +16,17 @@ in
       pkgs.nixVersions.nix_2_18
     ];
 
-    nix = {
-      package = pkgs.nixVersions.nix_2_18;
+    nix.registry = {
+      me = {
+        from = {
+          type = "indirect";
+          id = "me";
+        };
 
-      registry = {
-        me = {
-          from = {
-            type = "indirect";
-            id = "me";
-          };
-
-          to = {
-            type = "github";
-            owner = "cdmistman";
-            repo = "dotfiles";
-          };
+        to = {
+          type = "github";
+          owner = "cdmistman";
+          repo = "dotfiles";
         };
       };
     };

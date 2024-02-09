@@ -65,12 +65,14 @@
       };
 
       homes.modules = [
-        inputs.nix-index-db.hmModules.nix-index
-
         {
           home-manager = {
             useGlobalPkgs = true;
             # useUserPackages = true;
+
+            sharedModules = [
+              inputs.nix-index-db.hmModules.nix-index
+            ];
           };
         }
       ];

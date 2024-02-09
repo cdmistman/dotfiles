@@ -13,8 +13,13 @@ in
     defaultEditor = mkEnableOption "EDITOR env var set to nvim";
 
     config = mkOption {
-      type = types.package;
       default = inputs.nvim.packages.${system};
+    };
+
+    package = mkOption {
+      type = types.package;
+      description = "The final package";
+      readOnly = true;
     };
   };
 
@@ -35,7 +40,7 @@ in
 
     xdg.configFile."nvim" = {
       enable = true;
-      source = cfg.config;
+      source = cfg.config.config-dir;
     };
   };
 }

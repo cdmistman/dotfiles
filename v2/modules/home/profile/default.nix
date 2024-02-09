@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, inputs, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -15,6 +15,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # modules = [
+    # ];
+
     mistman = {
       extras.enable = true;
       nix.enable = true;
@@ -23,9 +26,10 @@ in
       starship.enable = true;
     };
 
-    enableNixpkgsReleaseCheck = true;
-    stateVersion = "24.2";
-    username = "colton";
+    home = {
+      stateVersion = "24.05";
+      username = "colton";
+    };
 
     programs = {
       direnv.config.whitelist.prefix = [

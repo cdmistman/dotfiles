@@ -3,11 +3,11 @@
 let
   inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.mistman.nushell;
+  cfg = config.mistman.shells;
 in
 
 {
-  options.mistman.nushell = {
+  options.mistman.shells = {
     enable = mkEnableOption "Enable GUI apps";
   };
 

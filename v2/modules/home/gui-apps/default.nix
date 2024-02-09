@@ -26,7 +26,18 @@ in
       source = ./kitty;
     };
 
-    programs.alacritty = {
+    programs.alacritty = let
+      setMods = mods:
+        builtins.map (
+          binding:
+            binding // {inherit mods;}
+        );
+      ctrlOrCmd = (
+        binds:
+          (setMods "Control|Shift" binds)
+          ++ (setMods "Command" binds)
+      );
+    in {
       # not quite wanting to let it go...
       enable = cfg.alacritty.enable;
 
