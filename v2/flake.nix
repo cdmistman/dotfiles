@@ -64,22 +64,21 @@
         ];
       };
 
-      homes.modules = [
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            # useUserPackages = true;
-
-            sharedModules = [
-              inputs.nix-index-db.hmModules.nix-index
-            ];
-          };
-        }
-      ];
-
       outputs-builder = channels: {
         formatter = channels.nixpkgs.alejandra;
       };
+
+      homes.modules = [
+        inputs.nix-index-db.hmModules.nix-index
+      ];
+
+      systems.modules.darwin = [
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+          };
+        }
+      ];
 
       systems.hosts.donn-mbp.modules = [
         {
