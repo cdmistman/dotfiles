@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -23,7 +23,22 @@ in
 
     xdg.configFile.kitty = {
       enable = true;
-      source = ./kitty;
+      source = pkgs.symlinkJoin {
+        name = "kitty-config";
+        recursive = true;
+        paths = let
+          themes = pkgs.stdenvNoCC.mkDerivation {
+            name = "kitty-themes";
+            buildCommand = ''
+              mkdir -p $out/themes
+              for theme in ${inputs.tokyonight}/extras/kitty/*; do
+                local theme_name=$(basename $theme)
+                ln -s $theme $out/themes/$theme_name
+              done
+            '';
+          };
+        in [ themes ./kitty ];
+      };
     };
 
     programs.alacritty = let
