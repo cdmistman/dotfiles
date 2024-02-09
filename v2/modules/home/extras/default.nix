@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, inputs, lib, pkgs, system, ...}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -145,6 +145,18 @@ in
         ignores = [
           ".direnv"
         ];
+      };
+
+      jujutsu = {
+        enable = true;
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+
+        package = inputs.jujutsu.packages.${system}.jujutsu;
+
+        settings = {
+          git.auto-local-branch = true;
+        };
       };
 
       nix-index = {

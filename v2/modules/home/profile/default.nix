@@ -41,6 +41,14 @@ in
         userEmail = email;
         userName = name;
       };
+
+      jujutsu.settings = {
+        git.push-branch-prefix = "cad/push-";
+
+        user = {
+          inherit email name;
+        };
+      };
     };
   };
 }

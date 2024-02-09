@@ -41,6 +41,11 @@ in
       trusted-users = [ "root" "colton" "admin" ];
     };
 
+    programs = {
+      bash.enable = true;
+      zsh.enable = true;
+    };
+
     security.pam.enableSudoTouchIdAuth = true;
 
     services.cachix-agent.enable = true;

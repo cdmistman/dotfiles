@@ -38,6 +38,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    jujutsu = {
+      url = "github:martinvonz/jj/v0.14.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-index-db = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,13 +60,16 @@
       src = ./.;
       snowfall.namespace = "mistman";
 
+      overlays = [
+        inputs.fenix.overlays.default
+        inputs.nixd.overlays.default
+        (super: self: {
+          inherit (inputs.jujutsu.packages.${super.stdenv.hostPlatform.system}) jujutsu;
+        })
+      ];
+
       channels-config = {
         allowUnfree = true;
-
-        overlays = [
-          inputs.fenix.overlays.default
-          inputs.nixd.overlays.default
-        ];
       };
 
       outputs-builder = channels: {
