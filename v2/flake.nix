@@ -68,7 +68,7 @@
         formatter = channels.nixpkgs.alejandra;
       };
 
-      homes.modules = [
+      homes.users."colton@donn-replit-devvm".modules = [
         inputs.nix-index-db.hmModules.nix-index
       ];
 
@@ -76,6 +76,10 @@
         {
           home-manager = {
             useGlobalPkgs = true;
+
+            sharedModules = [
+              inputs.nix-index-db.hmModules.nix-index
+            ];
           };
         }
       ];
