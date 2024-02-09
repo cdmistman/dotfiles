@@ -1,0 +1,6 @@
+{
+  mistman = {
+    profile.enable = true;
+  };
+}
+
