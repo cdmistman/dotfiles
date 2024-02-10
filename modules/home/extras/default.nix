@@ -43,12 +43,7 @@ in
         k = "clear";
         kn = "clear && printf '\\e[3J'";
 
-        ls = "${pkgs.eza}/bin/eza --group-directories-first --icons=auto";
         l = "ls";
-        la = "ls -a";
-        ll = "ls -l";
-        lla = "ls -al";
-        tree = "${pkgs.eza}/bin/eza -T --git-ignore --icons=auto";
       };
     };
 
@@ -106,6 +101,14 @@ in
         config.global = {
           warn_timeout = "1m";
         };
+      };
+
+      eza = {
+        enable = true;
+        enableAliases = true;
+        extraOptions = [ "--group-directories-first" ];
+        icons = true;
+        git = true;
       };
 
       gh = {
