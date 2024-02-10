@@ -156,6 +156,12 @@ in
 
         settings = {
           git.auto-local-branch = true;
+
+          ui = {
+            default-command = "status";
+            editor = "nvim";
+            diffeditor = "nvim -d";
+          };
         };
       };
 
