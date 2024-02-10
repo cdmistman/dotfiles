@@ -43,12 +43,12 @@ in
         k = "clear";
         kn = "clear && printf '\\e[3J'";
 
-        ls = "${pkgs.lsd}/bin/lsd -AL --group-directories-first";
+        ls = "${pkgs.eza}/bin/eza --group-directories-first --icons=auto";
         l = "ls";
         la = "ls -a";
         ll = "ls -l";
         lla = "ls -al";
-        tree = "${pkgs.lsd}/bin/lsd -L --tree";
+        tree = "${pkgs.eza}/bin/eza -T --git-ignore --icons=auto";
       };
     };
 
