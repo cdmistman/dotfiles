@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -29,6 +29,19 @@ in
           repo = "dotfiles";
         };
       };
+
+      nixpkgs = {
+        from = {
+          type = "indirect";
+          id = "nixpkgs";
+        };
+
+        flake = inputs.nixpkgs;
+      };
+    };
+
+    nix.settings = {
+      nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
     };
   };
 }
