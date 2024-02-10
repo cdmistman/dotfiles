@@ -1,5 +1,0 @@
-{
-  programs.tealdeer = {
-    enable = true;
-  };
-}
