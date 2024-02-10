@@ -33,7 +33,7 @@ in
       ];
 
       sessionVariables = {
-        MANPAGER = "sh -c 'col -bx | ${pkgs.bat} -l man -p'";
+        MANPAGER = "sh -c 'col -bx | ${pkgs.bat}/bin/bat -l man -p'";
         MANROFFOPT = "-c";
 
         PAGER = "${pkgs.bat}/bin/bat";
@@ -86,15 +86,12 @@ in
 
     programs = {
       bottom.enable = true;
-      lsd.enable = true;
       tealdeer.enable = true;
 
       bat = {
         enable = true;
         extraPackages = with pkgs.bat-extras; [
-          batdiff
           batgrep
-          batman
         ];
       };
 
