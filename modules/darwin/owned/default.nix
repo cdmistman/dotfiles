@@ -51,8 +51,14 @@ in
 
     users.users.colton = {
       createHome = true;
-      description = "Colton";
+      description = "coolton";
+      name = "Colton";
       home = "/Users/colton";
+      uid = 601;
+
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMO+PKzr+JszoCzGtsvMH1tdNwRucTuRcKysPx1fTDmp colton@donn.io"
+      ];
     };
 
     system.defaults = {
