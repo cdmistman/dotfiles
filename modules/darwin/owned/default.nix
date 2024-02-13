@@ -49,23 +49,23 @@ in
     services.cachix-agent.enable = true;
     services.nix-daemon.enable = true;
 
-    users.groups.colton = {
-      description = "coolton";
-      gid = 601;
-      members = [ "colton" ];
-    };
+    # users.groups.colton = {
+    #   description = "coolton";
+    #   gid = 601;
+    #   members = [ "colton" ];
+    # };
 
     users.users.colton = {
       createHome = true;
       description = "coolton";
-      gid = 601;
+      gid = 20;
       home = "/Users/colton";
 
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMO+PKzr+JszoCzGtsvMH1tdNwRucTuRcKysPx1fTDmp colton@donn.io"
       ];
 
-      shell = pkgs.zsh;
+      shell = "${pkgs.zsh}/bin/zsh";
       uid = 601;
     };
 
