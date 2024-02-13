@@ -4,7 +4,14 @@
     server.enable = true;
   };
 
-  users.knownUsers = [ "admin" "colton" ];
-  users.users.admin.uid = 501;
+  users = {
+    createdUsers = [ "colton" ];
+    knownUsers = [ "admin" "colton" ];
+
+    users = {
+      admin.uid = 501;
+      colton.uid = 502;
+    };
+  };
 }
 
