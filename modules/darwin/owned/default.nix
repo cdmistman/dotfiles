@@ -46,8 +46,6 @@ in
       zsh.enable = true;
     };
 
-    security.pam.enableSudoTouchIdAuth = true;
-
     services.cachix-agent.enable = true;
     services.nix-daemon.enable = true;
 
@@ -94,25 +92,6 @@ in
         Clicking = true;
         TrackpadThreeFingerDrag = false;
       };
-    };
-
-    system.keyboard = {
-      enableKeyMapping = true;
-      remapCapsLockToEscape = true;
-    };
-
-    users.users.admin = {
-      createHome = true;
-      description = "Admin user";
-      home = "/Users/admin";
-      isHidden = false;
-    };
-
-    users.users.colton = {
-      createHome = false;
-      description = "coolton";
-      home = "/Users/colton";
-      isHidden = false;
     };
   };
 }

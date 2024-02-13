@@ -1,7 +1,7 @@
 {
   mistman = {
-    macbook.enable = true;
     owned.enable = true;
+    server.enable = true;
   };
 }
 

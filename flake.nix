@@ -92,6 +92,15 @@
         }
       ];
 
+      systems.hosts.donn-dev.modules = [
+        {
+          networking = {
+            computerName = "donn-dev server";
+            hostName = "donn-dev";
+          };
+        }
+      ];
+
       systems.hosts.donn-mbp.modules = [
         {
           networking = {
@@ -109,9 +118,5 @@
           };
         }
       ];
-
-      # systems.modules = [
-      #   inputs.home-manager.darwinModules.home-manager
-      # ];
     };
 }
