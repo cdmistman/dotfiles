@@ -5,5 +5,6 @@
   };
 
   users.knownUsers = [ "admin" "colton" ];
+  users.users.admin.uid = 501;
 }
 
