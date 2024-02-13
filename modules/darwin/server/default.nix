@@ -12,13 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.users.admin = {
-      createHome = false;
-      description = "Admin user";
-      home = "/Users/admin";
-      isHidden = false;
-    };
-
     users.users.colton = {
       createHome = true;
       description = "Colton";

@@ -49,6 +49,12 @@ in
     services.cachix-agent.enable = true;
     services.nix-daemon.enable = true;
 
+    users.users.colton = {
+      createHome = true;
+      description = "Colton";
+      home = "/Users/colton";
+    };
+
     system.defaults = {
       NSGlobalDomain = {
         AppleEnableMouseSwipeNavigateWithScrolls = true;

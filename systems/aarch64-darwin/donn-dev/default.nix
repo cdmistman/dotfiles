@@ -5,12 +5,11 @@
   };
 
   users = {
-    createdUsers = [ "colton" ];
-    knownUsers = [ "admin" "colton" ];
+    # NOTE: append-only
+    knownUsers = [ "colton" ];
 
     users = {
-      admin.uid = 501;
-      colton.uid = 502;
+      colton.uid = 601;
     };
   };
 }
