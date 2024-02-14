@@ -1,6 +1,7 @@
 {
   mistman = {
     owned.enable = true;
+    server.enable = true;
   };
 
   # NOTE: append-only
