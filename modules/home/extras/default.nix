@@ -181,6 +181,27 @@ in
         ];
       };
 
+      ssh = {
+        enable = true;
+        addKeysToAgent = "yes";
+        compression = true;
+
+        controlMaster = "auto";
+        controlPath = "~/.ssh/multiplexing/%r@h:%p";
+        controlPersist = "2h";
+
+        hashKnownHosts = true;
+        includes = [ "~/.ssh/config.d/*" ];
+
+        matchBlocks = {
+          github = {
+            hostname = "github.com";
+            port = 22;
+            user = "git";
+          };
+        };
+      };
+
       zoxide = {
         enable = true;
         enableBashIntegration = true;
