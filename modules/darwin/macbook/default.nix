@@ -11,7 +11,7 @@ in
     enable = mkEnableOption "configurations for my macbooks";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     security.pam.enableSudoTouchIdAuth = true;
 
     system.keyboard = {

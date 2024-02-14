@@ -46,14 +46,8 @@ in
       zsh.enable = true;
     };
 
-    services.cachix-agent.enable = true;
+    # TODO: services.cachix-agent.enable = true;
     services.nix-daemon.enable = true;
-
-    # users.groups.colton = {
-    #   description = "coolton";
-    #   gid = 601;
-    #   members = [ "colton" ];
-    # };
 
     users.users.colton = {
       createHome = true;
