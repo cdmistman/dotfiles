@@ -20,8 +20,6 @@ in
         fd
         jless
         jq
-        nil
-        nixd
         procs
         ripgrep
         sd
