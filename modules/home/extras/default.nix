@@ -8,7 +8,7 @@ in
 
 {
   options.mistman.extras = {
-    enable = mkEnableOption "Some extra configurations";
+    enable = mkEnableOption "Some extra configurations. You probably don't want these.";
   };
 
   config = mkIf cfg.enable {
