@@ -191,7 +191,7 @@ in
         controlPersist = "2h";
 
         hashKnownHosts = true;
-        includes = [ "~/.ssh/config.d/*" ];
+        includes = [ "config.d/*" ];
 
         matchBlocks = {
           github = {
