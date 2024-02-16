@@ -12,7 +12,7 @@
     createHome = true;
     description = "commptonn";
     gid = 20;
-    home = "/home/commptonn";
+    home = "/Users/commptonn";
 
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArYAmI4x/5cPMc1D3EkOMfDex9F8LOoe3Mnap04JZv4 root@ignite"
