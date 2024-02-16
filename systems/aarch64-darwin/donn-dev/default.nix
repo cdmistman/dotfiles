@@ -14,6 +14,12 @@
     members = [ "colton" ];
   };
 
+  users.groups.commptonn = {
+    description  = "commptonn";
+    gid = 602;
+    members = [ "commptonn" ];
+  };
+
   users.users.commptonn = {
     createHome = true;
     description = "commptonn";
