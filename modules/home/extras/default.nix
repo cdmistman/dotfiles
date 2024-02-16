@@ -187,7 +187,7 @@ in
         compression = true;
 
         controlMaster = "auto";
-        controlPath = "~/.ssh/multiplexing/%r@h:%p";
+        controlPath = "~/.ssh/multiplexing/%r@%h:%p";
         controlPersist = "2h";
 
         hashKnownHosts = true;
