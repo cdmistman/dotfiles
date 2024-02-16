@@ -5,8 +5,14 @@
   };
 
   # NOTE: append-only
-  users.knownGroups = [ "colton" ];
+  users.knownGroups = [ "colton" "commptonn" ];
   users.knownUsers = [ "colton" "commptonn" ];
+
+  users.groups.colton = {
+    description  = "colton";
+    gid = 601;
+    members = [ "colton" ];
+  };
 
   users.users.commptonn = {
     createHome = true;
