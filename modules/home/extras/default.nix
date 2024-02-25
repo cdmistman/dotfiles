@@ -147,8 +147,6 @@ in
 
       jujutsu = {
         enable = true;
-        enableBashIntegration = true;
-        enableZshIntegration = true;
 
         package = inputs.jujutsu.packages.${system}.jujutsu;
 
