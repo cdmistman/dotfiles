@@ -183,7 +183,8 @@ in
 
       ssh = {
         enable = true;
-        addKeysToAgent = "yes";
+        # TODO: enable
+        # addKeysToAgent = "yes";
         compression = true;
 
         controlMaster = "auto";
