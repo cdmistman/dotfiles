@@ -158,7 +158,6 @@ in
           ui = {
             default-command = "status";
             editor = "nvim";
-            diffeditor = "nvim -d";
           };
         };
       };
