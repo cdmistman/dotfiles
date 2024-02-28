@@ -30,10 +30,7 @@
       inputs.tokyonight-nvim.follows = "tokyonight";
     };
 
-    tokyonight = {
-      url = "github:folke/tokyonight.nvim";
-      flake = false;
-    };
+    tokyonight.url = "github:folke/tokyonight.nvim";
 
     # util inputs
     fenix = {
