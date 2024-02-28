@@ -24,7 +24,9 @@ in
         ripgrep
         sd
         tokei
-      ];
+      ] ++ (with inputs.home-manager.packages.${system}; [
+        home-manager
+      ]);
 
       sessionPath = [
         "$HOME/bin"
