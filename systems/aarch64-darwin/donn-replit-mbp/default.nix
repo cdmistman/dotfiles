@@ -1,4 +1,7 @@
 {
-  mistman.owned.enable = true;
+  mistman = {
+    macbook.enable = true;
+    owned.enable = true;
+  };
 }
 
