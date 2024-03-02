@@ -1,12 +1,14 @@
-{ config, inputs, lib, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.gui-apps;
-in
-
-{
+in {
   options.mistman.gui-apps = {
     enable = mkEnableOption "Enable GUI apps";
 
@@ -37,7 +39,7 @@ in
               done
             '';
           };
-        in [ themes ./kitty ];
+        in [themes ./kitty];
       };
     };
 
@@ -168,4 +170,3 @@ in
     };
   };
 }
-

@@ -1,12 +1,9 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   inherit (lib) mkEnableOption;
-in
-
-{
-  mkDisableOption = description: (mkEnableOption description) // {
-    default = true;
-  };
+in {
+  mkDisableOption = description:
+    (mkEnableOption description)
+    // {
+      default = true;
+    };
 }
-

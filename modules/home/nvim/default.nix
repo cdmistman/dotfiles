@@ -1,12 +1,14 @@
-{ config, inputs, lib, system, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  system,
+  ...
+}: let
   inherit (lib) mkEnableOption mkForce mkIf mkOption types;
 
   cfg = config.mistman.nvim;
-in
-
-{
+in {
   options.mistman.nvim = {
     enable = mkEnableOption "My nvim configuration at https://github.com/cdmistman/nvim";
 
@@ -44,4 +46,3 @@ in
     };
   };
 }
-

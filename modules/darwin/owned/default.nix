@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.owned;
-in
-
-{
+in {
   options.mistman.owned = {
     enable = mkEnableOption "configurations for my owned darwin machines";
   };
@@ -38,7 +39,7 @@ in
       auto-optimise-store = true;
       experimental-features = "nix-command flakes";
       sandbox = false;
-      trusted-users = [ "root" "colton" "admin" ];
+      trusted-users = ["root" "colton" "admin"];
     };
 
     programs = {
@@ -109,4 +110,3 @@ in
     };
   };
 }
-

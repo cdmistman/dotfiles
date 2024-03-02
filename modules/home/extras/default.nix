@@ -1,32 +1,37 @@
-{ config, inputs, lib, pkgs, system, ...}:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  system,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.extras;
-in
-
-{
+in {
   options.mistman.extras = {
     enable = mkEnableOption "Some extra configurations. You probably don't want these.";
   };
 
   config = mkIf cfg.enable {
     home = {
-      packages = with pkgs; [
-        cachix
-        comma
-        du-dust
-        fd
-        jless
-        jq
-        procs
-        ripgrep
-        sd
-        tokei
-      ] ++ (with inputs.home-manager.packages.${system}; [
-        home-manager
-      ]);
+      packages = with pkgs;
+        [
+          cachix
+          comma
+          du-dust
+          fd
+          jless
+          jq
+          procs
+          ripgrep
+          sd
+          tokei
+        ]
+        ++ (with inputs.home-manager.packages.${system}; [
+          home-manager
+        ]);
 
       sessionPath = [
         "$HOME/bin"
@@ -106,7 +111,7 @@ in
       eza = {
         enable = true;
         enableAliases = true;
-        extraOptions = [ "--group-directories-first" ];
+        extraOptions = ["--group-directories-first"];
         icons = true;
         git = true;
       };
@@ -193,7 +198,7 @@ in
         controlPersist = "2h";
 
         hashKnownHosts = true;
-        includes = [ "config.d/*" ];
+        includes = ["config.d/*"];
 
         matchBlocks = {
           github = {
@@ -213,4 +218,3 @@ in
     };
   };
 }
-

@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.macbook;
-in
-
-{
+in {
   options.mistman.macbook = {
     enable = mkEnableOption "configurations for my macbooks";
   };

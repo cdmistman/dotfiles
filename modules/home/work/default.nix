@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.work;
-in
-
-{
+in {
   options.mistman.work = {
     enable = mkEnableOption "Some work-only configurations";
   };
@@ -30,4 +31,3 @@ in
     };
   };
 }
-

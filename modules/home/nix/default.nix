@@ -1,12 +1,14 @@
-{ config, inputs, lib, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.nix;
-in
-
-{
+in {
   options.mistman.nix = {
     enable = mkEnableOption "my Nix settings";
   };
@@ -41,8 +43,7 @@ in
     };
 
     nix.settings = {
-      nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
+      nix-path = ["nixpkgs=${inputs.nixpkgs}"];
     };
   };
 }
-

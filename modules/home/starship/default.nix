@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.starship;
-in
-
-{
+in {
   options.mistman.starship = {
     enable = mkEnableOption "Enable starship";
   };

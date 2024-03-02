@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.server;
-in
-
-{
+in {
   options.mistman.server = {
     enable = mkEnableOption "my darwin server configurations";
   };

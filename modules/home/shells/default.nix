@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.shells;
-in
-
-{
+in {
   options.mistman.shells = {
     enable = mkEnableOption "Enable GUI apps";
   };

@@ -1,15 +1,16 @@
-{ config, inputs, lib, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   email = "colton@donn.io";
   name = "Colton Donnelly";
 
   cfg = config.mistman.profile;
-in
-
-{
+in {
   options.mistman.profile = {
     enable = mkEnableOption "my base dotfiles";
   };
@@ -52,4 +53,3 @@ in
     };
   };
 }
-

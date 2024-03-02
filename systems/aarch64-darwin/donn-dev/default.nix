@@ -1,23 +1,23 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   mistman = {
     owned.enable = true;
     server.enable = true;
   };
 
   # NOTE: append-only
-  users.knownGroups = [ "colton" "commptonn" ];
-  users.knownUsers = [ "colton" "commptonn" ];
+  users.knownGroups = ["colton" "commptonn"];
+  users.knownUsers = ["colton" "commptonn"];
 
   users.groups.colton = {
-    description  = "colton";
+    description = "colton";
     gid = 601;
-    members = [ "colton" ];
+    members = ["colton"];
   };
 
   users.groups.commptonn = {
-    description  = "commptonn";
+    description = "commptonn";
     gid = 602;
-    members = [ "commptonn" ];
+    members = ["commptonn"];
   };
 
   users.users.commptonn = {
@@ -34,4 +34,3 @@
     uid = 602;
   };
 }
-

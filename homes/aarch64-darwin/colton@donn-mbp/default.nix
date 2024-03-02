@@ -4,4 +4,3 @@
     gui-apps.enable = true;
   };
 }
-
