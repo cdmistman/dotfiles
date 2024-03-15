@@ -10,6 +10,8 @@
     snowfall-lib = {
       url = "github:snowfallorg/lib";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-utils-plus.follows = "flake-utils-plus";
     };
 
     # config inputs
@@ -27,6 +29,8 @@
     nvim = {
       url = "github:cdmistman/nvim";
       inputs.fenix.follows = "fenix";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.neovim-nightly-overlay.follows = "neovim-nightly-overlay";
       inputs.nixd.follows = "nixd";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.tokyonight-nvim.follows = "tokyonight";
@@ -40,8 +44,45 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-compat.url = "github:edolstra/flake-compat";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+
+    flake-utils-plus = {
+      url = "github:gytis-ivaskevicius/flake-utils-plus";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     jujutsu = {
-      url = "github:martinvonz/jj/v0.14.0";
+      url = "github:martinvonz/jj/v0.15.1";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    neovim = {
+      url = "github:neovim/neovim/v0.9.5?dir=contrib";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.hercules-ci-effects.follows = "hercules-ci-effects";
+      inputs.neovim-flake.follows = "neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -52,6 +93,13 @@
 
     nixd = {
       url = "github:nix-community/nixd";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
