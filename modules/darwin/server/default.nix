@@ -16,6 +16,5 @@ in {
     nix.daemonIOLowPriority = true;
 
     # TODO: services.eternal-terminal.enable = true;
-    services.tailscale.enable = true;
   };
 }

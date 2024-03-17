@@ -110,7 +110,10 @@ in {
 
       eza = {
         enable = true;
-        enableAliases = true;
+        enableBashIntegration = true;
+        enableNushellIntegration = true;
+        enableZshIntegration = true;
+
         extraOptions = ["--group-directories-first"];
         icons = true;
         git = true;
@@ -154,10 +157,6 @@ in {
 
       jujutsu = {
         enable = true;
-        enableBashIntegration = false;
-        enableZshIntegration = false;
-
-        package = inputs.jujutsu.packages.${system}.jujutsu;
 
         settings = {
           git.auto-local-branch = true;

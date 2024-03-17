@@ -3,8 +3,7 @@
 
   inputs = {
     # kinda sick of git breaking semi-often tbh...
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-23.11-darwin";
-    # nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     # it's a snowfall flake
     snowfall-lib = {
@@ -16,7 +15,7 @@
 
     # config inputs
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -64,13 +63,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    jujutsu = {
-      url = "github:martinvonz/jj/v0.15.1";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-
     neovim = {
       url = "github:neovim/neovim/v0.9.5?dir=contrib";
       inputs.flake-utils.follows = "flake-utils";
@@ -96,12 +88,6 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = inputs:
@@ -113,9 +99,6 @@
       overlays = [
         inputs.fenix.overlays.default
         inputs.nixd.overlays.default
-        (super: self: {
-          inherit (inputs.jujutsu.packages.${super.stdenv.hostPlatform.system}) jujutsu;
-        })
       ];
 
       channels-config = {

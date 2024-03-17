@@ -49,6 +49,7 @@ in {
 
     # TODO: services.cachix-agent.enable = true;
     services.nix-daemon.enable = true;
+    services.tailscale.enable = true;
 
     users.users.colton = {
       createHome = true;
