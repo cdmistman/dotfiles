@@ -18,6 +18,7 @@ in {
 
       systemPackages = with pkgs; [
         cachix
+        nixVersions.nix_2_18
       ];
     };
 
@@ -35,11 +36,14 @@ in {
       ];
     };
 
-    nix.settings = {
-      auto-optimise-store = true;
-      experimental-features = "nix-command flakes";
-      sandbox = false;
-      trusted-users = ["root" "colton" "admin"];
+    nix = {
+      package = pkgs.nixVersions.nix_2_18;
+      settings = {
+        auto-optimise-store = true;
+        experimental-features = "nix-command flakes";
+        sandbox = false;
+        trusted-users = ["root" "colton" "admin"];
+      };
     };
 
     programs = {

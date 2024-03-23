@@ -6,11 +6,13 @@
   ...
 }: let
   inherit (inputs.home-manager.lib) hm;
-  inherit (lib) mkIf mkOption types;
+  inherit (lib) mkIf mkEnableOption types;
 in
-  # Thanks pperanich! https://github.com/nix-community/home-manager/issues/1341#issuecomment-1870352014
   {
-    config = mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    options.darwin-trampolines.enable = mkEnableOption "darwin-trampolines";
+
+    # Thanks pperanich! https://github.com/nix-community/home-manager/issues/1341#issuecomment-1870352014
+    config = mkIf config.darwin-trampolines.enable {
       home = {
         # Install MacOS applications to the user Applications folder. Also update Docked applications
         extraActivationPath = with pkgs; [

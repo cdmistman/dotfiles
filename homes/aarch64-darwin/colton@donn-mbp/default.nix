@@ -1,6 +1,6 @@
 {
-  mistman = {
-    profile.enable = true;
-    gui-apps.enable = true;
+  mistman.profile = {
+    enable = true;
+    gui-apps = true;
   };
 }

@@ -38,8 +38,6 @@ in {
       sessionVariables.EDITOR = "${cfg.package}/bin/nvim";
     };
 
-    programs.gh.settings.editor = "${cfg.package}/bin/nvim";
-
     xdg.configFile."nvim" = {
       enable = true;
       source = cfg.config.config-dir;

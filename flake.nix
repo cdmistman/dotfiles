@@ -99,6 +99,7 @@
       overlays = [
         inputs.fenix.overlays.default
         inputs.nixd.overlays.default
+        (import (inputs.home-manager + /overlay.nix))
       ];
 
       channels-config = {
