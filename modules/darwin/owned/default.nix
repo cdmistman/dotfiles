@@ -18,7 +18,7 @@ in {
 
       systemPackages = with pkgs; [
         cachix
-        nixVersions.nix_2_18
+        nixVersions.nix_2_21
       ];
     };
 
@@ -37,7 +37,7 @@ in {
     };
 
     nix = {
-      package = pkgs.nixVersions.nix_2_18;
+      package = pkgs.nixVersions.nix_2_21;
       settings = {
         auto-optimise-store = true;
         experimental-features = "nix-command flakes";

@@ -7,14 +7,14 @@
         name = "kitty-themes";
         buildCommand = ''
           mkdir -p $out/themes
-          for theme in ${inputs.tokyonight}/extras/kitty*; do
+          for theme in ${inputs.tokyonight}/extras/kitty/*; do
             local theme_name=$(basename $theme)
             ln -s $theme $out/themes/$theme_name
           done
         '';
       };
 
-      filterNix = path: _: lib.hasSuffix ".nix" path;
+      filterNix = path: _: ! lib.hasSuffix ".nix" path;
       here = builtins.filterSource filterNix ./.;
     in [themes here];
   };

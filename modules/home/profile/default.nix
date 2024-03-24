@@ -30,6 +30,7 @@ in {
 
   config = mkIf cfg.enable {
     editorconfig.enable = true;
+    xdg.enable = true;
 
     mistman = {
       nvim.enable = true;
