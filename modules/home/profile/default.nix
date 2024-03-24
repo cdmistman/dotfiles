@@ -181,42 +181,19 @@ in {
         enableZshIntegration = true;
       };
 
-      nushell = {
-        enable = true;
-        configFile.source = ./nu/config.nu;
-        envFile.source = ./nu/env.nu;
-        loginFile.source = ./nu/login.nu;
-      };
-
       skim = {
         enable = true;
         enableBashIntegration = true;
         enableZshIntegration = true;
-        defaultOptions = [
-          "--preview 'bat --color=always --line-range=:500 {}'"
+        defaultOptions = let
+          fzf_default_opts = pkgs.runCommand "FZF_DEFAULT_OPTS.txt" {} ''
+            source "${inputs.tokyonight}/extras/fzf/tokyonight_night.zsh"
+            echo "$FZF_DEFAULT_OPTS" >$out
+          '';
+        in [
+          (builtins.readFile fzf_default_opts)
+          # "--preview 'bat --color=always --line-range=:500 {}'"
         ];
-      };
-
-      ssh = {
-        enable = true;
-        # TODO: enable
-        # addKeysToAgent = "yes";
-        compression = true;
-
-        controlMaster = "auto";
-        controlPath = "~/.ssh/multiplexing/%r@%h:%p";
-        controlPersist = "2h";
-
-        hashKnownHosts = true;
-        includes = ["config.d/*"];
-
-        matchBlocks = {
-          github = {
-            hostname = "github.com";
-            port = 22;
-            user = "git";
-          };
-        };
       };
 
       zoxide = {
