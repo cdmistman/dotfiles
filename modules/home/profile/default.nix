@@ -13,6 +13,7 @@
   cfg = config.mistman.profile;
 in {
   imports = [
+    ./bat
     ./direnv.nix
     ./editorconfig.nix
     ./kitty
@@ -61,17 +62,10 @@ in {
         "$HOME/bin"
       ];
 
-      sessionVariables = {
-        MANPAGER = "sh -c 'col -bx | bat -l man -p'";
-        MANROFFOPT = "-c";
-        PAGER = "bat";
-      };
-
       shellAliases = {
         k = "clear";
         kn = "clear && printf '\\e[3J'";
         l = "ls";
-        man = "batman";
       };
     };
 
@@ -103,6 +97,7 @@ in {
     programs = {
       alacritty.enable = cfg.alacritty;
       bash.enable = true;
+      bat.enable = true;
       bottom.enable = true;
       direnv.enable = true;
       starship.enable = true;
@@ -112,17 +107,8 @@ in {
 
       bash = {
         enableCompletion = true;
-
         historyIgnore = [
           "exit"
-        ];
-      };
-
-      bat = {
-        enable = true;
-        extraPackages = with pkgs.bat-extras; [
-          batman
-          batgrep
         ];
       };
 
