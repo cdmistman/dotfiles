@@ -18,7 +18,7 @@ in {
     ./editorconfig.nix
     ./kitty
     ./ssh.nix
-    ./starship.nix
+    ./starship
     ./zsh.nix
   ];
 

@@ -1,4 +1,4 @@
-{ config, lib, ... }: lib.mkIf (config.mistman.profile.enable) {
+{ config, lib, pkgs, ... }: lib.mkIf (config.mistman.profile.enable) {
   programs.starship = {
     enableBashIntegration = true;
     enableNushellIntegration = true;
@@ -12,10 +12,10 @@
         "(\\[$username$hostname\\] )"
         + "$directory"
         + "$git_branch"
-        + "$git_metrics"
+        + "\${custom.jujutsu}"
+        + "\${custom.git_tracking}"
         + "$git_state"
-        + "$git_status"
-        + "$cmd_duration"
+        + " $cmd_duration"
         + "$line_break"
         + "$sudo"
         + "$jobs"
@@ -29,17 +29,19 @@
         vimcmd_symbol = "[❮](green)";
       };
       cmd_duration = {
-        format = "[$duration]($style) ";
+        format = "[$duration]($style)";
         style = "yellow";
       };
 
       directory = {
         style = "bright-blue";
+        format = "([$read_only]($read_only_style))[$path]($style)";
       };
 
       git_branch = {
-        format = "[$branch(:$remote_branch)]($style)";
+        format = "( [$branch(:$remote_branch)]($style))";
         style = "208";
+        only_attached = true;
       };
       git_metrics = {
         format = "([|](dimmed white)[+$added]($added_style)[-$deleted]($deleted_style))";
@@ -92,6 +94,23 @@
         format = "([$user]($style)@)";
         show_always = true;
         style_user = "bright-purple";
+      };
+
+      custom.git_tracking = {
+        shell = ["${pkgs.bash}/bin/bash" "-c"];
+        command = ''echo -e "$(git ls-files -dkmot --exclude-standard --deduplicate | jq -Rrsf ${./git_tracking.jq})"'';
+        description = "short description of the counted *file* state in a git repo";
+        when = true;
+        require_repo = true;
+        format = "([|](dimmed white)$output)";
+      };
+
+      custom.jujutsu = {
+        shell = ["${pkgs.bash}/bin/bash" "-c"];
+        command = "jj log --color always --no-pager -r @ --no-graph -T 'concat(builtin_change_id_with_hidden_and_divergent_info, \" \", local_branches.join(\" \"))'";
+        description = "jujutsu-related information";
+        when = "jj root";
+        format = "([|](dimmed white)$output)";
       };
     };
   };
