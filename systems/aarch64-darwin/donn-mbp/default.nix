@@ -1,6 +1,11 @@
 {
-  mistman = {
-    macbook.enable = true;
-    owned.enable = true;
+  mistman.profile.enable = true;
+
+  users.users.admin = {
+    createHome = true;
+  };
+
+  users.users.colton = {
+    createHome = false;
   };
 }

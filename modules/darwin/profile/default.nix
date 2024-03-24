@@ -1,30 +1,23 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config, lib, pkgs, ... }:
+
+let
   inherit (lib) mkEnableOption mkIf;
 
-  cfg = config.mistman.owned;
-in {
-  options.mistman.owned = {
-    enable = mkEnableOption "configurations for my owned darwin machines";
+  cfg = config.mistman.profile;
+in
+
+{
+  options.mistman.profile = {
+    enable = mkEnableOption "Enable mistman's darwin system standard profile";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     environment = {
       loginShell = "/bin/zsh";
-
-      systemPackages = with pkgs; [
-        cachix
-        nixVersions.nix_2_21
-      ];
     };
 
     fonts = {
       fontDir.enable = true;
-
       fonts = [
         (pkgs.nerdfonts.override {
           fonts = [
@@ -42,7 +35,7 @@ in {
         auto-optimise-store = true;
         experimental-features = "nix-command flakes";
         sandbox = false;
-        trusted-users = ["root" "colton" "admin"];
+        trusted-users = [ "root" "colton" "admin" ];
       };
     };
 
@@ -51,22 +44,32 @@ in {
       zsh.enable = true;
     };
 
-    # TODO: services.cachix-agent.enable = true;
+    security.pam.enableSudoTouchIdAuth = true;
+
     services.nix-daemon.enable = true;
     services.tailscale.enable = true;
 
+    system.keyboard = {
+      enableKeyMapping = true;
+      remapCapsLockToEscape = true;
+    };
+
+    users.users.admin = {
+      description = "Admin user";
+      home = "/Users/admin";
+      isHidden = false;
+    };
+
     users.users.colton = {
-      createHome = true;
       description = "coolton";
       gid = 20;
       home = "/Users/colton";
+      shell = "${pkgs.zsh}/bin/zsh";
+      uid = 601;
 
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMO+PKzr+JszoCzGtsvMH1tdNwRucTuRcKysPx1fTDmp colton@donn.io"
       ];
-
-      shell = "${pkgs.zsh}/bin/zsh";
-      uid = 601;
     };
 
     system.defaults = {
