@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   mistman = {
     macbook.enable = true;
     owned.enable = true;

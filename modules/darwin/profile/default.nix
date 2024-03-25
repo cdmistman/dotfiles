@@ -1,12 +1,13 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkIf;
 
   cfg = config.mistman.profile;
-in
-
-{
+in {
   options.mistman.profile = {
     enable = mkEnableOption "Enable mistman's darwin system standard profile";
   };
@@ -35,7 +36,7 @@ in
         auto-optimise-store = true;
         experimental-features = "nix-command flakes";
         sandbox = false;
-        trusted-users = [ "root" "colton" "admin" ];
+        trusted-users = ["root" "colton" "admin"];
       };
     };
 

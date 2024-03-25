@@ -1,4 +1,11 @@
-{ config, inputs, lib, pkgs, ... }: lib.mkIf config.mistman.profile.enable {
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.mistman.profile.enable {
   home = {
     sessionVariables.MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     sessionVariables.MANROFFOPT = "-c";
@@ -23,9 +30,10 @@
 
     filterNix = path: _: ! lib.hasSuffix ".nix" path;
     here = builtins.filterSource filterNix ./.;
-  in pkgs.symlinkJoin {
-    name = "bat-config";
-    recursive = true;
-    paths = [ tokyonight-themes here ];
-  };
+  in
+    pkgs.symlinkJoin {
+      name = "bat-config";
+      recursive = true;
+      paths = [tokyonight-themes here];
+    };
 }

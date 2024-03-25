@@ -1,4 +1,9 @@
-{ config, lib, ... }: lib.mkIf (config.mistman.profile.enable) {
+{
+  config,
+  lib,
+  ...
+}:
+lib.mkIf (config.mistman.profile.enable) {
   programs.direnv = {
     enableBashIntegration = true;
     enableNushellIntegration = true;
@@ -18,4 +23,3 @@
     };
   };
 }
-

@@ -1,4 +1,9 @@
-{ config, lib, ... }: lib.mkIf (config.mistman.profile.alacritty) {
+{
+  config,
+  lib,
+  ...
+}:
+lib.mkIf (config.mistman.profile.alacritty) {
   programs.alacritty = let
     setMods = mods:
       builtins.map (

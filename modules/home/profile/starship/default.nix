@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: lib.mkIf (config.mistman.profile.enable) {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf (config.mistman.profile.enable) {
   programs.starship = {
     enableBashIntegration = true;
     enableNushellIntegration = true;

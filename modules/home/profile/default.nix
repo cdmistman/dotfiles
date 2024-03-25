@@ -24,9 +24,9 @@ in {
 
   options.mistman.profile = {
     enable = mkEnableOption "my home dir configuration";
-    alacritty = mkEnableOption "alacritty package" // { default = cfg.enable; };
+    alacritty = mkEnableOption "alacritty package" // {default = cfg.enable;};
     gui-apps = mkEnableOption "GUI application packages";
-    vscode = mkEnableOption "vscode package" // { default = cfg.enable; };
+    vscode = mkEnableOption "vscode package" // {default = cfg.enable;};
   };
 
   config = mkIf cfg.enable {
@@ -42,21 +42,22 @@ in {
       username = "colton";
 
       packages = with pkgs; ([
-        cachix
-        comma
-        du-dust
-        fd
-        home-manager
-        jless
-        jq
-        procs
-        ripgrep
-        sd
-        tokei
-      ] ++ optionals cfg.gui-apps [
-        kitty
-        obsidian
-      ]);
+          cachix
+          comma
+          du-dust
+          fd
+          home-manager
+          jless
+          jq
+          procs
+          ripgrep
+          sd
+          tokei
+        ]
+        ++ optionals cfg.gui-apps [
+          kitty
+          obsidian
+        ]);
 
       sessionPath = [
         "$HOME/bin"

@@ -1,4 +1,9 @@
-{ config, lib, ... }: lib.mkIf (config.mistman.profile.enable) {
+{
+  config,
+  lib,
+  ...
+}:
+lib.mkIf (config.mistman.profile.enable) {
   editorconfig.settings = {
     "*" = {
       charset = "utf-8";

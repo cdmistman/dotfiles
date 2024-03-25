@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: lib.mkIf (config.mistman.profile.enable) {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf (config.mistman.profile.enable) {
   programs.zsh = {
     enable = true;
     autosuggestion.enable = true;
