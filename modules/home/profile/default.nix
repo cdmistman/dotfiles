@@ -64,6 +64,10 @@ in {
         "$HOME/bin"
       ];
 
+      sessionVariables = {
+        PAGER = "less -RF";
+      };
+
       shellAliases = {
         k = "clear";
         kn = "clear && printf '\\e[3J'";
