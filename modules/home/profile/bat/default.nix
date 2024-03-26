@@ -9,7 +9,6 @@ lib.mkIf config.mistman.profile.enable {
   home = {
     sessionVariables.MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     sessionVariables.MANROFFOPT = "-c";
-    sessionVariables.PAGER = "bat";
     shellAliases.man = "batman";
   };
 

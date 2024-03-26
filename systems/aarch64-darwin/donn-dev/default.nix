@@ -1,36 +1,46 @@
 {pkgs, ...}: {
   mistman = {
+    profile.enable = true;
     owned.enable = true;
     server.enable = true;
   };
 
-  # NOTE: append-only
-  users.knownGroups = ["colton" "commptonn"];
-  users.knownUsers = ["colton" "commptonn"];
+  users = {
+    # NOTE: append-only
+    knownGroups = ["colton" "commptonn"];
+    groups.colton = {
+      description = "colton";
+      gid = 601;
+      members = ["colton"];
+    };
 
-  users.groups.colton = {
-    description = "colton";
-    gid = 601;
-    members = ["colton"];
-  };
+    groups.commptonn = {
+      description = "commptonn";
+      gid = 602;
+      members = ["commptonn"];
+    };
 
-  users.groups.commptonn = {
-    description = "commptonn";
-    gid = 602;
-    members = ["commptonn"];
-  };
+    knownUsers = ["colton" "commptonn"];
+    users.admin = {
+      createHome = false;
+    };
 
-  users.users.commptonn = {
-    createHome = true;
-    description = "commptonn";
-    gid = 20;
-    home = "/Users/commptonn";
+    users.colton = {
+      createHome = true;
+    };
 
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArYAmI4x/5cPMc1D3EkOMfDex9F8LOoe3Mnap04JZv4 root@ignite"
-    ];
+    users.commptonn = {
+      createHome = true;
+      description = "commptonn";
+      gid = 20;
+      home = "/Users/commptonn";
 
-    shell = "${pkgs.zsh}/bin/zsh";
-    uid = 602;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIArYAmI4x/5cPMc1D3EkOMfDex9F8LOoe3Mnap04JZv4 root@ignite"
+      ];
+
+      shell = "${pkgs.zsh}/bin/zsh";
+      uid = 602;
+    };
   };
 }

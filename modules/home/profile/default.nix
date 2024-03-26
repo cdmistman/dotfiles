@@ -13,6 +13,7 @@
   cfg = config.mistman.profile;
 in {
   imports = [
+    ./alacritty.nix
     ./bat
     ./direnv.nix
     ./editorconfig.nix
@@ -100,10 +101,18 @@ in {
       bash.enable = true;
       bat.enable = true;
       bottom.enable = true;
+      eza.enable = true;
+      gh.enable = true;
+      git.enable = true;
+      jujutsu.enable = true;
       direnv.enable = true;
+      nix-index.enable = true;
+      skim.enable = true;
+      ssh.enable = true;
       starship.enable = true;
       tealdeer.enable = true;
       vscode.enable = cfg.vscode;
+      zoxide.enable = true;
       zsh.enable = true;
 
       bash = {
@@ -114,7 +123,6 @@ in {
       };
 
       eza = {
-        enable = true;
         enableBashIntegration = true;
         enableNushellIntegration = true;
         enableZshIntegration = true;
@@ -124,7 +132,6 @@ in {
       };
 
       gh = {
-        enable = true;
         gitCredentialHelper.enable = true;
 
         settings = {
@@ -134,7 +141,6 @@ in {
       };
 
       git = {
-        enable = true;
         userEmail = email;
         userName = name;
 
@@ -158,32 +164,28 @@ in {
         ];
       };
 
-      jujutsu = {
-        enable = true;
-
-        settings.git = {
+      jujutsu.settings = {
+        git = {
           auto-local-branch = true;
           push-branch-prefix = "cad/push-";
         };
 
-        settings.ui = {
+        ui = {
           default-command = "status";
           editor = "nvim";
         };
 
-        settings.user = {
+        user = {
           inherit email name;
         };
       };
 
       nix-index = {
-        enable = true;
         enableBashIntegration = true;
         enableZshIntegration = true;
       };
 
       skim = {
-        enable = true;
         enableBashIntegration = true;
         enableZshIntegration = true;
         defaultOptions = let
@@ -198,7 +200,6 @@ in {
       };
 
       zoxide = {
-        enable = true;
         enableBashIntegration = true;
         enableNushellIntegration = true;
         enableZshIntegration = true;

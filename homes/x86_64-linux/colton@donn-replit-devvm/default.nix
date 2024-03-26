@@ -1,5 +1,5 @@
 {
-  mistman = {
-    profile.enable = true;
+  mistman.profile = {
+    enable = true;
   };
 }
