@@ -1,9 +1,5 @@
 {pkgs, ...}: {
-  mistman = {
-    profile.enable = true;
-    owned.enable = true;
-    server.enable = true;
-  };
+  mistman.profile.enable = true;
 
   users = {
     # NOTE: append-only
@@ -42,5 +38,13 @@
       shell = "${pkgs.zsh}/bin/zsh";
       uid = 602;
     };
+  };
+
+  powermanager = {
+    autorestart = 1;
+    displaysleep = 0;
+    powernap = 0;
+    sleep = 0;
+    standby = 0;
   };
 }
