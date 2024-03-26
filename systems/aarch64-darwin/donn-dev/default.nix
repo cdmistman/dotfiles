@@ -1,6 +1,13 @@
 {pkgs, ...}: {
   mistman.profile.enable = true;
 
+  services = {
+    gerrit = {
+      enable = true;
+      serverId = "400b6772-188d-4c21-8311-806fdfd7c84d";
+    };
+  };
+
   users = {
     # NOTE: append-only
     knownGroups = ["colton" "commptonn"];
