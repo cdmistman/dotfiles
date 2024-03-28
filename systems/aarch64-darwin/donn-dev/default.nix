@@ -1,6 +1,14 @@
 {pkgs, ...}: {
   mistman.profile.enable = true;
 
+  tailscale = {
+    enable = true;
+    up = {
+      authKey = "$DONN_DEV_TAILSCALE_AUTH_KEY";
+      ssh = true;
+    };
+  };
+
   users = {
     # NOTE: append-only
     knownGroups = ["colton" "commptonn"];

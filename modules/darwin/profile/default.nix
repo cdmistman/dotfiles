@@ -13,6 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    tailscale.enable = true;
+
     environment = {
       loginShell = "/bin/zsh";
     };
@@ -48,7 +50,7 @@ in {
     security.pam.enableSudoTouchIdAuth = true;
 
     services.nix-daemon.enable = true;
-    services.tailscale.enable = true;
+    services.tailscale.enable = false;
 
     system.keyboard = {
       enableKeyMapping = true;
