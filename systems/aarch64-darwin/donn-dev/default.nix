@@ -1,6 +1,15 @@
 {pkgs, ...}: {
   mistman.profile.enable = true;
 
+  launchd.daemons.tailscaled = {
+    serviceConfig = {
+      KeepAlive = true;
+      LowPriorityBackgroundIO = false;
+      LowPriorityIO = false;
+      ProcessType = "Interactive";
+    };
+  };
+
   users = {
     # NOTE: append-only
     knownGroups = ["colton" "commptonn"];
