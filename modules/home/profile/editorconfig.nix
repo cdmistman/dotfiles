@@ -26,7 +26,7 @@ lib.mkIf (config.mistman.profile.enable) {
       indent_style = "space";
     };
 
-    "*.zig\.*" = {
+    "*.{zig,zon}" = {
       indent_style = "space";
       indent_size = 4;
     };

@@ -99,7 +99,7 @@ M.opts = {
 
 	tsserver = {},
 
-	zig = {},
+	zls = {},
 }
 
 local pathlib = require('plenary.path')
@@ -131,7 +131,6 @@ M.opts.lua_ls = {
 vim.g.rustaceanvim = {
 	server = {
 		capabilities = vim.g.lsp_capabilities or nil,
-		cmd = {},
 		default_settings = {
 			['rust-analyzer'] = {
 				cargo = {

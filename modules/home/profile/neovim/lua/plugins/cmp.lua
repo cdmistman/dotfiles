@@ -45,7 +45,7 @@ function M:opts(cmp)
 				fallback()
 			end
 		end),
-		['\\'] = cmp.mapping(function(fallback)
+		['<BS>'] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.close()
 			else

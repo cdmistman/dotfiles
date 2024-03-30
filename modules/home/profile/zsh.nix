@@ -38,8 +38,8 @@ lib.mkIf (config.mistman.profile.enable) {
       }
     ];
 
-    shellGlobalAliases = {
-      "-- --help" = "--help 2>&1 | bat --language=help --style=plain";
-    };
+    # shellGlobalAliases = {
+    #   "-- --help" = "--help 2>&1 | bat --language=help --style=plain";
+    # };
   };
 }
