@@ -35,7 +35,7 @@ let
     stat $packDir >/dev/null || exit 127
     ${concatLines
       (mapAttrsToList
-        (name: plugin: "cp -R ${plugin} $packDir/${name}")
+        (name: plugin: "ln -s ${plugin} $packDir/${name}")
         (mapAttrs build-plugin cfg.plugins))}
 
     set +ex
@@ -86,6 +86,12 @@ in
       type = types.listOf types.package;
       default = [];
       description = "Package containing an extra fallback PATH entry.";
+    };
+
+    parsers = mkOption {
+      type = types.listOf types.package;
+      description = "The tree-sitter parsers to make available.";
+      default = [];
     };
 
     plugins = mkOption {

@@ -69,7 +69,6 @@ function M:config(opts, main)
 end
 
 M.opts = {
-	-- let `clangd` be used from the env since i think it's tied to the actual toolchain?
 	clangd = {},
 
 	cssls = {},
@@ -86,9 +85,6 @@ M.opts = {
 
 	jsonls = {},
 
-	-- TODO: markdown lsp using vscode's lsp server
-	-- markdown = {},
-
 	marksman = {},
 
 	nixd = {},
@@ -102,11 +98,12 @@ M.opts = {
 	taplo = {},
 
 	tsserver = {},
+
+	zig = {},
 }
 
 local pathlib = require('plenary.path')
 M.opts.lua_ls = {
-	cmd = { },
 	on_init = function(client)
 		local path = pathlib.new(client.workspace_folders[1].name)
 		if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
