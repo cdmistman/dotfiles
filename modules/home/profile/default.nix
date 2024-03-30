@@ -18,6 +18,7 @@ in {
     ./direnv.nix
     ./editorconfig.nix
     ./kitty
+    ./neovim
     ./ssh.nix
     ./starship
     ./zsh.nix
@@ -33,10 +34,6 @@ in {
   config = mkIf cfg.enable {
     editorconfig.enable = true;
     xdg.enable = true;
-
-    mistman = {
-      nvim.enable = true;
-    };
 
     home = {
       stateVersion = "23.11";
