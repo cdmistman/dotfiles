@@ -16,6 +16,7 @@ return {
 		},
 	},
 
+	-- TODO: i don't like the notification windows
 	opts = {
 		lsp = {
 			override = {

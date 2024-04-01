@@ -1,18 +1,28 @@
 vim.g.editorconfig = true
 vim.g.mapleader = ' '
+-- TODO: i should set some buffer-local mappings
 vim.g.maplocalleader = ' '
 
-vim.opt.clipboard = 'unnamedplus'
+-- TODO: include lines seem handy, needs buffer-local handling
+-- TODO: set some more options
+-- TODO: for some reason /matching highlighting is broken when lsps are loading
 vim.opt.cursorline = true
+vim.opt.hlsearch = false
+vim.opt.list = true
+vim.opt.magic = false
 vim.opt.number = true
+vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
+vim.opt.sol = true
 vim.opt.termguicolors = true
 
+-- TODO: throw this plugin management crap in its own plugin
 local log = require('log')
 local Util = require('util')
 
 local plugins = {}
 
+-- TODO: add `bufsetup` family
 local function addPlugin(cfg)
 	if type(cfg) ~= 'table' then
 		log.err('plugin config should be a table')

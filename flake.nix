@@ -124,8 +124,8 @@
       flake = false;
     };
 
-    cmp-vsnip = {
-      url = "github:hrsh7th/cmp-vsnip";
+    cmp_luasnip = {
+      url = "github:saadparwaiz1/cmp_luasnip";
       flake = false;
     };
 
@@ -156,6 +156,11 @@
 
     hydra-nvim = {
       url = "github:anuvyklack/hydra.nvim";
+      flake = false;
+    };
+
+    luasnip = {
+      url = "github:L3MON4D3/LuaSnip/v2.2.0";
       flake = false;
     };
 
@@ -246,11 +251,6 @@
 
     todo-comments-nvim = {
       url = "github:folke/todo-comments.nvim";
-      flake = false;
-    };
-
-    vim-vsnip = {
-      url = "github:hrsh7th/vim-vsnip";
       flake = false;
     };
 

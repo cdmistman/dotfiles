@@ -227,17 +227,17 @@ lib.mkIf config.mistman.profile.enable {
       inherit
         (inputs)
         cmp-buffer
+        cmp_luasnip
         cmp-nvim-lsp
         cmp-nvim-lsp-document-symbol
         cmp-nvim-lsp-signature-help
-        cmp-vsnip
         copilot-cmp
+        luasnip
         nvim-cmp
         nvim-lspconfig
         nvim-notify
         nvim-treesitter-context
         nvim-web-devicons
-        vim-vsnip
         ;
 
       "aerial.nvim" = inputs.aerial-nvim;

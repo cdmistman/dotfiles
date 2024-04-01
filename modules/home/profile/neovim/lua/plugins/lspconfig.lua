@@ -8,7 +8,7 @@ local M = {
 	},
 }
 
-function buf_load_lsp_keymap(ev)
+local function buf_load_lsp_keymap(ev)
 	local wk = require('which-key')
 
 	local function code_format()
@@ -91,6 +91,8 @@ M.opts = {
 
 	nushell = {},
 
+	rust_analyzer = {},
+
 	svelte = {},
 
 	tailwindcss = {},
@@ -127,25 +129,25 @@ M.opts.lua_ls = {
 	end,
 }
 
--- rustaceanvim doesn't use setup() args
-vim.g.rustaceanvim = {
-	server = {
-		capabilities = vim.g.lsp_capabilities or nil,
-		default_settings = {
-			['rust-analyzer'] = {
-				cargo = {
-					features = "all",
-					targetDir = true,
-				},
-				files = {
-					excludeDirs = {
-						".direnv",
-						"result",
-					},
-				},
-			},
-		},
-	},
-}
+-- -- rustaceanvim doesn't use setup() args
+-- vim.g.rustaceanvim = {
+-- 	server = {
+-- 		capabilities = vim.g.lsp_capabilities or nil,
+-- 		default_settings = {
+-- 			['rust-analyzer'] = {
+-- 				cargo = {
+-- 					features = "all",
+-- 					targetDir = true,
+-- 				},
+-- 				files = {
+-- 					excludeDirs = {
+-- 						".direnv",
+-- 						"result",
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- }
 
 return M

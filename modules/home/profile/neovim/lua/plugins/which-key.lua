@@ -10,6 +10,7 @@ function M:pre_setup_hook()
 	vim.o.timeoutlen = 300
 end
 
+-- TODO: it's so much more natural to do verb-noun
 function M:post_setup_hook(wk)
 	wk.register({
 		f = { name = '+file' },
@@ -30,6 +31,7 @@ function M:post_setup_hook(wk)
 	wk.register({
 		name = '+help',
 		d = { '<cmd>helpc<cr>', 'close' },
+		k = { '<cmd>WhichKey<cr>', 'keybindings' },
 	}, {
 		prefix = '<leader>h',
 	})
