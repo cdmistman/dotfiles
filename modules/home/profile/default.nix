@@ -154,6 +154,8 @@ in {
         };
 
         extraConfig = {
+          core.fsmonitor = true;
+          core.untrackedcache = true;
           init.defaultBranch = "main";
           pull.rebase = false;
           push.autoSetupRemote = true;
