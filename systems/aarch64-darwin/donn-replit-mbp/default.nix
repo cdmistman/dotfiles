@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   mistman.profile.enable = true;
 
   users.users.admin = {
