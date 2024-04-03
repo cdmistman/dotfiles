@@ -159,6 +159,11 @@
       flake = false;
     };
 
+    lspkind-nvim = {
+      url = "github:onsails/lspkind.nvim";
+      flake = false;
+    };
+
     luasnip = {
       url = "github:L3MON4D3/LuaSnip/v2.2.0";
       flake = false;
@@ -226,11 +231,6 @@
 
     plenary-nvim = {
       url = "github:nvim-lua/plenary.nvim";
-      flake = false;
-    };
-
-    rustaceanvim = {
-      url = "github:mrcjkb/rustaceanvim/4.13.0";
       flake = false;
     };
 

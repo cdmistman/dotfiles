@@ -1,18 +1,18 @@
+--[[TODO: filter out functions marked deprecated???]]
+
 local M = {
 	'nvim-cmp',
 	main = 'cmp',
 	event = 'VeryLazy',
 
 	dependencies = {
-		{
-			'cmp-nvim-lsp',
-		},
+		{ 'cmp-nvim-lsp' },
 		{
 			'copilot-cmp',
 			dependencies = { 'copilot.lua' },
 			main = 'copilot_cmp',
 			config = true,
-		}
+		},
 	},
 }
 
@@ -23,7 +23,21 @@ local function has_words_before()
 end
 
 function M:opts(cmp)
-	local mapping = {
+	local lspkind = require('lspkind')
+	local opts = {}
+
+	opts.formatting = {
+		format = lspkind.cmp_format({
+			mode = 'symbol',
+			maxwidth = 20,
+			menu = {
+				luasnip = '[Snip]',
+				nvim_lsp = '[LSP]',
+			},
+		})
+	}
+
+	opts.mapping = {
 		['<CR>'] = cmp.mapping({
 			i = function(fallback)
 				if cmp.visible() and cmp.get_selected_entry() then
@@ -73,27 +87,31 @@ function M:opts(cmp)
 		end),
 	}
 
-	local snippet = {
+	opts.snippet = {
 		expand = function(args)
-			vim.fn['vsnip#anonymous'](args.body)
+			require('luasnip').lsp_expand(args.body)
 		end,
 	}
 
-	local sources = cmp.config.sources({
+	opts.sources = cmp.config.sources({
 		{ name = 'copilot' },
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lsp_signature_help' },
-		{ name = 'vsnip' },
+		{ name = 'luasnip' },
 	}, {
 		{ name = 'buffer' }
 	})
 
-	return {
-		mapping = mapping,
-		snippet = snippet,
-		sources = sources,
-		window = {},
+	opts.view = {
+		entries = {
+			name = 'custom',
+			selection_order = 'near_cursor',
+		},
 	}
+
+	opts.window = {}
+
+	return opts
 end
 
 function M:post_setup_hook()

@@ -195,6 +195,18 @@ let
 
     set +ex
   '';
+
+  typescript-language-server = pkgs.nodePackages_latest.typescript-language-server.override {
+    nativeBuildInputs = [ ];
+
+    # fix the symlinkJoin used for fallback tools
+    postInstall = ''
+      bin_dir=$(readlink $out/bin)
+      unlink $out/bin
+      mkdir -p $out/bin
+      find $bin_dir | xargs -n 1 bash -c "ln -s $bin_dir/"'$0'" $out/bin"
+    '';
+  };
 in
 
 lib.mkIf config.mistman.profile.enable {
@@ -202,6 +214,9 @@ lib.mkIf config.mistman.profile.enable {
     enable = true;
     tools = [];
     fallback-tools = [
+      # TODO: for some reason this breaks the fallback-tools dir
+      # typescript-language-server
+
       pkgs.gopls
       pkgs.haskell-language-server
       pkgs.lua-language-server
@@ -218,7 +233,6 @@ lib.mkIf config.mistman.profile.enable {
 
       pkgs.nodePackages_latest.graphql-language-service-cli
       pkgs.nodePackages_latest.svelte-language-server
-      pkgs.nodePackages_latest.typescript-language-server
     ];
 
     plugins = {
@@ -232,6 +246,7 @@ lib.mkIf config.mistman.profile.enable {
         cmp-nvim-lsp-document-symbol
         cmp-nvim-lsp-signature-help
         copilot-cmp
+        lspkind-nvim
         luasnip
         nvim-cmp
         nvim-lspconfig
@@ -254,7 +269,6 @@ lib.mkIf config.mistman.profile.enable {
       "peek.nvim" = inputs.peek-nvim;
       "persistence.nvim" = inputs.persistence-nvim;
       "plenary.nvim" = inputs.plenary-nvim;
-      "rustaceanvim" = inputs.rustaceanvim;
       "startup.nvim" = inputs.startup-nvim;
       "substitute.nvim" = inputs.substitute-nvim;
       "telescope.nvim" = inputs.telescope-nvim;
@@ -265,8 +279,5 @@ lib.mkIf config.mistman.profile.enable {
     };
   };
 
-  xdg.configFile.nvim = {
-    source = builtins.filterSource (path: _: ! lib.hasSuffix ".nix" path) ./.;
-    recursive = true;
-  };
+  xdg.configFile.nvim.source = builtins.filterSource (path: _: ! lib.hasSuffix ".nix" path) ./.;
 }

@@ -69,6 +69,8 @@ function M:config(opts, main)
 end
 
 M.opts = {
+	biome = {},
+
 	clangd = {},
 
 	cssls = {},

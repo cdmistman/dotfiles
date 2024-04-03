@@ -43,6 +43,7 @@ let
 
   fallback-tools-dir = pkgs.symlinkJoin {
     name = "vanillinvim-fallback-tools";
+    # paths = builtins.trace (lib.deepSeq (builtins.tryEval cfg.fallback-tools) cfg.fallback-tools) cfg.fallback-tools;
     paths = cfg.fallback-tools;
   };
 

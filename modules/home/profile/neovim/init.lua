@@ -9,12 +9,14 @@ vim.g.maplocalleader = ' '
 vim.opt.cursorline = true
 vim.opt.hlsearch = false
 vim.opt.list = true
+vim.opt.listchars = { lead = '␣', tab = '> ' }
 vim.opt.magic = false
 vim.opt.number = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.sol = true
 vim.opt.termguicolors = true
+vim.opt.wrapscan = false
 
 -- TODO: throw this plugin management crap in its own plugin
 local log = require('log')

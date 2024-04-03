@@ -575,6 +575,22 @@
         "type": "github"
       }
     },
+    "lspkind-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1704982040,
+        "narHash": "sha256-/QLdBU/Zwmkw1NGuLBD48tvrmIP9d9WHhgcLEQgRTWo=",
+        "owner": "onsails",
+        "repo": "lspkind.nvim",
+        "rev": "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "onsails",
+        "repo": "lspkind.nvim",
+        "type": "github"
+      }
+    },
     "luasnip": {
       "flake": false,
       "locked": {
@@ -1202,6 +1218,7 @@
         "hercules-ci-effects": "hercules-ci-effects",
         "home-manager": "home-manager",
         "hydra-nvim": "hydra-nvim",
+        "lspkind-nvim": "lspkind-nvim",
         "luasnip": "luasnip",
         "neo-tree-nvim": "neo-tree-nvim",
         "neoscroll-nvim": "neoscroll-nvim",
@@ -1222,7 +1239,6 @@
         "peek-nvim": "peek-nvim_2",
         "persistence-nvim": "persistence-nvim_2",
         "plenary-nvim": "plenary-nvim_2",
-        "rustaceanvim": "rustaceanvim_2",
         "snowfall-lib": "snowfall-lib",
         "startup-nvim": "startup-nvim_2",
         "substitute-nvim": "substitute-nvim_2",
@@ -1251,23 +1267,6 @@
       }
     },
     "rustaceanvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1710468696,
-        "narHash": "sha256-kd0IgnjkLWGgNE1WoY4w6WpTpZBkE/YH6Y1mbupHJFs=",
-        "owner": "mrcjkb",
-        "repo": "rustaceanvim",
-        "rev": "69a22c2ec63ab375190006751562b62ebb318250",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mrcjkb",
-        "ref": "4.13.0",
-        "repo": "rustaceanvim",
-        "type": "github"
-      }
-    },
-    "rustaceanvim_2": {
       "flake": false,
       "locked": {
         "lastModified": 1710468696,

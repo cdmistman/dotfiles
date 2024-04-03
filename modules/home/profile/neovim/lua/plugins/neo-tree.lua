@@ -8,11 +8,7 @@ local M = {
 		'plenary.nvim',
 	},
 
-	opts = {
-		window = {
-			position = 'float',
-		},
-	},
+	opts = {},
 }
 
 function M:post_setup_hook(neotree)
