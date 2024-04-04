@@ -7,13 +7,18 @@
   inherit (builtins) toString;
   inherit (lib) filterAttrs mapAttrsToList mkOption mkIf types;
 
-  mkPowerOption = opts: mkOption ({
-    type = types.nullOr types.int;
-    default = null;
-    defaultText = "null";
-  } // opts);
+  mkPowerOption = opts:
+    mkOption ({
+        type = types.nullOr types.int;
+        default = null;
+        defaultText = "null";
+      }
+      // opts);
 
-  pmset = { name, value }: "pmset -a ${name} ${toString value}";
+  pmset = {
+    name,
+    value,
+  }: "pmset -a ${name} ${toString value}";
 
   cfg = config.powermanager;
 in {

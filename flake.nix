@@ -88,6 +88,7 @@
 
       overlays = [
         inputs.fenix.overlays.default
+        inputs.neovim-nightly-overlay.overlays.default
         inputs.nixd.overlays.default
         (import (inputs.home-manager + /overlay.nix))
       ];
