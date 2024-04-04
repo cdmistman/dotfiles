@@ -18,7 +18,6 @@ in {
     ./direnv.nix
     ./editorconfig.nix
     ./kitty
-    ./neovim
     ./ssh.nix
     ./starship
     ./zsh.nix

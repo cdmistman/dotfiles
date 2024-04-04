@@ -93,8 +93,6 @@ M.opts = {
 
 	nushell = {},
 
-	rust_analyzer = {},
-
 	svelte = {},
 
 	tailwindcss = {},
@@ -131,25 +129,25 @@ M.opts.lua_ls = {
 	end,
 }
 
--- -- rustaceanvim doesn't use setup() args
--- vim.g.rustaceanvim = {
--- 	server = {
--- 		capabilities = vim.g.lsp_capabilities or nil,
--- 		default_settings = {
--- 			['rust-analyzer'] = {
--- 				cargo = {
--- 					features = "all",
--- 					targetDir = true,
--- 				},
--- 				files = {
--- 					excludeDirs = {
--- 						".direnv",
--- 						"result",
--- 					},
--- 				},
--- 			},
--- 		},
--- 	},
--- }
+-- rustaceanvim doesn't use setup() args
+vim.g.rustaceanvim = {
+	server = {
+		capabilities = vim.g.lsp_capabilities or nil,
+		default_settings = {
+			['rust-analyzer'] = {
+				cargo = {
+					features = "all",
+					targetDir = true,
+				},
+				files = {
+					excludeDirs = {
+						".direnv",
+						"result",
+					},
+				},
+			},
+		},
+	},
+}
 
 return M

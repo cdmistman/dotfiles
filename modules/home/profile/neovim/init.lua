@@ -1,7 +1,7 @@
 vim.g.editorconfig = true
 vim.g.mapleader = ' '
 -- TODO: i should set some buffer-local mappings
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = '\\'
 
 -- TODO: include lines seem handy, needs buffer-local handling
 -- TODO: set some more options

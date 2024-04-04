@@ -1,6 +1,11 @@
-{ config, inputs, lib, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  system,
+  ...
+}: let
   # overrides for out-of-date tree-sitter plugins from nixpkgs
   # since nixpkgs doesn't keep grammars constantly up-to-date but nvim-treesitter does
   # i don't feel like fixing *all* of the grammars and this is close enough for now
@@ -132,42 +137,49 @@ let
     sha256 = "sha256-uGuwE1eTVEkuosMfTeY2akHB+bJ5npWEwUv+23nhY9M=";
   };
 
-  override-ts-source = name: src: pkgs.tree-sitter-grammars."tree-sitter-${name}".overrideAttrs { src = pkgs.fetchFromGitHub src; };
-  overridden-ts-sources = builtins.listToAttrs (lib.mapAttrsToList (name: src: { name = "tree-sitter-${name}"; value = override-ts-source name src; }) tree-sitter-src-overrides);
-  overridden-tree-sitter-grammars = pkgs.tree-sitter.builtGrammars // overridden-ts-sources // {
-    # i don't care about these languages, i'd rather omit for now than keep getting these up to date
-    # TODO: niv
-    tree-sitter-devicetree = null;
-    tree-sitter-fennel = null;
-    tree-sitter-gdscript = null;
-    tree-sitter-latex = null;
-    tree-sitter-just = null;
-    tree-sitter-perl = null;
-    tree-sitter-php = null;
-    tree-sitter-ql-dbscheme = null;
-    tree-sitter-vue = null;
+  override-ts-source = name: src: pkgs.tree-sitter-grammars."tree-sitter-${name}".overrideAttrs {src = pkgs.fetchFromGitHub src;};
+  overridden-ts-sources = builtins.listToAttrs (lib.mapAttrsToList (name: src: {
+      name = "tree-sitter-${name}";
+      value = override-ts-source name src;
+    })
+    tree-sitter-src-overrides);
+  overridden-tree-sitter-grammars =
+    pkgs.tree-sitter.builtGrammars
+    // overridden-ts-sources
+    // {
+      # i don't care about these languages, i'd rather omit for now than keep getting these up to date
+      # TODO: niv
+      tree-sitter-devicetree = null;
+      tree-sitter-fennel = null;
+      tree-sitter-gdscript = null;
+      tree-sitter-latex = null;
+      tree-sitter-just = null;
+      tree-sitter-perl = null;
+      tree-sitter-php = null;
+      tree-sitter-ql-dbscheme = null;
+      tree-sitter-vue = null;
 
-    # typescript is special
-    tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
-      src = tree-sitter-typescript-repo;
-    };
+      # typescript is special
+      tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
+        src = tree-sitter-typescript-repo;
+      };
 
-    tree-sitter-typescript = pkgs.tree-sitter-grammars."tree-sitter-typescript".overrideAttrs {
-      src = tree-sitter-typescript-repo;
-    };
+      tree-sitter-typescript = pkgs.tree-sitter-grammars."tree-sitter-typescript".overrideAttrs {
+        src = tree-sitter-typescript-repo;
+      };
 
-    # same with vimdoc
-    tree-sitter-vimdoc = pkgs.tree-sitter.buildGrammar {
-      language = "vimdoc";
-      version = "0.0.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "neovim";
-        repo = "tree-sitter-vimdoc";
-        rev = "a75a932449675bbd260213a95f4cd8b3193286f0";
-        sha256 = "sha256-spj8h1ZDY+6sWi+FCALapBsG+ig9H1u3bjkI2+UP0ds=";
+      # same with vimdoc
+      tree-sitter-vimdoc = pkgs.tree-sitter.buildGrammar {
+        language = "vimdoc";
+        version = "0.0.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "neovim";
+          repo = "tree-sitter-vimdoc";
+          rev = "a75a932449675bbd260213a95f4cd8b3193286f0";
+          sha256 = "sha256-spj8h1ZDY+6sWi+FCALapBsG+ig9H1u3bjkI2+UP0ds=";
+        };
       };
     };
-  };
 
   mk-treesitter-parser = parser: let
     name = lib.pipe parser [
@@ -197,7 +209,7 @@ let
   '';
 
   typescript-language-server = pkgs.nodePackages_latest.typescript-language-server.override {
-    nativeBuildInputs = [ ];
+    nativeBuildInputs = [];
 
     # fix the symlinkJoin used for fallback tools
     postInstall = ''
@@ -208,76 +220,45 @@ let
     '';
   };
 in
+  lib.mkIf config.mistman.profile.enable {
+    vanillinvim = {
+      enable = true;
+      tools = [];
+      fallback-tools = [
+        # TODO: for some reason this breaks the fallback-tools dir
+        # typescript-language-server
 
-lib.mkIf config.mistman.profile.enable {
-  vanillinvim = {
-    enable = true;
-    tools = [];
-    fallback-tools = [
-      # TODO: for some reason this breaks the fallback-tools dir
-      # typescript-language-server
+        pkgs.gopls
+        pkgs.haskell-language-server
+        pkgs.lua-language-server
+        pkgs.marksman
+        pkgs.nixd
+        pkgs.nodejs_20
+        pkgs.tailwindcss-language-server
+        pkgs.taplo
+        pkgs.vscode-langservers-extracted
+        pkgs.zls
 
-      pkgs.gopls
-      pkgs.haskell-language-server
-      pkgs.lua-language-server
-      pkgs.marksman
-      pkgs.nixd
-      pkgs.nodejs_20
-      pkgs.tailwindcss-language-server
-      pkgs.taplo
-      pkgs.vscode-langservers-extracted
-      pkgs.zls
+        pkgs.fenix.stable.toolchain
+        pkgs.fenix.rust-analyzer
 
-      pkgs.fenix.stable.toolchain
-      pkgs.fenix.rust-analyzer
+        pkgs.nodePackages_latest.graphql-language-service-cli
+        pkgs.nodePackages_latest.svelte-language-server
+      ];
 
-      pkgs.nodePackages_latest.graphql-language-service-cli
-      pkgs.nodePackages_latest.svelte-language-server
-    ];
-
-    plugins = {
-      inherit nvim-treesitter;
-
-      inherit
-        (inputs)
-        cmp-buffer
-        cmp_luasnip
-        cmp-nvim-lsp
-        cmp-nvim-lsp-document-symbol
-        cmp-nvim-lsp-signature-help
-        copilot-cmp
-        lspkind-nvim
-        luasnip
-        nvim-cmp
-        nvim-lspconfig
-        nvim-notify
-        nvim-treesitter-context
-        nvim-web-devicons
-        ;
-
-      "aerial.nvim" = inputs.aerial-nvim;
-      "bufferline.nvim" = inputs.bufferline-nvim;
-      "comment.nvim" = inputs.comment-nvim;
-      "copilot.lua" = inputs.copilot-lua;
-      "direnv.vim" = inputs.direnv-vim;
-      "flash.nvim" = inputs.flash-nvim;
-      "hydra.nvim" = inputs.hydra-nvim;
-      "neoscroll.nvim" = inputs.neoscroll-nvim;
-      "neo-tree.nvim" = inputs.neo-tree-nvim;
-      "noice.nvim" = inputs.noice-nvim;
-      "nui.nvim" = inputs.nui-nvim;
-      "peek.nvim" = inputs.peek-nvim;
-      "persistence.nvim" = inputs.persistence-nvim;
-      "plenary.nvim" = inputs.plenary-nvim;
-      "startup.nvim" = inputs.startup-nvim;
-      "substitute.nvim" = inputs.substitute-nvim;
-      "telescope.nvim" = inputs.telescope-nvim;
-      "todo-comments.nvim" = inputs.todo-comments-nvim;
-      "tokyonight.nvim" = inputs.tokyonight;
-      "which-key.nvim" = inputs.which-key-nvim;
-      "yanky.nvim" = inputs.yanky-nvim;
+      plugins = {
+        "tokyonight.nvim" = inputs.tokyonight;
+      } // import ./nix/sources.nix {
+        inherit pkgs system;
+      };
     };
-  };
 
-  xdg.configFile.nvim.source = builtins.filterSource (path: _: ! lib.hasSuffix ".nix" path) ./.;
-}
+    xdg.configFile.nvim.source =
+      builtins.filterSource
+      (path: type: let
+        is-nix-dir = (type == "directory") && (builtins.baseNameOf path == "nix");
+        is-default-nix-file = builtins.baseNameOf path == "default.nix";
+      in
+        !is-nix-dir && !is-default-nix-file)
+      ./.;
+  }
