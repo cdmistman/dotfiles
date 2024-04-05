@@ -76,8 +76,12 @@ local function addPlugin(cfg)
 		local module = nil
 		if cfg['opts'] ~= nil or (cfg['config'] ~= false and cfg['config'] ~= nil) then
 			local main = cfg.main or pluginName
-			main = main:match('(.*)%..*') or main
-			module = require(main)
+			if main == false then
+				main = nil
+			else
+				main = main:match('(.*)%..*') or main
+				module = require(main)
+			end
 
 			local opts = cfg['opts'] or {}
 			if type(opts) == 'function' then
@@ -86,7 +90,7 @@ local function addPlugin(cfg)
 
 			if type(cfg['config']) == 'function' then
 				cfg:config(opts, main)
-			else
+			elseif module ~= nil then
 				module.setup(opts)
 			end
 		end
@@ -167,7 +171,13 @@ Util.walkmods(
 	thisdir .. "lua/plugins",
 	function(modname, modpath)
 		log.debug('loading config ' .. modname .. ' at ' .. modpath)
-		addPlugin(require(modname))
+		local plugin = require(modname)
+		if plugin[1] == nil then
+			log.warn('plugin at ' .. modpath .. ' has no name!')
+			return
+		end
+
+		addPlugin(plugin)
 	end,
 	'plugins'
 )

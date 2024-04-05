@@ -1,0 +1,93 @@
+snippet ignore "ignore a variable"
+	_ = ${1:ignore};
+
+snippet const "const variable"
+	const ${1:variable_name} = ${2:expression};
+
+snippet constr "const reference"
+	const ${1:variable_name} = &${2:expression};
+
+snippet var "mutable variable"
+	var ${1:variable_name} = ${2:expression};
+
+snippet varr "mutable reference"
+	var ${1:variable_name} = &${2:expression};
+
+snippet lblock "labeled block"
+	${1:label}: {
+		${0:expression}
+	}
+
+snippet block "block"
+	{
+		${0:expression}
+	}
+
+snippet capture "capture expression"
+	|${1:capture}| ${0:expression}
+
+snippet catch "catch expression"
+	catch ${1:expression}
+
+snippet err "error expression"
+	error.${1:ErrorName}
+
+snippet for "for loop"
+	for (${1:iterator}) $0
+
+snippet while "while loop"
+	while (${1:condition}) $0
+
+snippet multi "multi"
+	${1:expression}, ${2:expression}
+
+snippet if "if expression"
+	if (${1:condition}) $0
+
+snippet else "else"
+	else $0
+
+snippet elif "else if expression"
+	else if (${1:condition}) $0
+
+snippet try "try expression"
+	try ${1:expression};
+
+snippet orelse "orelse expression"
+	orelse ${2:unreachable}
+
+snippet or "or expression"
+	or ${2:unreachable}
+
+snippet range "range expression"
+	${1:start}..${2:end}
+
+snippet _ "shadow statement"
+	_ = ${0:shadow};
+
+snippet defer "defer statement"
+	defer ${0:expression};
+
+snippet deferd "defer .deinit()"
+	defer ${0:variable}.deinit();
+
+snippet importstd "import std"
+	const std = @import("std");
+
+snippet importmod "import module"
+	const ${1:module_name} = @import("$0${1:module}.zig");
+
+snippet fn "function"
+	/// ${5:docstring}
+	fn ${1:function_name}(${2:parameters}) ${3:return_type} {
+	    ${4:body}
+	}
+
+snippet switch "switch statement"
+	switch (${1:expression}) {
+		${2:case1} => ${3:case1_handler},
+		else => ${0:unreachable},
+	}
+
+snippet case "case"
+	${1:expression} => ${2:handler},

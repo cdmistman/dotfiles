@@ -29,7 +29,6 @@ function M:opts(cmp)
 	opts.formatting = {
 		format = lspkind.cmp_format({
 			mode = 'symbol',
-			maxwidth = 20,
 			menu = {
 				luasnip = '[Snip]',
 				nvim_lsp = '[LSP]',

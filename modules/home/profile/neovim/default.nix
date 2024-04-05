@@ -6,6 +6,8 @@
   system,
   ...
 }: let
+  inherit (lib) fileset;
+
   sources = import ./nix/sources.nix {
     inherit pkgs system;
   };
@@ -93,15 +95,15 @@
     // {
       # i don't care about these languages, i'd rather omit for now than keep getting these up to date
       # TODO: add these to niv lmao
-      tree-sitter-devicetree = null;
-      tree-sitter-fennel = null;
-      tree-sitter-gdscript = null;
-      tree-sitter-latex = null;
-      tree-sitter-just = null;
-      tree-sitter-perl = null;
-      tree-sitter-php = null;
-      tree-sitter-ql-dbscheme = null;
-      tree-sitter-vue = null;
+      # tree-sitter-devicetree = null;
+      # tree-sitter-fennel = null;
+      # tree-sitter-gdscript = null;
+      # tree-sitter-latex = null;
+      # tree-sitter-just = null;
+      # tree-sitter-perl = null;
+      # tree-sitter-php = null;
+      # tree-sitter-ql-dbscheme = null;
+      # tree-sitter-vue = null;
 
       # typescript is special
       tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
@@ -111,13 +113,6 @@
       tree-sitter-typescript = pkgs.tree-sitter-grammars."tree-sitter-typescript".overrideAttrs {
         src = sources.tree-sitter-typescript;
       };
-
-      # same with vimdoc
-      # tree-sitter-vimdoc = pkgs.tree-sitter.buildGrammar {
-      #   language = "vimdoc";
-      #   version = "0.0.0";
-      #   src = sources.tree-sitter-vimdoc;
-      # };
     };
 
   mk-treesitter-parser = parser: let
@@ -158,6 +153,9 @@
       find $bin_dir | xargs -n 1 bash -c "ln -s $bin_dir/"'$0'" $out/bin"
     '';
   };
+
+  vim-snippets = lib.sources.sourceFilesBySuffices sources.vim-snippets [".snippets"];
+  # vim-snippets = fileset.difference sources.vim-snippets.outPath (sources.vim-snippets + /plugin);
 in
   lib.mkIf config.mistman.profile.enable {
     vanillinvim = {
@@ -188,7 +186,7 @@ in
       plugins =
         {
           "tokyonight.nvim" = inputs.tokyonight;
-          inherit nvim-treesitter;
+          inherit nvim-treesitter vim-snippets;
         }
         // lib.genAttrs plugin-sources (plugin: sources.${plugin});
     };

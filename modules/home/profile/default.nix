@@ -42,7 +42,7 @@ in {
           cachix
           comma
           du-dust
-          fd
+          fswatch
           home-manager
           jless
           jq
