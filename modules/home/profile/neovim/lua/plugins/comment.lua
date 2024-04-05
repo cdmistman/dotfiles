@@ -4,4 +4,3 @@ return {
 	main = 'Comment',
 	config = true,
 }
-

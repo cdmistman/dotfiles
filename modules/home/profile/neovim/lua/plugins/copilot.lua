@@ -8,4 +8,3 @@ return {
 		suggestion = { enabled = false },
 	},
 }
-

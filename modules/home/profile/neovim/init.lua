@@ -101,7 +101,7 @@ local function addPlugin(cfg)
 		return
 	end
 
-	vim.api.nvim_create_autocmd({'User'}, {
+	vim.api.nvim_create_autocmd({ 'User' }, {
 		pattern = pluginName,
 		once = true,
 		nested = true,
@@ -179,4 +179,3 @@ vim.schedule(
 		})
 	end
 )
-

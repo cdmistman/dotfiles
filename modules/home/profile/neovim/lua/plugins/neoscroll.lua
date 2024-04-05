@@ -7,4 +7,3 @@ return {
 		mappings = { 'zt', 'zz', 'zb' },
 	},
 }
-

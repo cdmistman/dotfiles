@@ -3,4 +3,3 @@ return {
 	event = 'BufReadPre',
 	config = true,
 }
-

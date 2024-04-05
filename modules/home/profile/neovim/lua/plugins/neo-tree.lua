@@ -22,4 +22,3 @@ function M:post_setup_hook(neotree)
 end
 
 return M
-
