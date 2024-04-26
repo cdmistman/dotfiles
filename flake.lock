@@ -20,6 +20,31 @@
         "type": "github"
       }
     },
+    "devshell": {
+      "inputs": {
+        "flake-utils": [
+          "ollama",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "ollama",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713532798,
+        "narHash": "sha256-wtBhsdMJA3Wa32Wtm1eeo84GejtI43pMrFrmwLXrsEc=",
+        "owner": "numtide",
+        "repo": "devshell",
+        "rev": "12e914740a25ea1891ec619bb53cf5e6ca922e40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "devshell",
+        "type": "github"
+      }
+    },
     "fenix": {
       "inputs": {
         "nixpkgs": [
@@ -63,22 +88,25 @@
         ]
       },
       "locked": {
-        "lastModified": 1709336216,
-        "narHash": "sha256-Dt/wOWeW6Sqm11Yh+2+t0dfEWxoMxGBvv3JpIocFl9E=",
-        "owner": "hercules-ci",
+        "lastModified": 1714103847,
+        "narHash": "sha256-CVp1w3Vk1IjFrfAlQdIl9jSIrpwOzFP62/sq38hfIrI=",
+        "owner": "cdmistman",
         "repo": "flake-parts",
-        "rev": "f7b3c975cf067e56e7cda6cb098ebe3fb4d74ca2",
+        "rev": "40feb2377eb7b0cbd33892a01f107f6b06a735c4",
         "type": "github"
       },
       "original": {
-        "owner": "hercules-ci",
+        "owner": "cdmistman",
+        "ref": "all-modules",
         "repo": "flake-parts",
         "type": "github"
       }
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": [
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1710146030,
@@ -274,6 +302,37 @@
         "type": "github"
       }
     },
+    "ollama": {
+      "inputs": {
+        "devshell": "devshell",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "flake-utils": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714105511,
+        "narHash": "sha256-mYpq0FXf4dQc4PUp2ct5yw1AzxIfDKmJ48+O1xKHVQQ=",
+        "owner": "cdmistman",
+        "repo": "ollama",
+        "rev": "d1d7745fc6819132163dcda4e5e9afa4aa17d468",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cdmistman",
+        "ref": "nix-flake-darwin-module",
+        "repo": "ollama",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -289,7 +348,9 @@
         "nix-index-db": "nix-index-db",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs",
+        "ollama": "ollama",
         "snowfall-lib": "snowfall-lib",
+        "systems": "systems",
         "tokyonight": "tokyonight"
       }
     },

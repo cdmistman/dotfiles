@@ -36,11 +36,15 @@
     flake-compat.url = "github:edolstra/flake-compat";
 
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+      # TODO: use upstream
+      url = "github:cdmistman/flake-parts/all-modules";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
@@ -78,6 +82,17 @@
       inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ollama = {
+      # TODO: use upstream
+      url = "github:cdmistman/ollama/nix-flake-darwin-module";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.flake-utils.follows = "flake-parts";
+      inputs.systems.follows = "systems";
+    };
+
+    systems.url = "github:nix-systems/default";
   };
 
   outputs = inputs:
