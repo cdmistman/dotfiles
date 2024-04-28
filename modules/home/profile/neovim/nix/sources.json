@@ -683,18 +683,6 @@
         "url": "https://github.com/JoranHonig/tree-sitter-solidity/archive/1653da09ccd183f4312fba819056a13af22a65f6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "tree-sitter-sql": {
-        "branch": "gh-pages",
-        "description": "SQL grammar for tree-sitter",
-        "homepage": "http://derek.stride.host/tree-sitter-sql/",
-        "owner": "derekstride",
-        "repo": "tree-sitter-sql",
-        "rev": "25f94f998de79bae9df28add9782f9ea6ea0e2b8",
-        "sha256": "131iwy6jlp1ldh1a9v1h1b97mmdxbfi6z4ng3zp2wgklsf7ayqaj",
-        "type": "tarball",
-        "url": "https://github.com/derekstride/tree-sitter-sql/archive/25f94f998de79bae9df28add9782f9ea6ea0e2b8.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "tree-sitter-svelte": {
         "branch": "master",
         "description": "Svelte grammar for tree-sitter",

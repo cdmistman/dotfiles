@@ -56,7 +56,7 @@
   # use soon.
   # i'm also being careful to ensure that the sources for these grammars matches what's
   # used in nvim-treesitter
-  ts-override-languages = [
+  ts-source-overrides = [
     "bash"
     "c-sharp"
     "cuda"
@@ -80,7 +80,6 @@
     "ruby"
     "rust"
     "solidity"
-    "sql"
     "svelte"
     "templ"
     "vue"
@@ -90,21 +89,24 @@
     "go-mod" = "gomod";
   };
 
-  overridden-ts-sources = lib.pipe ts-override-languages [
-    (builtins.map (l: rec {
+  override-ts-grammar = name: src: pkgs.tree-sitter-grammars.${name}.overrideAttrs {
+    inherit src;
+    version = builtins.substring 0 6 src.rev;
+  };
+
+  overridden-ts-grammars = lib.pipe ts-source-overrides [
+    (builtins.map (l: {
       name = "tree-sitter-${language-to-nixpkgs.${l} or l}";
       value = sources."tree-sitter-${l}";
     }))
     lib.listToAttrs
-    (builtins.mapAttrs (name: src: pkgs.tree-sitter-grammars.${name}.overrideAttrs {inherit src;}))
-  ];
-
-  overridden-tree-sitter-grammars =
-    pkgs.tree-sitter.builtGrammars
-    // overridden-ts-sources
-    // {
+    (builtins.mapAttrs override-ts-grammar)
+  ]// {
       # broken
       tree-sitter-ql-dbscheme = null;
+
+      # tree-sitter-sql repo is suuuuuper whack
+      # tree-sitter-sql = pkgs.
 
       # typescript is special
       tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
@@ -115,6 +117,8 @@
         src = sources.tree-sitter-typescript;
       };
     };
+
+  overridden-tree-sitter-grammars = pkgs.tree-sitter.builtGrammars // overridden-ts-grammars;
 
   mk-treesitter-parser = parser: let
     name = lib.pipe parser [
@@ -148,10 +152,27 @@
 
     # fix the symlinkJoin used for fallback tools
     postInstall = ''
-      bin_dir=$(readlink $out/bin)
+      set -exo pipefail
+      mkdir -p $out/bin2
+      find $out/bin/* \
+        | while read file; do
+            bin_name="$(basename $file)"
+            actual="$(readlink -f "$file")"
+            ln -s "$actual" $out/bin2/$bin_name
+          done
+
       unlink $out/bin
-      mkdir -p $out/bin
-      find $bin_dir | xargs -n 1 bash -c "ln -s $bin_dir/"'$0'" $out/bin"
+      mv $out/bin2 $out/bin
+
+      # bin_dir=$(readlink $out/bin)
+      # unlink $out/bin
+      # mkdir -p $out/bin
+      # # find $bin_dir | xargs -n 1 bash -c "ln -s $bin_dir/"'$0'" $out/bin"
+      # find $bin_dir \
+      #   | while read file; do
+      #       actual=$(readlink -f "$file")
+      #       ln -s "$actual" $out/bin
+      #     done
     '';
   };
 
@@ -164,7 +185,7 @@ in
       tools = [];
       fallback-tools = [
         # TODO: for some reason this breaks the fallback-tools dir
-        # typescript-language-server
+        typescript-language-server
 
         pkgs.fd
 
