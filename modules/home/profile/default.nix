@@ -47,6 +47,7 @@ in {
         home-manager
         jless
         jq
+        niv
         procs
         ripgrep
         sd

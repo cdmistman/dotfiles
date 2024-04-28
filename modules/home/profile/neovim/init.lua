@@ -37,6 +37,11 @@ local function addPlugin(cfg)
 		return
 	end
 
+	if cfg.enable == false then
+		log.debug('skipping ' .. pluginName)
+		return
+	end
+
 	if plugins[pluginName] ~= nil then
 		log.err('already defined!')
 		return

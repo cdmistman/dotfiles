@@ -32,7 +32,7 @@ local function buf_load_lsp_keymap(ev)
 		c = {
 			a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
 			d = {
-				name = "+diagnostic",
+				name = '+diagnostic',
 				n = { vim.diagnostic.goto_next, 'next' },
 				N = { vim.diagnostic.goto_prev, 'previous' },
 				H = { vim.diagnostic.open_float, 'show' },
@@ -131,18 +131,22 @@ M.opts.lua_ls = {
 
 -- rustaceanvim doesn't use setup() args
 vim.g.rustaceanvim = {
+	tools = {
+		enable_clippy = true,
+	},
 	server = {
 		capabilities = vim.g.lsp_capabilities or nil,
 		default_settings = {
 			['rust-analyzer'] = {
 				cargo = {
-					features = "all",
-					targetDir = true,
+					extraArgs = { '--target-dir', 'target/rust-analyzer' },
 				},
 				files = {
 					excludeDirs = {
-						".direnv",
-						"result",
+						'.direnv',
+						'.git',
+						'.jj',
+						'result',
 					},
 				},
 			},
