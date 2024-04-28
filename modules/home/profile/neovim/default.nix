@@ -60,20 +60,30 @@
     "bash"
     "c-sharp"
     "cuda"
+    "dockerfile"
     "erlang"
+    "fennel"
+    "fish"
+    "go"
     "go-mod"
     "heex"
     "http"
     "java"
     "javascript"
     "json5"
+    "julia"
     "kotlin"
     "nickel"
+    "perl"
+    "php"
     "proto"
     "ruby"
     "rust"
+    "solidity"
     "sql"
     "svelte"
+    "templ"
+    "vue"
   ];
 
   language-to-nixpkgs = {
@@ -93,17 +103,8 @@
     pkgs.tree-sitter.builtGrammars
     // overridden-ts-sources
     // {
-      # i don't care about these languages, i'd rather omit for now than keep getting these up to date
-      # TODO: add these to niv lmao
-      # tree-sitter-devicetree = null;
-      # tree-sitter-fennel = null;
-      # tree-sitter-gdscript = null;
-      # tree-sitter-latex = null;
-      # tree-sitter-just = null;
-      # tree-sitter-perl = null;
-      # tree-sitter-php = null;
-      # tree-sitter-ql-dbscheme = null;
-      # tree-sitter-vue = null;
+      # broken
+      tree-sitter-ql-dbscheme = null;
 
       # typescript is special
       tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
@@ -164,6 +165,8 @@ in
       fallback-tools = [
         # TODO: for some reason this breaks the fallback-tools dir
         # typescript-language-server
+
+        pkgs.fd
 
         pkgs.gopls
         pkgs.haskell-language-server
