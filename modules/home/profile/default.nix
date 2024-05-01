@@ -39,6 +39,7 @@ in {
       username = "colton";
 
       packages = with pkgs; ([
+          _1password
           cachix
           comma
           du-dust
@@ -53,7 +54,6 @@ in {
         ]
         ++ optionals cfg.gui-apps [
           kitty
-          obsidian
         ]);
 
       sessionPath = [
