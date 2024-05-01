@@ -204,5 +204,7 @@ in {
         enableZshIntegration = true;
       };
     };
+
+    services.dark-mode-notify.enable = true;
   };
 }
