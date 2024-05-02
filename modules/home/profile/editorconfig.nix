@@ -30,5 +30,10 @@ lib.mkIf (config.mistman.profile.enable) {
       indent_style = "space";
       indent_size = 4;
     };
+
+    "*.graphql" = {
+      indent_style = "space";
+      indent_size = 2;
+    };
   };
 }

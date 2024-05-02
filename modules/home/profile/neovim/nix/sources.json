@@ -197,10 +197,10 @@
         "homepage": null,
         "owner": "karb94",
         "repo": "neoscroll.nvim",
-        "rev": "0a86b3dc2555cb7872feedca64ef036b8417fb73",
-        "sha256": "1783c7axkl56gisa65ynbzy114nxciciiv3d2k813gabr85cpw0b",
+        "rev": "e78657719485c5663b88e5d96ffcfb6a2fe3eec0",
+        "sha256": "19f7q9d0gx1g08c4cyd66c4ldznzgrzi632kv7z0cbk58hisac3d",
         "type": "tarball",
-        "url": "https://github.com/karb94/neoscroll.nvim/archive/0a86b3dc2555cb7872feedca64ef036b8417fb73.tar.gz",
+        "url": "https://github.com/karb94/neoscroll.nvim/archive/e78657719485c5663b88e5d96ffcfb6a2fe3eec0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "noice.nvim": {
