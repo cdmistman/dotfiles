@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf optionals;
+  inherit (lib) mkEnableOption mkIf;
 
   email = "colton@donn.io";
   name = "Colton Donnelly";
@@ -38,7 +38,7 @@ in {
       stateVersion = "23.11";
       username = "colton";
 
-      packages = with pkgs; ([
+      packages = with pkgs; [
           _1password
           cachix
           comma
@@ -51,10 +51,7 @@ in {
           ripgrep
           sd
           tokei
-        ]
-        ++ optionals cfg.gui-apps [
-          kitty
-        ]);
+        ];
 
       sessionPath = [
         "$HOME/bin"
