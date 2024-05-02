@@ -9,6 +9,7 @@
 
   inherit (builtins) map;
   inherit (lib) attrsToList foldr optional optionalString substring;
+  inherit (lib.home-manager.hm) dag;
 
   hash-file = path: builtins.hashFile "sha256" (./. + "/${path}");
 
@@ -39,13 +40,14 @@
     postInstall =
       (old.postInstall or "")
       + ''
-        flags='--single-instance --instance-group ${config-hash}'
+        flags='--single-instance --instance-group ${config-hash} --listen-on unix:/tmp/kitty.sock'
 
         wrapProgram $out/bin/kitty \
-          --add-flags '--single-instance --instance-group ${config-hash}'
+          --add-flags "$flags"
 
         ${optionalString pkgs.stdenv.isDarwin ''
           wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty \
+            --add-flags "$flags"
         ''}
       '';
   });
@@ -53,21 +55,40 @@ in
   lib.mkIf config.mistman.profile.enable {
     home.packages = optional cfg.gui-apps kitty;
 
-    xdg.configFile.kitty.source = let
-      tokyonight-themes = pkgs.runCommand "kitty-tokyonight-themes" {} ''
-        mkdir -p $out/themes
-        for theme in ${inputs.tokyonight}/extras/kitty/*; do
-          local theme_name=$(basename $theme)
-          ln -s $theme $out/themes/$theme_name
-        done
-      '';
+    services.dark-mode-notify.scripts.kitty = dag.entryAnywhere ''
+      os_theme_path="$HOME/.config/kitty/themes/os.conf"
 
-      filterNix = path: _: ! lib.hasSuffix ".nix" path;
-      here = builtins.filterSource filterNix ./.;
-    in
-      pkgs.symlinkJoin {
-        name = "kitty-config";
-        recursive = true;
-        paths = [tokyonight-themes here];
-      };
+      [[ -e "$os_theme_path" ]] && unlink "$os_theme_path"
+
+      if [[ "$DARKMODE" == "1" ]]; then
+        echo "kitty dark mode"
+        ln -s $HOME/.config/kitty/themes/tokyonight_night.conf "$os_theme_path"
+      else
+        echo "kitty light mode"
+        ln -s $HOME/.config/kitty/themes/tokyonight_day.conf "$os_theme_path"
+      fi
+
+      ${kitty}/bin/kitten @ --to unix:/tmp/kitty.sock load-config
+    '';
+
+    xdg.configFile.kitty = {
+      recursive = true;
+      source = let
+        tokyonight-themes = pkgs.runCommand "kitty-tokyonight-themes" {} ''
+          mkdir -p $out/themes
+          for theme in ${inputs.tokyonight}/extras/kitty/*; do
+            local theme_name=$(basename $theme)
+            ln -s $theme $out/themes/$theme_name
+          done
+        '';
+
+        filterNix = path: _: ! lib.hasSuffix ".nix" path;
+        here = builtins.filterSource filterNix ./.;
+      in
+        pkgs.symlinkJoin {
+          name = "kitty-config";
+          recursive = true;
+          paths = [tokyonight-themes here];
+        };
+    };
   }
