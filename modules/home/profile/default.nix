@@ -39,19 +39,19 @@ in {
       username = "colton";
 
       packages = with pkgs; [
-          _1password
-          cachix
-          comma
-          du-dust
-          fswatch
-          home-manager
-          jless
-          jq
-          procs
-          ripgrep
-          sd
-          tokei
-        ];
+        _1password
+        cachix
+        comma
+        du-dust
+        fswatch
+        home-manager
+        jless
+        jq
+        procs
+        ripgrep
+        sd
+        tokei
+      ];
 
       sessionPath = [
         "$HOME/bin"

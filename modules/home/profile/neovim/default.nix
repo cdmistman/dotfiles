@@ -89,19 +89,22 @@
     "go-mod" = "gomod";
   };
 
-  override-ts-grammar = name: src: pkgs.tree-sitter-grammars.${name}.overrideAttrs {
-    inherit src;
-    version = builtins.substring 0 6 src.rev;
-  };
+  override-ts-grammar = name: src:
+    pkgs.tree-sitter-grammars.${name}.overrideAttrs {
+      inherit src;
+      version = builtins.substring 0 6 src.rev;
+    };
 
-  overridden-ts-grammars = lib.pipe ts-source-overrides [
-    (builtins.map (l: {
-      name = "tree-sitter-${language-to-nixpkgs.${l} or l}";
-      value = sources."tree-sitter-${l}";
-    }))
-    lib.listToAttrs
-    (builtins.mapAttrs override-ts-grammar)
-  ]// {
+  overridden-ts-grammars =
+    lib.pipe ts-source-overrides [
+      (builtins.map (l: {
+        name = "tree-sitter-${language-to-nixpkgs.${l} or l}";
+        value = sources."tree-sitter-${l}";
+      }))
+      lib.listToAttrs
+      (builtins.mapAttrs override-ts-grammar)
+    ]
+    // {
       # broken
       tree-sitter-ql-dbscheme = null;
 
