@@ -42,6 +42,7 @@ in {
         _1password
         cachix
         comma
+        difftastic
         du-dust
         fswatch
         home-manager
@@ -172,6 +173,7 @@ in {
 
         ui = {
           default-command = "status";
+          diff.tool = ["difft" "--color=always" "$left" "$right"];
           editor = "nvim";
         };
 
