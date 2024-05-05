@@ -22,6 +22,40 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # program inputs
+    jujutsu = {
+      url = "github:martinvonz/jj/v0.17.0";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    neovim = {
+      url = "github:neovim/neovim/v0.9.5?dir=contrib";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.hercules-ci-effects.follows = "hercules-ci-effects";
+      inputs.neovim-flake.follows = "neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-index-db = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixd = {
+      url = "github:nix-community/nixd";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -53,36 +87,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim = {
-      url = "github:neovim/neovim/v0.9.5?dir=contrib";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.hercules-ci-effects.follows = "hercules-ci-effects";
-      inputs.neovim-flake.follows = "neovim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-db = {
-      url = "github:Mic92/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixd = {
-      url = "github:nix-community/nixd";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = inputs:
     inputs.snowfall-lib.mkFlake {
-      inherit inputs;
+      inputs = inputs // {
+        jujutsu-version = "v0.17.0";
+      };
+
       src = ./.;
       snowfall.namespace = "mistman";
 

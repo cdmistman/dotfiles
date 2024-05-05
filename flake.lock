@@ -172,6 +172,33 @@
         "type": "github"
       }
     },
+    "jujutsu": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714583401,
+        "narHash": "sha256-9Otm4EtBhSPix/perfhxHkgVhN0i/2+3JV50ex7xAlY=",
+        "owner": "martinvonz",
+        "repo": "jj",
+        "rev": "19563fee7483ecd6b5f56200520ac81c84ea16c5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "martinvonz",
+        "ref": "v0.17.0",
+        "repo": "jj",
+        "type": "github"
+      }
+    },
     "neovim": {
       "inputs": {
         "flake-utils": [
@@ -300,11 +327,13 @@
         "flake-utils-plus": "flake-utils-plus",
         "hercules-ci-effects": "hercules-ci-effects",
         "home-manager": "home-manager",
+        "jujutsu": "jujutsu",
         "neovim": "neovim",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-db": "nix-index-db",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs",
+        "rust-overlay": "rust-overlay",
         "snowfall-lib": "snowfall-lib",
         "tokyonight": "tokyonight"
       }
@@ -323,6 +352,29 @@
         "owner": "rust-lang",
         "ref": "nightly",
         "repo": "rust-analyzer",
+        "type": "github"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714875369,
+        "narHash": "sha256-dyyJEHKbnz2sZcz9yVxOCE/085covNljWKeTCIcBfL0=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "35cc508a9de1c971ce1dc610dec1ba75f66c6004",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
         "type": "github"
       }
     },
