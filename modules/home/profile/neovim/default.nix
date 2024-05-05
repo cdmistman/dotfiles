@@ -24,8 +24,9 @@
     "cmp_luasnip"
     "copilot-cmp"
     "copilot.lua"
-    "direnv.vim"
+    # "direnv.vim"
     # "flash.nvim"
+    "formatter.nvim"
     # "hydra.nvim"
     "lspkind.nvim"
     "neo-tree.nvim"
@@ -108,9 +109,6 @@
       # broken
       tree-sitter-ql-dbscheme = null;
 
-      # tree-sitter-sql repo is suuuuuper whack
-      # tree-sitter-sql = pkgs.
-
       # typescript is special
       tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {
         src = sources.tree-sitter-typescript;
@@ -146,8 +144,6 @@
     chmod +w $out/parser
 
     ${lib.concatLines tree-sitter-grammars}
-
-    set +ex
   '';
 
   typescript-language-server = pkgs.nodePackages_latest.typescript-language-server.override {
@@ -166,16 +162,6 @@
 
       unlink $out/bin
       mv $out/bin2 $out/bin
-
-      # bin_dir=$(readlink $out/bin)
-      # unlink $out/bin
-      # mkdir -p $out/bin
-      # # find $bin_dir | xargs -n 1 bash -c "ln -s $bin_dir/"'$0'" $out/bin"
-      # find $bin_dir \
-      #   | while read file; do
-      #       actual=$(readlink -f "$file")
-      #       ln -s "$actual" $out/bin
-      #     done
     '';
   };
 
@@ -198,6 +184,7 @@ in
         pkgs.marksman
         pkgs.nixd
         pkgs.nodejs_20
+        pkgs.prettierd
         pkgs.tailwindcss-language-server
         pkgs.taplo
         pkgs.vscode-langservers-extracted

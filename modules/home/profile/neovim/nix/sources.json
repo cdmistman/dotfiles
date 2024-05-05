@@ -155,6 +155,18 @@
         "url": "https://github.com/folke/flash.nvim/archive/48817af25f51c0590653bbc290866e4890fe1cbe.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "formatter.nvim": {
+        "branch": "master",
+        "description": null,
+        "homepage": "",
+        "owner": "mhartington",
+        "repo": "formatter.nvim",
+        "rev": "ad246d34ce7a32f752071ed81b09b94e6b127fad",
+        "sha256": "0qjcpxm0q9667wi0qm1bh4pyi1jyp7s5ns0p3arcknfgygr9mlm4",
+        "type": "tarball",
+        "url": "https://github.com/mhartington/formatter.nvim/archive/ad246d34ce7a32f752071ed81b09b94e6b127fad.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "hydra.nvim": {
         "branch": "master",
         "description": "Create custom submodes and menus",

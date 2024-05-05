@@ -68,66 +68,81 @@ function M:config(opts, main)
 	})
 end
 
-M.opts = {
-	biome = {},
+function M.opts()
+	local pathlib = require('plenary.path')
+	local util = require('lspconfig.util')
 
-	clangd = {},
+	return {
+		biome = {},
 
-	cssls = {},
+		clangd = {},
 
-	eslint = {},
+		cssls = {},
 
-	gopls = {},
+		eslint = {},
 
-	graphql = {},
+		gopls = {},
 
-	hls = {},
+		graphql = {},
 
-	html = {},
+		hls = {},
 
-	jsonls = {},
+		html = {},
 
-	marksman = {},
+		jsonls = {},
 
-	nixd = {},
+		lua_ls = {
+			on_init = function(client)
+				local path = pathlib.new(client.workspace_folders[1].name)
+				if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
+					return true
+				end
+				client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+					Lua = {
+						runtime = {
+							version = 'LuaJIT',
+						},
+						workspace = {
+							checkThirdParty = false,
+							library = vim.api.nvim_get_runtime_file('', true),
+						},
+					}
+				})
+				client.notify('workspace/didChangeConfiguration', {
+					settings = client.config.settings,
+				})
+				return true
+			end,
+		},
 
-	nushell = {},
+		marksman = {},
 
-	svelte = {},
+		nixd = {},
 
-	tailwindcss = {},
+		nushell = {},
 
-	taplo = {},
+		svelte = {},
 
-	tsserver = {},
+		tailwindcss = {
+			root_dir = util.root_pattern(
+				'tailwind.config.js',
+				'tailwind.config.cjs',
+				'tailwind.config.mjs',
+				'tailwind.config.ts',
+				'postcss.config.js',
+				'postcss.config.cjs',
+				'postcss.config.mjs',
+				'postcss.config.ts'
+			),
+		},
 
-	zls = {},
-}
+		taplo = {},
 
-local pathlib = require('plenary.path')
-M.opts.lua_ls = {
-	on_init = function(client)
-		local path = pathlib.new(client.workspace_folders[1].name)
-		if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
-			return true
-		end
-		client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-			Lua = {
-				runtime = {
-					version = 'LuaJIT',
-				},
-				workspace = {
-					checkThirdParty = false,
-					library = vim.api.nvim_get_runtime_file('', true),
-				},
-			}
-		})
-		client.notify('workspace/didChangeConfiguration', {
-			settings = client.config.settings,
-		})
-		return true
-	end,
-}
+		tsserver = {},
+
+		zls = {},
+	}
+end
 
 -- rustaceanvim doesn't use setup() args
 vim.g.rustaceanvim = {
