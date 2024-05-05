@@ -1,0 +1,18 @@
+diff --color a/tokyonight_day.toml b/tokyonight_day.toml
+7,9c7,9
+< #[colors.cursor]
+< #cursor = '#3760bf'
+< #text = '#e1e2e7'
+---
+> [colors.cursor]
+> cursor = '#3760bf'
+> text = '#e1e2e7'
+diff --color a/tokyonight_night.toml b/tokyonight_night.toml
+7,9c7,9
+< #[colors.cursor]
+< #cursor = '#c0caf5'
+< #text = '#1a1b26'
+---
+> [colors.cursor]
+> cursor = '#c0caf5'
+> text = '#1a1b26'

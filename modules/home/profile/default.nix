@@ -5,10 +5,31 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) importTOML mkEnableOption mkIf;
 
   email = "colton@donn.io";
   name = "Colton Donnelly";
+
+  themes-data = pkgs.runCommand "my-themes-dir" {
+    buildInputs = [
+      pkgs.neovim-unwrapped
+      pkgs.yq
+    ];
+  } ''
+    tmp=$(mktemp -d)
+    mkdir -p $tmp
+    pushd $tmp
+    cp -r ${inputs.tokyonight.outPath}/* .
+    chmod -R +w .
+    rm lua/tokyonight/extra/*
+    cp -r ${./patches/tokyonight}/* lua/tokyonight/extra
+    eval $(yq -r '.jobs.extras.steps | map(select(.name == "Build Extras"))[0].run' "${inputs.tokyonight.outPath}/.github/workflows/ci.yml")
+    popd
+
+    mv $tmp/extras/coolton $out
+  '';
+
+  tokyonight-theme.dark = importTOML "${themes-data.outPath}/tokyonight_night.toml";
 
   cfg = config.mistman.profile;
 in {
@@ -18,6 +39,7 @@ in {
     ./direnv.nix
     ./editorconfig.nix
     ./kitty
+    ./process-compose.nix
     ./ssh.nix
     ./starship
     ./zsh.nix
@@ -33,6 +55,11 @@ in {
   config = mkIf cfg.enable {
     editorconfig.enable = true;
     xdg.enable = true;
+
+    _module.args.theme = {
+      dark = tokyonight-theme.dark;
+      light = tokyonight-theme.light;
+    };
 
     home = {
       stateVersion = "23.11";
@@ -106,6 +133,7 @@ in {
       jujutsu.enable = true;
       direnv.enable = true;
       nix-index.enable = true;
+      process-compose.enable = true;
       skim.enable = true;
       ssh.enable = true;
       starship.enable = true;
