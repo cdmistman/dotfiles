@@ -81,6 +81,7 @@ in {
         ripgrep
         sd
         tokei
+        watchman
       ];
 
       sessionPath = [
@@ -208,8 +209,13 @@ in {
       };
 
       jujutsu.settings = {
+        core = {
+          fsmonitor = "watchman";
+        };
+
         git = {
           auto-local-branch = true;
+          fetch = [ "origin" "upstream" ];
           push-branch-prefix = "cad/push-";
         };
 
