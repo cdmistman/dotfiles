@@ -16,10 +16,7 @@
   hash-dir = path:
     lib.pipe (builtins.readDir path) [
       attrsToList
-      (map ({
-        name,
-        value,
-      }:
+      (map ({ name, value }:
         if value == "regular"
         then hash-file name
         else if value == "directory"
@@ -30,27 +27,28 @@
 
   config-hash = substring 0 6 (hash-dir ./.);
 
-  kitty = pkgs.kitty.overrideAttrs (old: {
-    nativeBuildInputs =
-      old.nativeBuildInputs
-      ++ [
-        pkgs.makeWrapper
-      ];
+  kitty = pkgs.runCommand "kitty-wrapped" {
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+  } ''
+    set -e
 
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        flags='--single-instance --instance-group ${config-hash} --listen-on unix:/tmp/kitty.sock'
+    mkdir $out
+    ${pkgs.rsync}/bin/rsync -avl --perms --chmod=+w --chown=$USER ${pkgs.kitty}/* $out
 
-        wrapProgram $out/bin/kitty \
-          --add-flags "$flags"
+    flags=(
+      --single-instance
+      --instance-group ${config-hash}
+      --listen-on unix:/tmp/kitty.sock
+      -o allow_remote_control=yes
+    )
 
-        ${optionalString pkgs.stdenv.isDarwin ''
-          wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty \
-            --add-flags "$flags"
-        ''}
-      '';
-  });
+    wrapProgram $out/bin/kitty --add-flags "''${flags[*]}"
+
+    ${optionalString pkgs.stdenv.isDarwin ''
+      wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty \
+        --add-flags "$flags"
+    ''}
+  '';
 in
   lib.mkIf config.mistman.profile.enable {
     home.packages = optional cfg.gui-apps kitty;
