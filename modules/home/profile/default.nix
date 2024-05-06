@@ -10,24 +10,25 @@
   email = "colton@donn.io";
   name = "Colton Donnelly";
 
-  themes-data = pkgs.runCommand "my-themes-dir" {
-    buildInputs = [
-      pkgs.neovim-unwrapped
-      pkgs.yq
-    ];
-  } ''
-    tmp=$(mktemp -d)
-    mkdir -p $tmp
-    pushd $tmp
-    cp -r ${inputs.tokyonight.outPath}/* .
-    chmod -R +w .
-    rm lua/tokyonight/extra/*
-    cp -r ${./patches/tokyonight}/* lua/tokyonight/extra
-    eval $(yq -r '.jobs.extras.steps | map(select(.name == "Build Extras"))[0].run' "${inputs.tokyonight.outPath}/.github/workflows/ci.yml")
-    popd
+  themes-data =
+    pkgs.runCommand "my-themes-dir" {
+      buildInputs = [
+        pkgs.neovim-unwrapped
+        pkgs.yq
+      ];
+    } ''
+      tmp=$(mktemp -d)
+      mkdir -p $tmp
+      pushd $tmp
+      cp -r ${inputs.tokyonight.outPath}/* .
+      chmod -R +w .
+      rm lua/tokyonight/extra/*
+      cp -r ${./patches/tokyonight}/* lua/tokyonight/extra
+      eval $(yq -r '.jobs.extras.steps | map(select(.name == "Build Extras"))[0].run' "${inputs.tokyonight.outPath}/.github/workflows/ci.yml")
+      popd
 
-    mv $tmp/extras/coolton $out
-  '';
+      mv $tmp/extras/coolton $out
+    '';
 
   tokyonight-theme.dark = importTOML "${themes-data.outPath}/tokyonight_night.toml";
 
@@ -191,6 +192,19 @@ in {
         ignores = [
           ".direnv"
         ];
+      };
+
+      jujutsu.package = pkgs.jujutsu.override {
+        rustPlatform.buildRustPackage = args: let
+          overridenArgs =
+            args
+            // {
+              version = inputs.jujutsu-version;
+              src = inputs.jujutsu.outPath;
+              cargoHash = "sha256-qaLvbcqGGueu1HBDNDTMnjNAwBJTxH2opGnbyS6s2Gc=";
+            };
+        in
+          pkgs.rustPlatform.buildRustPackage overridenArgs;
       };
 
       jujutsu.settings = {
