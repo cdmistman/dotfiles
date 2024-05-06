@@ -202,7 +202,7 @@ in {
             // {
               version = inputs.jujutsu-version;
               src = inputs.jujutsu.outPath;
-              cargoHash = "sha256-qaLvbcqGGueu1HBDNDTMnjNAwBJTxH2opGnbyS6s2Gc=";
+              cargoHash = "sha256-o5r4U2TImdwoVJ48gdHhK8/ct+INDyK+ka8ORkmVnGU=";
             };
         in
           pkgs.rustPlatform.buildRustPackage overridenArgs;
@@ -214,7 +214,6 @@ in {
         };
 
         git = {
-          auto-local-branch = true;
           fetch = [ "origin" "upstream" ];
           push-branch-prefix = "cad/push-";
         };

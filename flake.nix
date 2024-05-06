@@ -24,7 +24,7 @@
 
     # program inputs
     jujutsu = {
-      url = "github:martinvonz/jj/v0.17.0";
+      url = "github:martinvonz/jj/v0.17.1";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.rust-overlay.follows = "rust-overlay";
