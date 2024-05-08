@@ -217,6 +217,11 @@ in {
           push-branch-prefix = "cad/push-";
         };
 
+        revset-aliases = rec {
+          wip = "mine() & branches() & ~::immutable_heads() & ::visible_heads()";
+          stacks = "roots(${wip})";
+        };
+
         ui = {
           default-command = "status";
           diff.tool = ["difft" "--color=always" "$left" "$right"];
