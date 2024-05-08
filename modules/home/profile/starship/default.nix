@@ -15,7 +15,7 @@ lib.mkIf (config.mistman.profile.enable) {
       command_timeout = 300;
 
       format =
-        "(\\[$username$hostname\\] )"
+        "\\[$hostname\\] "
         + "$directory"
         + "$git_branch"
         + "\${custom.jujutsu}"
@@ -75,11 +75,12 @@ lib.mkIf (config.mistman.profile.enable) {
         format = "[$hostname]($style)( $ssh_symbol)";
         ssh_only = false;
         ssh_symbol = "";
-        style = "bright-black";
+        # style = "bold dimmed white";
+        style = "bold bright-black";
       };
 
       jobs = {
-        format = "([$number]($style) )";
+        format = "([$symbol$number]($style) )";
         number_threshold = 1;
         style = "bg:168";
         symbol = "華";
@@ -93,7 +94,7 @@ lib.mkIf (config.mistman.profile.enable) {
         disabled = false;
         format = "[$symbol]($style)";
         symbol = "✦ ";
-        style = "224";
+        style = "yellow";
       };
 
       username = {
