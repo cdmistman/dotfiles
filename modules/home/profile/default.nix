@@ -214,7 +214,6 @@ in {
         };
 
         git = {
-          fetch = [ "origin" "upstream" ];
           push-branch-prefix = "cad/push-";
         };
 
