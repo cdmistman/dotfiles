@@ -217,6 +217,11 @@ in {
           push-branch-prefix = "cad/push-";
         };
 
+        revsets = {
+          log = "stacks";
+          short-prefixes = "stacks";
+        };
+
         revset-aliases = rec {
           stack = "descendants(roots(${stacks} & ::@))";
           stacks = "mine() & branches():: & ~::immutable_heads() & ::visible_heads()";
@@ -224,6 +229,7 @@ in {
         };
 
         ui = {
+          always-allow-large-revsets = true;
           default-command = ["log" "-r" "stack"];
           diff.tool = ["difft" "--color=always" "$left" "$right"];
           editor = "nvim";
