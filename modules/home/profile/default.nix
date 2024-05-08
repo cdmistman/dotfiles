@@ -219,12 +219,12 @@ in {
 
         revset-aliases = rec {
           stack = "descendants(roots(${stacks} & ::@))";
-          stacks = "mine() & branches() & ~::immutable_heads() & ::visible_heads()";
+          stacks = "mine() & branches():: & ~::immutable_heads() & ::visible_heads()";
           stack-roots = "roots(${stacks})";
         };
 
         ui = {
-          default-command = "status";
+          default-command = ["log" "-r" "stack"];
           diff.tool = ["difft" "--color=always" "$left" "$right"];
           editor = "nvim";
         };
