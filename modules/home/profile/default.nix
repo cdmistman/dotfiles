@@ -218,8 +218,9 @@ in {
         };
 
         revset-aliases = rec {
-          wip = "mine() & branches() & ~::immutable_heads() & ::visible_heads()";
-          stacks = "roots(${wip})";
+          stack = "descendants(roots(${stacks} & ::@))";
+          stacks = "mine() & branches() & ~::immutable_heads() & ::visible_heads()";
+          stack-roots = "roots(${stacks})";
         };
 
         ui = {
