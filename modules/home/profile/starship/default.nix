@@ -113,7 +113,7 @@ lib.mkIf (config.mistman.profile.enable) {
 
       custom.jujutsu = {
         shell = ["${pkgs.bash}/bin/bash" "-c"];
-        command = "jj log --color always --no-pager -r @ --no-graph -T 'concat(builtin_change_id_with_hidden_and_divergent_info, \" \", local_branches.join(\" \"))'";
+        command = "jj log --color always --no-pager -r @ --no-graph -T 'concat(format_short_change_id_with_hidden_and_divergent_info(self), \" \", local_branches.join(\" \"), parents.map(|parent| parent.local_branches().join(\" \")).join(\" \"))'";
         description = "jujutsu-related information";
         when = "jj root";
         format = "([|](dimmed white)$output)";
