@@ -151,14 +151,5 @@
           };
         }
       ];
-
-      systems.hosts.donn-replit-mbp.modules = [
-        {
-          networking = {
-            computerName = "Colton’s Replit MacBook Pro";
-            hostName = "donn-replit-mbp";
-          };
-        }
-      ];
     };
 }
