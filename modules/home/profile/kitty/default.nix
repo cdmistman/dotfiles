@@ -27,31 +27,31 @@
 
   config-hash = substring 0 6 (hash-dir ./.);
 
-  kitty = pkgs.runCommand "kitty-wrapped" {
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-  } ''
-    set -e
-
-    mkdir $out
-    ${pkgs.rsync}/bin/rsync -avl --perms --chmod=+w --chown=$USER ${pkgs.kitty}/* $out
-
-    flags=(
-      --single-instance
-      --instance-group ${config-hash}
-      --listen-on unix:/tmp/kitty.sock
-      -o allow_remote_control=yes
-    )
-
-    wrapProgram $out/bin/kitty --add-flags "''${flags[*]}"
-
-    ${optionalString pkgs.stdenv.isDarwin ''
-      wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty \
-        --add-flags "$flags"
-    ''}
-  '';
+  # kitty = pkgs.runCommand "kitty-wrapped" {
+  #   nativeBuildInputs = [ pkgs.makeWrapper ];
+  # } ''
+  #   set -e
+  #
+  #   mkdir $out
+  #   ${pkgs.rsync}/bin/rsync -avl --perms --chmod=+w --chown=$USER ${pkgs.kitty}/* $out
+  #
+  #   flags=(
+  #     --single-instance
+  #     --instance-group ${config-hash}
+  #     --listen-on unix:/tmp/kitty.sock
+  #     -o allow_remote_control=yes
+  #   )
+  #
+  #   wrapProgram $out/bin/kitty --add-flags "''${flags[*]}"
+  #
+  #   ${optionalString pkgs.stdenv.isDarwin ''
+  #     wrapProgram $out/Applications/kitty.app/Contents/MacOS/kitty \
+  #       --add-flags "$flags"
+  #   ''}
+  # '';
 in
   lib.mkIf config.mistman.profile.enable {
-    home.packages = optional cfg.gui-apps kitty;
+    home.packages = optional cfg.gui-apps pkgs.kitty;
 
     services.dark-mode-notify.scripts.kitty = dag.entryAnywhere ''
       os_theme_path="$HOME/.config/kitty/themes/os.conf"
@@ -66,7 +66,7 @@ in
         ln -s $HOME/.config/kitty/themes/tokyonight_day.conf "$os_theme_path"
       fi
 
-      ${kitty}/bin/kitten @ --to unix:/tmp/kitty.sock load-config
+      ${pkgs.kitty}/bin/kitten @ --to unix:/tmp/kitty.sock load-config
     '';
 
     xdg.configFile.kitty = {

@@ -114,15 +114,17 @@ in {
           repo = "dotfiles";
         };
       };
-
-      registry.nixpkgs = {
-        flake = inputs.nixpkgs;
+    } // lib.pipe inputs [
+      (lib.filterAttrs (_: input: input ? _type && input._type == "flake"))
+      (lib.mapAttrs (name: input: {
+        flake = input;
         from = {
           type = "indirect";
-          id = "nixpkgs";
+          id = name;
         };
-      };
-    };
+      }))
+      (inputs-reg: { registry = inputs-reg; })
+    ];
 
     programs = {
       alacritty.enable = cfg.alacritty;
@@ -224,7 +226,7 @@ in {
 
         revset-aliases = rec {
           stack = "descendants(roots(${stacks} & ::@))";
-          stacks = "mine() & branches():: & ~::immutable_heads() & ::visible_heads()";
+          stacks = "(mine() & branches():: & ::visible_heads()) | trunk()";
           stack-roots = "roots(${stacks})";
         };
 
