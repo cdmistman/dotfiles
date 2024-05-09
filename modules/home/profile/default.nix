@@ -88,10 +88,6 @@ in {
         "$HOME/bin"
       ];
 
-      sessionVariables = {
-        PAGER = "less -RF";
-      };
-
       shellAliases = {
         k = "clear";
         kn = "clear && printf '\\e[3J'";
@@ -220,14 +216,14 @@ in {
         };
 
         revsets = {
-          log = "stacks";
+          log = "stacks | trunk()";
           short-prefixes = "stacks";
         };
 
         revset-aliases = rec {
           stack = "descendants(roots(${stacks} & ::@))";
-          stacks = "(mine() & branches():: & ::visible_heads()) | trunk()";
-          stack-roots = "roots(${stacks})";
+          stacks = "mine() & branches():: & ::visible_heads()";
+          stack-roots = "roots(${stacks}) | trunk()";
         };
 
         ui = {
