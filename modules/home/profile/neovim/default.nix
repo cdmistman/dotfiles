@@ -6,8 +6,6 @@
   system,
   ...
 }: let
-  inherit (lib) fileset;
-
   sources = import ./nix/sources.nix {
     inherit pkgs system;
   };
@@ -146,55 +144,50 @@
     ${lib.concatLines tree-sitter-grammars}
   '';
 
-  typescript-language-server = pkgs.nodePackages_latest.typescript-language-server.override {
-    nativeBuildInputs = [];
-
-    # fix the symlinkJoin used for fallback tools
-    postInstall = ''
-      set -exo pipefail
-      mkdir -p $out/bin2
-      find $out/bin/* \
-        | while read file; do
-            bin_name="$(basename $file)"
-            actual="$(readlink -f "$file")"
-            ln -s "$actual" $out/bin2/$bin_name
-          done
-
-      unlink $out/bin
-      mv $out/bin2 $out/bin
-    '';
-  };
-
   vim-snippets = lib.sources.sourceFilesBySuffices sources.vim-snippets [".snippets"];
   # vim-snippets = fileset.difference sources.vim-snippets.outPath (sources.vim-snippets + /plugin);
 in
   lib.mkIf config.mistman.profile.enable {
     vanillinvim = {
       enable = true;
-      tools = [];
-      fallback-tools = [
-        # TODO: for some reason this breaks the fallback-tools dir
-        typescript-language-server
-
-        pkgs.fd
-
+      tools = [
         pkgs.gopls
+        pkgs.gotools
         pkgs.haskell-language-server
         pkgs.lua-language-server
         pkgs.marksman
         pkgs.nixd
-        pkgs.nodejs_20
         pkgs.prettierd
         pkgs.tailwindcss-language-server
         pkgs.taplo
         pkgs.vscode-langservers-extracted
         pkgs.zls
 
-        pkgs.fenix.stable.toolchain
         pkgs.fenix.rust-analyzer
 
-        pkgs.nodePackages_latest.graphql-language-service-cli
-        pkgs.nodePackages_latest.svelte-language-server
+        (pkgs.symlinkJoin {
+          name = "nvim-nodePackages-tools";
+          paths = [
+            pkgs.nodePackages_latest.graphql-language-service-cli
+            pkgs.nodePackages_latest.svelte-language-server
+            pkgs.nodePackages_latest.typescript-language-server
+          ];
+
+          postBuild = ''
+            source=$(realpath $out/bin)
+            unlink $out/bin
+            mkdir $out/bin
+            for bin in $source/*; do
+              target="$out/bin/$(basename $bin)"
+              ln -s "$bin" "$target"
+            done
+          '';
+        })
+      ];
+
+      fallback-tools = [
+        pkgs.fenix.stable.toolchain
+        pkgs.nodejs_22
       ];
 
       plugins =

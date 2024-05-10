@@ -6,6 +6,7 @@ vim.g.maplocalleader = '\\'
 -- TODO: include lines seem handy, needs buffer-local handling
 -- TODO: set some more options
 -- TODO: for some reason /matching highlighting is broken when lsps are loading
+vim.opt.backupdir = vim.env.XDG_STATE_HOME .. '/nvim/backup//'
 vim.opt.cursorline = true
 vim.opt.hlsearch = false
 vim.opt.list = true
