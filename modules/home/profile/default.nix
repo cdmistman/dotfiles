@@ -190,6 +190,7 @@ in {
 
         ignores = [
           ".direnv"
+          ".watchmanconfig"
         ];
       };
 
@@ -264,6 +265,26 @@ in {
       };
     };
 
-    services.dark-mode-notify.enable = true;
+    services = {
+      dark-mode-notify.enable = true;
+      watchman.enable = true;
+
+      watchman.settings = {
+        enforce_root_files = true;
+        idle_reap_age_seconds = 86400; # 1 day instead of 5
+        prefer_split_fsevents_watcher = true;
+        root_files = [ ".git" ".jj" ];
+        root_restrict_files = [ ".git" ".jj" ];
+
+        ignore_dirs = [
+          ".direnv"
+          "node_modules"
+          "result"
+          "target"
+          "zig-cache"
+          "zig-out"
+        ];
+      };
+    };
   };
 }
