@@ -72,6 +72,7 @@ in {
         comma
         difftastic
         du-dust
+        fd
         fswatch
         home-manager
         jless
@@ -190,6 +191,7 @@ in {
 
         ignores = [
           ".direnv"
+          ".envrc"
           ".watchmanconfig"
         ];
       };
@@ -221,10 +223,10 @@ in {
           short-prefixes = "stacks";
         };
 
-        revset-aliases = rec {
-          stack = "descendants(roots(${stacks} & ::@))";
-          stacks = "mine() & branches():: & ::visible_heads()";
-          stack-roots = "roots(${stacks}) | trunk()";
+        revset-aliases = {
+          stack = "descendants(roots(stacks & ::@ ~ ::trunk()))";
+          stacks = "mine() & branches():: & ::visible_heads() ~ ::trunk()";
+          stack-roots = "roots(stacks) | trunk()";
         };
 
         ui = {
@@ -254,7 +256,6 @@ in {
           '';
         in [
           (builtins.readFile fzf_default_opts)
-          # "--preview 'bat --color=always --line-range=:500 {}'"
         ];
       };
 
