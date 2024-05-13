@@ -5,7 +5,6 @@ return {
 	dependencies = {
 		'nvim-web-devicons',
 		'nvim-lspconfig',
-		'rust-tools',
 	},
 
 	opts = {

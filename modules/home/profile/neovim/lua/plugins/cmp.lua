@@ -3,10 +3,13 @@
 local M = {
 	'nvim-cmp',
 	main = 'cmp',
-	event = 'VeryLazy',
+	lazy = false,
 
 	dependencies = {
-		{ 'cmp-nvim-lsp' },
+		{
+			'cmp-nvim-lsp',
+			config = false,
+		},
 		{
 			'copilot-cmp',
 			dependencies = { 'copilot.lua' },
@@ -22,9 +25,9 @@ local function has_words_before()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 end
 
-function M:opts(cmp)
+function M:opts(opts)
+	local cmp = require(self.main)
 	local lspkind = require('lspkind')
-	local opts = {}
 
 	opts.formatting = {
 		format = lspkind.cmp_format({
@@ -109,12 +112,6 @@ function M:opts(cmp)
 	}
 
 	opts.window = {}
-
-	return opts
-end
-
-function M:post_setup_hook()
-	vim.g.lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 end
 
 return M

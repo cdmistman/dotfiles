@@ -1,7 +1,6 @@
 local M = {}
 
 --- source: https://github.com/folke/lazy.nvim/blob/96584866b9c5e998cbae300594d0ccfd0c464627/lua/lazy/core/util.lua#L174-L194
----@alias FileType "file"|"directory"|"link"
 ---@param path string
 ---@param fn fun(path: string, name:string, type:FileType):boolean?
 function M.ls(path, fn)

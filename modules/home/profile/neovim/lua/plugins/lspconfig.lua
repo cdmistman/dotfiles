@@ -8,6 +8,33 @@ local M = {
 	},
 }
 
+function M:init()
+	-- rustaceanvim doesn't use setup() args
+	vim.g.rustaceanvim = {
+		tools = {
+			enable_clippy = true,
+		},
+		server = {
+			capabilities = vim.g.lsp_capabilities or vim.lsp.protocol.make_client_capabilities(),
+			default_settings = {
+				['rust-analyzer'] = {
+					cargo = {
+						extraArgs = { '--target-dir', 'target/rust-analyzer' },
+					},
+					files = {
+						excludeDirs = {
+							'.direnv',
+							'.git',
+							'.jj',
+							'result',
+						},
+					},
+				},
+			},
+		},
+	}
+end
+
 local function buf_load_lsp_keymap(ev)
 	local wk = require('which-key')
 
@@ -54,8 +81,8 @@ local function buf_load_lsp_keymap(ev)
 	})
 end
 
-function M:config(opts, main)
-	local lsp = require(main)
+function M:config(opts)
+	local lsp = require(self.main)
 
 	for lsName, lsConfig in pairs(opts) do
 		lsConfig.capabilities = vim.g.lsp_capabilities or nil
@@ -144,29 +171,5 @@ function M.opts()
 	}
 end
 
--- rustaceanvim doesn't use setup() args
-vim.g.rustaceanvim = {
-	tools = {
-		enable_clippy = true,
-	},
-	server = {
-		capabilities = vim.g.lsp_capabilities or nil,
-		default_settings = {
-			['rust-analyzer'] = {
-				cargo = {
-					extraArgs = { '--target-dir', 'target/rust-analyzer' },
-				},
-				files = {
-					excludeDirs = {
-						'.direnv',
-						'.git',
-						'.jj',
-						'result',
-					},
-				},
-			},
-		},
-	},
-}
 
 return M

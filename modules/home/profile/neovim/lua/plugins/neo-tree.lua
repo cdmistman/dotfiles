@@ -11,7 +11,7 @@ local M = {
 	opts = {},
 }
 
-function M:post_setup_hook(neotree)
+function M:post_setup_hook()
 	local wk = require('which-key')
 
 	-- TODO: make neotree work with :n and :p
