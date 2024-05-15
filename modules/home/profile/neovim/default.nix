@@ -150,6 +150,7 @@ in
   lib.mkIf config.mistman.profile.enable {
     vanillinvim = {
       enable = true;
+
       tools = [
         pkgs.gopls
         pkgs.gotools

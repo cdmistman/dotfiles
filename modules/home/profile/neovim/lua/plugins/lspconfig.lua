@@ -98,12 +98,12 @@ function M:config(opts)
 end
 
 function M.opts()
-	local pathlib = require('plenary.path')
 	local util = require('lspconfig.util')
 
 	local opts = {}
 
-	local basic = { 'biome', 'clangd', 'cssls', 'eslint', 'gopls', 'graphql', 'hls', 'html', 'jsonls', 'marksman', 'nixd', 'nushell', 'svelte', 'taplo', 'tsserver', 'zls' }
+	local basic = { 'biome', 'clangd', 'cssls', 'eslint', 'gopls', 'graphql', 'hls', 'html', 'jsonls', 'marksman', 'nixd',
+		'nushell', 'svelte', 'taplo', 'tsserver', 'zls' }
 
 	for _, lsName in ipairs(basic) do
 		opts[lsName] = {}
@@ -111,26 +111,34 @@ function M.opts()
 
 	opts.lua_ls = {
 		on_init = function(client)
-			local path = pathlib.new(client.workspace_folders[1].name)
-			if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
-				return true
+			local path = client.workspace_folders[1].name
+			if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
+				return
 			end
-			client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-				Lua = {
-					runtime = {
-						version = 'LuaJIT',
-					},
-					workspace = {
-						checkThirdParty = false,
-						library = vim.api.nvim_get_runtime_file('', true),
-					},
+
+			client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+				runtime = {
+					-- Tell the language server which version of Lua you're using
+					-- (most likely LuaJIT in the case of Neovim)
+					version = 'LuaJIT'
+				},
+				-- Make the server aware of Neovim runtime files
+				workspace = {
+					checkThirdParty = false,
+					library = {
+						vim.env.VIMRUNTIME
+						-- Depending on the usage, you might want to add additional paths here.
+						-- "${3rd}/luv/library"
+						-- "${3rd}/busted/library",
+					}
+					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+					-- library = vim.api.nvim_get_runtime_file("", true)
 				}
 			})
-			client.notify('workspace/didChangeConfiguration', {
-				settings = client.config.settings,
-			})
-			return true
 		end,
+		settings = {
+			Lua = {}
+		}
 	}
 
 	opts.tailwindcss = {
@@ -148,6 +156,5 @@ function M.opts()
 
 	return opts
 end
-
 
 return M

@@ -30,18 +30,11 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    neovim = {
-      url = "github:neovim/neovim/v0.9.5?dir=contrib";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.flake-compat.follows = "flake-compat";
       inputs.flake-parts.follows = "flake-parts";
       inputs.hercules-ci-effects.follows = "hercules-ci-effects";
-      inputs.neovim-flake.follows = "neovim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

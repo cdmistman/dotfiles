@@ -8,5 +8,12 @@ return {
 		'plenary.nvim',
 	},
 
-	opts = {},
+	opts = {
+		filesystem = {
+			filtered_items = {
+				hide_dotfiles = false,
+			},
+			group_empty_dirs = true,
+		},
+	},
 }

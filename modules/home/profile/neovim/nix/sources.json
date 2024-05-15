@@ -252,15 +252,15 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-lspconfig": {
-        "branch": "master",
+        "branch": "patch-1",
         "description": "Quickstart configs for Nvim LSP",
         "homepage": "",
-        "owner": "neovim",
+        "owner": "cdmistman",
         "repo": "nvim-lspconfig",
-        "rev": "a3d9395455f2b2e3b50a0b0f37b8b4c23683f44a",
-        "sha256": "0r79xnzvw6sqawq3ihyzxwljqra40ax6m506hx8n8mhap46wpk1c",
+        "rev": "9d31674acbf204c8e1ae54abaaeffb6084ae4046",
+        "sha256": "17m8yig25q8vgld6g2mp43cn7gz42lipzly5a1ngwg5jjv28yn32",
         "type": "tarball",
-        "url": "https://github.com/neovim/nvim-lspconfig/archive/a3d9395455f2b2e3b50a0b0f37b8b4c23683f44a.tar.gz",
+        "url": "https://github.com/cdmistman/nvim-lspconfig/archive/9d31674acbf204c8e1ae54abaaeffb6084ae4046.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-notify": {

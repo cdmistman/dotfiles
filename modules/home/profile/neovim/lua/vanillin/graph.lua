@@ -65,7 +65,7 @@ function Graph:edge(id)
 end
 
 ---Returns the roots in the graph, that is, those without any inbound edges.
----@return Array<NodeID>
+---@return NodeID[]
 function Graph:roots()
 	---@type table<NodeID, boolean>
 	local hay = {}
@@ -73,7 +73,7 @@ function Graph:roots()
 		hay[edge.dest] = false
 	end
 
-	---@type Array<NodeID>
+	---@type NodeID[]
 	local needles = {}
 	for node in self:iter_nodes() do
 		if not hay[node] then
@@ -224,10 +224,11 @@ function Graph:iter_edges()
 	return self.next_edge, self
 end
 
+---@generic T
 ---@param self Graph
 ---@param prev? NodeID
 ---@return NodeID|nil
----@return Node|nil
+---@return T|nil
 function Graph:next_root(prev)
 	local next_node = self:iter_nodes()
 
@@ -250,7 +251,8 @@ function Graph:next_root(prev)
 end
 
 ---Iterator over the roots in the graph.
----@return fun(graph: Graph, prev?: NodeID): NodeID|nil, Node|nil
+---@generic T
+---@return fun(graph: Graph, prev?: NodeID): NodeID|nil, T|nil
 ---@return Graph
 function Graph:iter_roots()
 	return self.next_root, self
