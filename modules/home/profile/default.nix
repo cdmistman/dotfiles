@@ -48,12 +48,13 @@ in {
 
   options.mistman.profile = {
     enable = mkEnableOption "my home dir configuration";
-    alacritty = mkEnableOption "alacritty package" // {default = cfg.enable;};
+    alacritty = mkEnableOption "alacritty package" // {default = cfg.gui-apps;};
     gui-apps = mkEnableOption "GUI application packages";
-    vscode = mkEnableOption "vscode package" // {default = cfg.enable;};
+    vscode = mkEnableOption "vscode package" // {default = false;};
   };
 
   config = mkIf cfg.enable {
+    darwin-trampolines.enable = true;
     editorconfig.enable = true;
     xdg.enable = true;
 
@@ -66,7 +67,7 @@ in {
       stateVersion = "23.11";
       username = "colton";
 
-      packages = with pkgs; [
+      packages = (with pkgs; [
         _1password
         cachix
         comma
@@ -83,7 +84,9 @@ in {
         sd
         tokei
         watchman
-      ];
+      ]) ++ (lib.optionals cfg.gui-apps [
+        pkgs.discord
+      ]);
 
       sessionPath = [
         "$HOME/bin"
@@ -226,7 +229,7 @@ in {
         revset-aliases = {
           stack = "descendants(roots(stacks & ::@ ~ ::trunk()))";
           stacks = "mine() & branches():: & ::visible_heads() ~ ::trunk()";
-          stack-roots = "roots(stacks) | trunk()";
+          stack-roots = "roots(stacks) ~ trunk()";
         };
 
         ui = {

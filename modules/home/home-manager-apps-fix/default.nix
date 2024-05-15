@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (inputs.home-manager.lib) hm;
-  inherit (lib) mkIf mkEnableOption types;
+  inherit (lib) mkIf mkEnableOption;
 in {
   options.darwin-trampolines.enable = mkEnableOption "darwin-trampolines";
 
@@ -21,7 +21,7 @@ in {
       ];
 
       activation.trampolineApps = hm.dag.entryAfter ["writeBoundary"] ''
-        ${builtins.readFile ./trampoline-apps.sh}
+        . ${./trampoline-apps.sh}
 
         fromDir="$HOME/Applications/Home Manager Apps"
         toDir="$HOME/Applications/Home Manager Trampolines"

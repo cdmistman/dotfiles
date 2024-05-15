@@ -7,6 +7,7 @@
   home = {
     packages = with pkgs; [
       docker
+      slack
     ];
 
     # TODO: get nixpkgs-packaged google-cloud-sdk working

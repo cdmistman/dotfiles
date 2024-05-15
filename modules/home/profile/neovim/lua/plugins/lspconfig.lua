@@ -105,6 +105,10 @@ function M.opts()
 
 	local basic = { 'biome', 'clangd', 'cssls', 'eslint', 'gopls', 'graphql', 'hls', 'html', 'jsonls', 'marksman', 'nixd', 'nushell', 'svelte', 'taplo', 'tsserver', 'zls' }
 
+	for _, lsName in ipairs(basic) do
+		opts[lsName] = {}
+	end
+
 	opts.lua_ls = {
 		on_init = function(client)
 			local path = pathlib.new(client.workspace_folders[1].name)
