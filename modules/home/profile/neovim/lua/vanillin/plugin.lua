@@ -170,8 +170,7 @@ function VanPlugin:load(graph)
 	if not self.opts then
 		opts = nil
 	elseif type(self.opts) == 'function' then
-		opts = {}
-		self:opts(opts)
+		opts = self:opts()
 	else
 		local my_opts = self.opts
 		---@cast my_opts table

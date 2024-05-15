@@ -1,6 +1,10 @@
 return {
 	'which-key.nvim',
-	lazy = false,
+
+	dependencies = {
+		'neo-tree.nvim'
+	},
+
 	opts = {},
 
 	init = function()
@@ -10,16 +14,27 @@ return {
 
 	post_setup_hook = function()
 		require('which-key').register({
-			['<leader>'] = {
-				name = '+more',
-				f = { name = '+file' },
-				p = { name = '+project' },
-
+			g = {
+				name = '+go',
+				noremap = false,
 				b = {
 					name = '+buffer',
+					noremap = false,
+					-- l = { }, TODO: buffer list
 					n = { '<cmd>bn<cr>', 'next' },
 					p = { '<cmd>bp<cr>', 'previous' },
-					d = { '<cmd>bd<cr>', 'delete' },
+				},
+				f = {
+					l = { "<cmd>Neotree toggle left<cr>", "list" },
+				},
+			},
+
+			['<leader>'] = {
+				name = '+more',
+				noremap = false,
+
+				f = {
+					name = '+find',
 				},
 
 				w = {

@@ -1,23 +1,17 @@
 return {
 	'noice.nvim',
-	event = 'VeryLazy',
 
 	dependencies = {
 		'nui.nvim',
-
-		{
-			'nvim-notify',
-			main = 'notify',
-			opts = {
-				minimum_width = '25',
-				render = 'compact',
-				timeout = 3000,
-			},
-		},
 	},
 
-	-- TODO: i don't like the notification windows
 	opts = {
+		cmdline = {
+			format = {
+				conceal = false,
+			},
+		},
+
 		lsp = {
 			override = {
 				['vim.lsp.util.convert_input_to_markdown_lines'] = true,

@@ -33,7 +33,7 @@
     "nui.nvim"
     "nvim-cmp"
     "nvim-lspconfig"
-    "nvim-notify"
+    # "nvim-notify"
     "nvim-treesitter-context"
     "nvim-web-devicons"
     "peek.nvim"

@@ -82,10 +82,12 @@ local function buf_load_lsp_keymap(ev)
 end
 
 function M:config(opts)
+	local cmp = require('cmp_nvim_lsp')
+
 	local lsp = require(self.main)
 
 	for lsName, lsConfig in pairs(opts) do
-		lsConfig.capabilities = vim.g.lsp_capabilities or nil
+		lsConfig.capabilities = cmp.default_capabilities()
 		lsp[lsName].setup(lsConfig)
 	end
 
@@ -99,76 +101,48 @@ function M.opts()
 	local pathlib = require('plenary.path')
 	local util = require('lspconfig.util')
 
-	return {
-		biome = {},
+	local opts = {}
 
-		clangd = {},
+	local basic = { 'biome', 'clangd', 'cssls', 'eslint', 'gopls', 'graphql', 'hls', 'html', 'jsonls', 'marksman', 'nixd', 'nushell', 'svelte', 'taplo', 'tsserver', 'zls' }
 
-		cssls = {},
-
-		eslint = {},
-
-		gopls = {},
-
-		graphql = {},
-
-		hls = {},
-
-		html = {},
-
-		jsonls = {},
-
-		lua_ls = {
-			on_init = function(client)
-				local path = pathlib.new(client.workspace_folders[1].name)
-				if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
-					return true
-				end
-				client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-					Lua = {
-						runtime = {
-							version = 'LuaJIT',
-						},
-						workspace = {
-							checkThirdParty = false,
-							library = vim.api.nvim_get_runtime_file('', true),
-						},
-					}
-				})
-				client.notify('workspace/didChangeConfiguration', {
-					settings = client.config.settings,
-				})
+	opts.lua_ls = {
+		on_init = function(client)
+			local path = pathlib.new(client.workspace_folders[1].name)
+			if path:joinpath('.luarc.json'):exists() or path:joinpath('.luarc.jsonc'):exists() then
 				return true
-			end,
-		},
-
-		marksman = {},
-
-		nixd = {},
-
-		nushell = {},
-
-		svelte = {},
-
-		tailwindcss = {
-			root_dir = util.root_pattern(
-				'tailwind.config.js',
-				'tailwind.config.cjs',
-				'tailwind.config.mjs',
-				'tailwind.config.ts',
-				'postcss.config.js',
-				'postcss.config.cjs',
-				'postcss.config.mjs',
-				'postcss.config.ts'
-			),
-		},
-
-		taplo = {},
-
-		tsserver = {},
-
-		zls = {},
+			end
+			client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+				Lua = {
+					runtime = {
+						version = 'LuaJIT',
+					},
+					workspace = {
+						checkThirdParty = false,
+						library = vim.api.nvim_get_runtime_file('', true),
+					},
+				}
+			})
+			client.notify('workspace/didChangeConfiguration', {
+				settings = client.config.settings,
+			})
+			return true
+		end,
 	}
+
+	opts.tailwindcss = {
+		root_dir = util.root_pattern(
+			'tailwind.config.js',
+			'tailwind.config.cjs',
+			'tailwind.config.mjs',
+			'tailwind.config.ts',
+			'postcss.config.js',
+			'postcss.config.cjs',
+			'postcss.config.mjs',
+			'postcss.config.ts'
+		),
+	}
+
+	return opts
 end
 
 
