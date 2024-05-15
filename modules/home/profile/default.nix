@@ -54,7 +54,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    darwin-trampolines.enable = true;
+    darwin-trampolines.enable = pkgs.stdenv.isDarwin;
     editorconfig.enable = true;
     xdg.enable = true;
 
