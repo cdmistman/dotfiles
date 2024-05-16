@@ -9,13 +9,15 @@ local M = {
 }
 
 function M:init()
+	self.capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 	-- rustaceanvim doesn't use setup() args
 	vim.g.rustaceanvim = {
 		tools = {
 			enable_clippy = true,
 		},
 		server = {
-			capabilities = vim.g.lsp_capabilities or vim.lsp.protocol.make_client_capabilities(),
+			capabilities = self.capabilities,
 			default_settings = {
 				['rust-analyzer'] = {
 					cargo = {
@@ -97,7 +99,7 @@ function M:config(opts)
 	})
 end
 
-function M.opts()
+function M:opts()
 	local util = require('lspconfig.util')
 
 	local opts = {}
@@ -106,10 +108,13 @@ function M.opts()
 		'nushell', 'svelte', 'taplo', 'tsserver', 'zls' }
 
 	for _, lsName in ipairs(basic) do
-		opts[lsName] = {}
+		opts[lsName] = {
+			capabilities = self.capabilities,
+		}
 	end
 
 	opts.lua_ls = {
+		capabilities = self.capabilities,
 		on_init = function(client)
 			local path = client.workspace_folders[1].name
 			if vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc') then
@@ -142,6 +147,7 @@ function M.opts()
 	}
 
 	opts.tailwindcss = {
+		capabilities = self.capabilities,
 		root_dir = util.root_pattern(
 			'tailwind.config.js',
 			'tailwind.config.cjs',

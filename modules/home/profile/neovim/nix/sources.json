@@ -251,6 +251,18 @@
         "url": "https://github.com/hrsh7th/nvim-cmp/archive/cd2cf0c124d3de577fb5449746568ee8e601afc8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nvim-colorizer.lua": {
+        "branch": "master",
+        "description": "Maintained fork of the fastest Neovim colorizer",
+        "homepage": "",
+        "owner": "nvchad",
+        "repo": "nvim-colorizer.lua",
+        "rev": "85855b38011114929f4058efc97af1059ab3e41d",
+        "sha256": "1z88vp8a56blhm7s0p1s19i2pwa7dldaxxh86x7jj0dyc8vwbax0",
+        "type": "tarball",
+        "url": "https://github.com/nvchad/nvim-colorizer.lua/archive/85855b38011114929f4058efc97af1059ab3e41d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nvim-lspconfig": {
         "branch": "patch-1",
         "description": "Quickstart configs for Nvim LSP",

@@ -32,6 +32,7 @@
     "noice.nvim"
     "nui.nvim"
     "nvim-cmp"
+    "nvim-colorizer.lua"
     "nvim-lspconfig"
     # "nvim-notify"
     "nvim-treesitter-context"

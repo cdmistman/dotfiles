@@ -31,15 +31,15 @@ function M:opts()
 
 	local opts = {}
 
-	opts.formatting = {
-		format = lspkind.cmp_format({
-			mode = 'symbol',
-			menu = {
-				luasnip = '[Snip]',
-				nvim_lsp = '[LSP]',
-			},
-		})
-	}
+	-- opts.formatting = {
+	-- 	format = lspkind.cmp_format({
+	-- 		mode = 'symbol',
+	-- 		menu = {
+	-- 			luasnip = '[Snip]',
+	-- 			nvim_lsp = '[LSP]',
+	-- 		},
+	-- 	})
+	-- }
 
 	opts.mapping = {
 		['<CR>'] = cmp.mapping({
@@ -114,6 +114,10 @@ function M:opts()
 	}
 
 	opts.window = {}
+
+	opts.experimental = {
+		ghost_text = true,
+	}
 
 	return opts
 end

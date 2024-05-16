@@ -8,6 +8,7 @@ vim.g.maplocalleader = '\\'
 -- TODO: for some reason /matching highlighting is broken when lsps are loading
 vim.opt.backupdir = vim.env.XDG_STATE_HOME .. '/nvim/backup//'
 vim.opt.cursorline = true
+vim.opt.gdefault = true
 vim.opt.hlsearch = false
 vim.opt.list = true
 vim.opt.listchars = { lead = '␣', tab = '> ' }

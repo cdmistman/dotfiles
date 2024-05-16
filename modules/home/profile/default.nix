@@ -267,6 +267,12 @@ in {
         enableNushellIntegration = true;
         enableZshIntegration = true;
       };
+
+      zsh = {
+        shellAliases = {
+          lt = "eza --tree --git-ignore";
+        };
+      };
     };
 
     services = {
