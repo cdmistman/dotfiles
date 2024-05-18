@@ -1,5 +1,10 @@
-{pkgs, ...}: {
+{config, lib, pkgs, ...}: {
   mistman.profile.enable = true;
+
+  launchd.daemons.tailscaled.serviceConfig.ProgramArguments = lib.mkForce [
+    "/bin/sh" "-c"
+    "/bin/wait4path ${config.services.tailscale.package} &amp;&amp; ${config.services.tailscale.package}/bin/tailscaled -config /etc/tailscaled.json"
+  ];
 
   users = {
     # NOTE: append-only
