@@ -38,7 +38,6 @@ lib.mkIf (config.mistman.profile.enable) {
 
     "*.go" = {
       indent_style = "tab";
-      indent_size = 4;
     };
   };
 }

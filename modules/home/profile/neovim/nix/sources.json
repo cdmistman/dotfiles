@@ -221,10 +221,10 @@
         "homepage": "",
         "owner": "folke",
         "repo": "noice.nvim",
-        "rev": "09102ca2e9a3e9302119fdaf7a059a034e4a626d",
-        "sha256": "1gzdwgizbl60fqiiiwrzfqbbds182qqlr3gyyzvgxbxijs3ajsk1",
+        "rev": "v3.0.1",
+        "sha256": "1n12bnip7xaghglwjs3ipzz4ipgp26bh2z9m993w507k12j4xnzx",
         "type": "tarball",
-        "url": "https://github.com/folke/noice.nvim/archive/09102ca2e9a3e9302119fdaf7a059a034e4a626d.tar.gz",
+        "url": "https://github.com/folke/noice.nvim/archive/v3.0.1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nui.nvim": {
@@ -765,6 +765,18 @@
         "sha256": "01kfqljqx08hv81ilk5bbk03skxmrnsbgnwkahng12miwq5lsgvp",
         "type": "tarball",
         "url": "https://github.com/tree-sitter-grammars/tree-sitter-vue/archive/7e48557b903a9db9c38cea3b7839ef7e1f36c693.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "vim-gitgutter": {
+        "branch": "main",
+        "description": "A Vim plugin which shows git diff markers in the sign column and stages/previews/undoes hunks and partial hunks.",
+        "homepage": "",
+        "owner": "airblade",
+        "repo": "vim-gitgutter",
+        "rev": "e801371917e52805a4ceb1e93f55ed1fba712f82",
+        "sha256": "0aa3fphgl0c0y3lmivvfmvrqrs5iqn5dkvdv2jhl1q73y6pnhxiz",
+        "type": "tarball",
+        "url": "https://github.com/airblade/vim-gitgutter/archive/e801371917e52805a4ceb1e93f55ed1fba712f82.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "vim-snippets": {

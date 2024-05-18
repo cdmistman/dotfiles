@@ -45,6 +45,7 @@
     # "substitute.nvim"
     "telescope.nvim"
     "todo-comments.nvim"
+    "vim-gitgutter"
     "which-key.nvim"
     # "yanky.nvim"
   ];
@@ -153,9 +154,11 @@ in
       enable = true;
 
       tools = [
+        pkgs.gofumpt
         pkgs.gopls
         pkgs.gotools
         pkgs.haskell-language-server
+        pkgs.htmx-lsp
         pkgs.lua-language-server
         pkgs.marksman
         pkgs.nixd

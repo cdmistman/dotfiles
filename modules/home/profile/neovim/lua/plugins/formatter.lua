@@ -1,7 +1,7 @@
 return {
 	'formatter.nvim',
 	main = 'formatter',
-	event = 'VeryLazy',
+	enabled = false,
 
 	opts = function()
 		local filetypes = require('formatter.filetypes');
@@ -19,10 +19,10 @@ return {
 			['*'] = filetypes.any.remove_trailing_whitespace,
 
 			filetype = {
-				go = {
-					filetypes.go.gofmt,
-					filetypes.go.goimports,
-				},
+				-- go = {
+				-- 	filetypes.go.gofmt,
+				-- 	filetypes.go.goimports,
+				-- },
 				html = filetypes.html.prettierd,
 				rust = filetypes.rust.rustfmt,
 				zig = filetypes.zig.zigfmt,

@@ -17,7 +17,9 @@ vim.opt.number = true
 vim.opt.smartcase = true
 vim.opt.signcolumn = 'yes'
 vim.opt.sol = true
+vim.opt.tabstop = 4
 vim.opt.termguicolors = true
+vim.opt.updatetime = 500
 vim.opt.wrapscan = false
 
 require('vanillin').setup()

@@ -4,12 +4,13 @@ local M = {
 	'nvim-cmp',
 	main = 'cmp',
 	lazy = false,
+	-- enabled = false,
 
 	dependencies = {
-		{
-			'cmp-nvim-lsp',
-			config = false,
-		},
+		-- {
+		-- 	'cmp-nvim-lsp',
+		-- 	config = false,
+		-- },
 		{
 			'copilot-cmp',
 			dependencies = { 'copilot.lua' },
@@ -62,8 +63,8 @@ function M:opts()
 			-- https://github.com/zbirenbaum/copilot-cmp#tab-completion-configuration-highly-recommended
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+			elseif luasnip.locally_jumpable(1) then
+				luasnip.jump(1)
 			elseif has_words_before() then
 				cmp.complete()
 			else
@@ -75,7 +76,7 @@ function M:opts()
 			local luasnip = require('luasnip')
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
+			elseif luasnip.locally_jumpable(-1) then
 				luasnip.jump(-1)
 			else
 				fallback()
@@ -100,20 +101,39 @@ function M:opts()
 	opts.sources = cmp.config.sources({
 		{ name = 'copilot' },
 		{ name = 'nvim_lsp' },
-		{ name = 'nvim_lsp_signature_help' },
 		{ name = 'luasnip' },
 	}, {
 		{ name = 'buffer' }
 	})
 
-	opts.view = {
-		entries = {
-			name = 'custom',
-			selection_order = 'near_cursor',
-		},
-	}
+	-- cmp.setup.cmdline('/', {
+	-- 	mapping = cmp.mapping.preset.cmdline(),
+	-- 	sources = {
+	-- 		{ name = 'buffer' }
+	-- 	}
+	-- })
+	--
+	-- cmp.setup.cmdline(':', {
+	-- 	mapping = cmp.mapping.preset.cmdline(),
+	-- 	sources = cmp.config.sources({
+	-- 		{ name = 'path' }
+	-- 	}, {
+	-- 		{ name = 'cmdline' }
+	-- 	}),
+	-- 	matching = { disallow_symbol_nonprefix_matching = false }
+	-- })
+	--
+	-- opts.view = {
+	-- 	entries = {
+	-- 		name = 'custom',
+	-- 		selection_order = 'near_cursor',
+	-- 	},
+	-- }
 
-	opts.window = {}
+	opts.window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	}
 
 	opts.experimental = {
 		ghost_text = true,

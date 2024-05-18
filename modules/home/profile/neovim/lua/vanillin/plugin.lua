@@ -4,8 +4,9 @@ local M = {}
 ---@field [1] string
 ---@field enabled? boolean whether the plugin should be prevented from loading
 ---@field lazy? boolean whether the plugin should be loaded lazily or eagerly
----@field event? string|Array<string>|(fun(self: VanPlugin)) the event to trigger on for initialization
----@field dependencies? Array<string|VanPlugin> the plugins this plugin requires to be initialized before this plugin may be initialized
+---@field event? string|string[]|(fun(self: VanPlugin)) the event to trigger on for initialization
+---@field pattern? string|string[] the pattern to use for `nvim_create_autocmd`. note that this breaks dependency resolution for now lmao
+---@field dependencies? string[]|VanPlugin[] the plugins this plugin requires to be initialized before this plugin may be initialized
 ---@field init? fun(self: VanPlugin) always executed on startup
 ---@field opts? table|(fun(self: VanPlugin, opts: table)) options to initialize the plugin
 ---@field config? boolean|(fun(self: VanPlugin, opts: table|nil)) executed to load the plugin.
@@ -150,7 +151,7 @@ end
 ---@param graph Graph
 function VanPlugin:load(graph)
 	if not self.enabled then
-		vim.notify('plugin ' .. self[1] .. ' is disabled', vim.log.levels.INFO)
+		-- vim.notify('plugin ' .. self[1] .. ' is disabled', vim.log.levels.DEBUG)
 		return
 	end
 

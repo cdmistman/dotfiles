@@ -1,5 +1,6 @@
 return {
 	'noice.nvim',
+	-- enabled = false,
 
 	dependencies = {
 		'nui.nvim',
