@@ -4,7 +4,6 @@ local M = {
 	'nvim-cmp',
 	main = 'cmp',
 	lazy = false,
-	-- enabled = false,
 
 	dependencies = {
 		-- {
@@ -140,6 +139,14 @@ function M:opts()
 	}
 
 	return opts
+end
+
+function M.post_setup_hook()
+	vim.api.nvim_create_autocmd('BufEnter', {
+		callback = function()
+			-- vim.o.omnifunc =
+		end
+	})
 end
 
 return M

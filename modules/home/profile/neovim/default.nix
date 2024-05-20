@@ -25,7 +25,7 @@
     # "direnv.vim"
     # "flash.nvim"
     "formatter.nvim"
-    # "hydra.nvim"
+    "lsp-format.nvim"
     "lspkind.nvim"
     "neo-tree.nvim"
     "neoscroll.nvim"

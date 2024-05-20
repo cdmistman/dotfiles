@@ -167,16 +167,16 @@
         "url": "https://github.com/mhartington/formatter.nvim/archive/ad246d34ce7a32f752071ed81b09b94e6b127fad.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "hydra.nvim": {
+    "lsp-format.nvim": {
         "branch": "master",
-        "description": "Create custom submodes and menus",
+        "description": "A wrapper around Neovims native LSP formatting.",
         "homepage": "",
-        "owner": "anuvyklack",
-        "repo": "hydra.nvim",
-        "rev": "3ced42c0b6a6c85583ff0f221635a7f4c1ab0dd0",
-        "sha256": "1dwhi2543drbncrqx80nsi5hw48d6my4wbsp71gx6m0clkp4469h",
+        "owner": "lukas-reineke",
+        "repo": "lsp-format.nvim",
+        "rev": "3612642b0e2eb85015838df5dcfbacb61f15db98",
+        "sha256": "1pizkn16ma7yfsy19g06f6l6zkqwsjkmzybqhhhp18xbbyj7m8cc",
         "type": "tarball",
-        "url": "https://github.com/anuvyklack/hydra.nvim/archive/3ced42c0b6a6c85583ff0f221635a7f4c1ab0dd0.tar.gz",
+        "url": "https://github.com/lukas-reineke/lsp-format.nvim/archive/3612642b0e2eb85015838df5dcfbacb61f15db98.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lspkind.nvim": {

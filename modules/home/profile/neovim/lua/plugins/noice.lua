@@ -4,6 +4,7 @@ return {
 
 	dependencies = {
 		'nui.nvim',
+		'nvim-lspconfig',
 	},
 
 	opts = {

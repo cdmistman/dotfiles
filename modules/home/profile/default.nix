@@ -232,6 +232,25 @@ in {
           stack-roots = "roots(stacks) ~ trunk()";
         };
 
+        template-aliases = {
+          dense = ''
+            concat(
+            )
+          '';
+
+          starship = ''
+            concat(
+              format_short_change_id_with_hidden_and_divergent_info(self),
+              surround(" ", "", local_branches.join(" ")),
+              surround(
+                " ",
+                "",
+                parents.map(|parent| "~" ++ parent.local_branches().join(" ")).join(" "),
+              ),
+            )
+          '';
+        };
+
         ui = {
           always-allow-large-revsets = true;
           default-command = ["log" "-r" "stack"];

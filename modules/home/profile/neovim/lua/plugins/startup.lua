@@ -2,10 +2,6 @@ return {
 	'startup.nvim',
 	lazy = false,
 
-	dependencies = {
-		'telescope.nvim',
-	},
-
 	opts = {
 		--		header = {
 		--			type = "text",

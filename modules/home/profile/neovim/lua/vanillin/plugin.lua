@@ -178,6 +178,10 @@ function VanPlugin:load(graph)
 		opts = my_opts
 	end
 
+	if opts ~= nil then
+		self.opts = opts
+	end
+
 	local config = self.config
 	if config == true or config == nil then
 		config = function()

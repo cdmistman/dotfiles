@@ -1,16 +1,17 @@
 local M = {
 	'nvim-lspconfig',
 	main = 'lspconfig',
-	lazy = false,
+	dependencies = { 'nvim-treesitter' },
 }
 
 function M:init()
-	self.capabilities = require('cmp_nvim_lsp').default_capabilities()
-
 	-- rustaceanvim doesn't use setup() args
 	vim.g.rustaceanvim = {
 		tools = {
 			enable_clippy = true,
+			reload_workspace_from_cargo_toml = true,
+			-- TODO: hover_actions = true,
+			-- TODO: float_win_config = {}
 		},
 		server = {
 			capabilities = self.capabilities,
@@ -43,18 +44,21 @@ function M:config(opts)
 		lsp[lsName].setup(lsConfig)
 	end
 
-	local plugin = self
-
 	local augroup = vim.api.nvim_create_augroup('UserLspConfig', {})
-	vim.api.nvim_create_autocmd('LSPAttach', {
+	vim.api.nvim_create_autocmd('LspAttach', {
 		group = augroup,
-		callback = function(ev) plugin:on_attach(ev) end,
-	})
+		---@param ev { buf: integer, data: { client_id: integer } }
+		callback = function(ev)
+			local bufnr = ev.buf
+			local client = vim.lsp.get_client_by_id(ev.data.client_id)
+			if client == nil then
+				vim.notify('no client attached for LspAttach event :(')
+				return
+			end
 
-	vim.api.nvim_create_autocmd('LSPAttach', {
-		pattern = { '*.go' },
-		group = augroup,
-		callback = function(ev) plugin:on_attach_go(ev) end,
+			require('lsp-format').on_attach(client, bufnr)
+			self:on_attach(ev)
+		end,
 	})
 end
 
@@ -67,10 +71,9 @@ function M:opts()
 		'biome',
 		'clangd',
 		'cssls',
-		'eslint',
 		'graphql',
 		'hls',
-		'jsonls',
+		-- 'jsonls',
 		'marksman',
 		'nixd',
 		'nushell',
@@ -83,10 +86,16 @@ function M:opts()
 		opts[lsName] = {}
 	end
 
-	opts.gopls = {
-		on_attach = function(client, bufnr)
-		end,
+	opts.eslint = {
+		on_attach = function(_, bufnr)
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				buffer = bufnr,
+				command = "EslintFixAll",
+			})
+		end
+	}
 
+	opts.gopls = {
 		settings = {
 			gopls = {
 				analyses = {
@@ -95,10 +104,13 @@ function M:opts()
 				gofumpt = true,
 				-- TODO: local = '~/path/to/project',
 				-- navigation = {
-					importShortcut = "Definition"
+				importShortcut = "Definition"
 				-- },
 			},
 		},
+		on_attach = function(args)
+			self:on_attach(args)
+		end
 	}
 
 	opts.html = {
@@ -125,14 +137,14 @@ function M:opts()
 				-- Make the server aware of Neovim runtime files
 				workspace = {
 					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME
-						-- Depending on the usage, you might want to add additional paths here.
-						-- "${3rd}/luv/library"
-						-- "${3rd}/busted/library",
-					}
+					-- library = {
+					-- 	vim.env.VIMRUNTIME
+					-- Depending on the usage, you might want to add additional paths here.
+					-- "${3rd}/luv/library"
+					-- "${3rd}/busted/library",
+					-- },
 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-					-- library = vim.api.nvim_get_runtime_file("", true)
+					library = vim.api.nvim_get_runtime_file("", true)
 				}
 			})
 		end,
@@ -160,50 +172,74 @@ function M:opts()
 	return opts
 end
 
-function M:on_attach(ev)
-	local wk = require('which-key')
+---@param bufnr integer
+---@param client vim.lsp.Client
+function M:on_attach(bufnr, client)
+	local buf_write_actions = {}
 
-	local function code_format()
-		vim.lsp.buf.format({
-			async = true,
-		})
-	end
+	-- if client.server_capabilities.documentFormattingProvider then
+	-- 	vim.notify('enabling format on save for ' .. client.name)
+	-- 	table.insert(buf_write_actions, function()
+	-- 	end)
+	-- end
 
-	wk.register({
-		g = {
-			d = { vim.lsp.buf.definition, 'definition' },
-			D = { vim.lsp.buf.declaration, 'declaration' },
-			i = { vim.lsp.buf.implementation, 'implementation' },
-			r = { vim.lsp.buf.references, 'references' },
-		},
-	}, {
-		buffer = ev.buf,
-	})
+	-- local bufnr = args.buf
+	-- local client = vim.lsp.get_client_by_id(args.data.client_id)
+	-- if client == nil then
+	-- 	vim.notify('no client attached for lspattach event :(')
+	-- 	return
+	-- end
+	--
+	-- local do_format = false
+	-- if client.capabilities.textDocument.formatting
 
-	wk.register({
-		c = {
-			a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
-			d = {
-				name = '+diagnostic',
-				n = { vim.diagnostic.goto_next, 'next' },
-				N = { vim.diagnostic.goto_prev, 'previous' },
-				H = { vim.diagnostic.open_float, 'show' },
-			},
-			f = { code_format, 'format' },
-			l = { vim.lsp.codelens.refresh, 'codelens' },
-			r = { vim.lsp.buf.rename, 'rename' },
-		},
-		g = {
-			d = { vim.lsp.buf.definition, 'definition' },
-			D = { vim.lsp.buf.declaration, 'declaration' },
-			i = { vim.lsp.buf.implementation, 'implementation' },
-			r = { vim.lsp.buf.references, 'references' },
-		},
-		H = { vim.lsp.buf.hover, 'hover' },
-	}, {
-		prefix = '<leader>',
-		buffer = ev.buf,
-	})
+	-- vim.notify(
+	-- 	'just got attached!\nself = ' ..
+	-- 	vim.inspect(self) ..
+	-- 	'\nclient = ' .. vim.inspect(client) .. '\nbufnr = ' .. vim.pretty_print(bufnr)
+	-- )
+
+	-- local function code_format()
+	-- 	vim.lsp.buf.format({
+	-- 		async = true,
+	-- 	})
+	-- end
+
+	-- wk.register({
+	-- 	g = {
+	-- 		d = { vim.lsp.buf.definition, 'definition' },
+	-- 		D = { vim.lsp.buf.declaration, 'declaration' },
+	-- 		i = { vim.lsp.buf.implementation, 'implementation' },
+	-- 		r = { vim.lsp.buf.references, 'references' },
+	-- 	},
+	-- }, {
+	-- 	buffer = ev.buf,
+	-- })
+	--
+	-- wk.register({
+	-- 	c = {
+	-- 		a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
+	-- 		d = {
+	-- 			name = '+diagnostic',
+	-- 			n = { vim.diagnostic.goto_next, 'next' },
+	-- 			N = { vim.diagnostic.goto_prev, 'previous' },
+	-- 			H = { vim.diagnostic.open_float, 'show' },
+	-- 		},
+	-- 		f = { code_format, 'format' },
+	-- 		l = { vim.lsp.codelens.refresh, 'codelens' },
+	-- 		r = { vim.lsp.buf.rename, 'rename' },
+	-- 	},
+	-- 	g = {
+	-- 		d = { vim.lsp.buf.definition, 'definition' },
+	-- 		D = { vim.lsp.buf.declaration, 'declaration' },
+	-- 		i = { vim.lsp.buf.implementation, 'implementation' },
+	-- 		r = { vim.lsp.buf.references, 'references' },
+	-- 	},
+	-- 	H = { vim.lsp.buf.hover, 'hover' },
+	-- }, {
+	-- 	prefix = '<leader>',
+	-- 	buffer = ev.buf,
+	-- })
 end
 
 function M:on_attach_go(ev)

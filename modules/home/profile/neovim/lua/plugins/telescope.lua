@@ -7,6 +7,14 @@ return {
 	},
 
 	opts = {
+		defaults = {
+			scroll_strategy = 'limit',
+			dynamic_preview_title = true,
+			results_title = false,
+			prompt_title = false,
+			use_less = false,
+		},
+
 		extensions = {
 			'aerial',
 		},
@@ -16,9 +24,8 @@ return {
 		local builtin = require('telescope.builtin')
 		local extensions = require('telescope').extensions
 
-		-- TODO: hydra-ify
 		require('which-key').register({
-			['<leader>f'] = {
+			['<leader>t'] = {
 				name = '+find',
 				['/'] = { builtin.current_buffer_fuzzy_find, 'current buffer' },
 				['?'] = { builtin.help_tags, 'help' },

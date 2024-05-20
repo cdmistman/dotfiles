@@ -1,6 +1,5 @@
 return {
 	'aerial.nvim',
-	enabled = false,
 
 	event = 'VeryLazy',
 
@@ -20,8 +19,6 @@ return {
 		filter_kind = false,
 
 		on_attach = function(bufnr)
-			vim.cmd[[ AerialOpen! ]]
-
 			local wk = require('which-key')
 			wk.register({
 				buffer = bufnr,

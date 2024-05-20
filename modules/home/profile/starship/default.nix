@@ -114,19 +114,7 @@ lib.mkIf (config.mistman.profile.enable) {
 
       custom.jujutsu = {
         shell = ["${pkgs.bash}/bin/bash" "-c"];
-        command = let
-          template = ''
-            concat(
-              format_short_change_id_with_hidden_and_divergent_info(self),
-              surround(" ", "", local_branches.join(" ")),
-              surround(
-                " ",
-                "",
-                parents.map(|parent| "~" ++ parent.local_branches().join(" ")).join(" "),
-              ),
-            )
-          '';
-        in "jj log --color always --no-pager -r @ --no-graph -T ${lib.escapeShellArg template}";
+        command = "jj log --color always --no-pager -r @ --no-graph -T starship";
         description = "jujutsu-related information";
         when = "jj root";
         format = "([|](dimmed white)$output)";
