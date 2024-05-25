@@ -25,7 +25,6 @@ return {
 				gs = {
 					name = "+symbol",
 					l = { '<cmd>AerialOpen<CR>', 'list' },
-					-- f = { '<cmd><CR>', 'fuzz' }, TODO: telescope
 					n = { '<cmd>AerialNext<CR>', 'next' },
 					p = { '<cmd>AerialPrev<CR>', 'prev' },
 				},

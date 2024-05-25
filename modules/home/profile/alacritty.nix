@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   ...
 }:
@@ -16,6 +17,10 @@ lib.mkIf (config.mistman.profile.alacritty) {
         ++ (setMods "Command" binds)
     );
   in {
+    settings.import = [
+      "${inputs.tokyonight.outPath}/extras/alacritty/tokyonight_night.toml"
+    ];
+
     settings.live_config_reload = true;
 
     settings.cursor = {
@@ -55,7 +60,7 @@ lib.mkIf (config.mistman.profile.alacritty) {
     # TODO: hints
     # settings.hints = {};
 
-    settings.key_bindings =
+    settings.keyboard.bindings =
       [
         # window
         {
@@ -99,7 +104,7 @@ lib.mkIf (config.mistman.profile.alacritty) {
 
     settings.mouse.hide_when_typing = true;
 
-    settings.mouse_bindings =
+    settings.mouse.bindings =
       [
         {
           mouse = "Right";

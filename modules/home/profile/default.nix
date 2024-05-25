@@ -43,6 +43,7 @@ in {
     ./process-compose.nix
     ./ssh.nix
     ./starship
+    ./tmux
     ./zsh.nix
   ];
 

@@ -25,6 +25,7 @@
     # "direnv.vim"
     # "flash.nvim"
     "formatter.nvim"
+    "lualine.nvim"
     "lsp-format.nvim"
     "lspkind.nvim"
     "neo-tree.nvim"
@@ -172,6 +173,7 @@ in
 
         (pkgs.symlinkJoin {
           name = "nvim-nodePackages-tools";
+          # TODO: astro :(
           paths = [
             pkgs.nodePackages_latest.graphql-language-service-cli
             pkgs.nodePackages_latest.svelte-language-server

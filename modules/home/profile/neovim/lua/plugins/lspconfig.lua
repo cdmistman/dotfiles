@@ -57,7 +57,7 @@ function M:config(opts)
 			end
 
 			require('lsp-format').on_attach(client, bufnr)
-			self:on_attach(ev)
+			self:on_attach(bufnr, client)
 		end,
 	})
 end
@@ -68,6 +68,7 @@ function M:opts()
 	local opts = {}
 
 	for _, lsName in ipairs({
+		'astro',
 		'biome',
 		'clangd',
 		'cssls',
@@ -177,6 +178,8 @@ end
 function M:on_attach(bufnr, client)
 	local buf_write_actions = {}
 
+	-- vim.notify('bufnr is ' .. vim.inspect(bufnr))
+
 	-- if client.server_capabilities.documentFormattingProvider then
 	-- 	vim.notify('enabling format on save for ' .. client.name)
 	-- 	table.insert(buf_write_actions, function()
@@ -205,6 +208,8 @@ function M:on_attach(bufnr, client)
 	-- 	})
 	-- end
 
+	local wk = require('which-key')
+
 	-- wk.register({
 	-- 	g = {
 	-- 		d = { vim.lsp.buf.definition, 'definition' },
@@ -215,31 +220,30 @@ function M:on_attach(bufnr, client)
 	-- }, {
 	-- 	buffer = ev.buf,
 	-- })
-	--
-	-- wk.register({
-	-- 	c = {
-	-- 		a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
-	-- 		d = {
-	-- 			name = '+diagnostic',
-	-- 			n = { vim.diagnostic.goto_next, 'next' },
-	-- 			N = { vim.diagnostic.goto_prev, 'previous' },
-	-- 			H = { vim.diagnostic.open_float, 'show' },
-	-- 		},
-	-- 		f = { code_format, 'format' },
-	-- 		l = { vim.lsp.codelens.refresh, 'codelens' },
-	-- 		r = { vim.lsp.buf.rename, 'rename' },
-	-- 	},
-	-- 	g = {
-	-- 		d = { vim.lsp.buf.definition, 'definition' },
-	-- 		D = { vim.lsp.buf.declaration, 'declaration' },
-	-- 		i = { vim.lsp.buf.implementation, 'implementation' },
-	-- 		r = { vim.lsp.buf.references, 'references' },
-	-- 	},
-	-- 	H = { vim.lsp.buf.hover, 'hover' },
-	-- }, {
-	-- 	prefix = '<leader>',
-	-- 	buffer = ev.buf,
-	-- })
+
+	wk.register({
+		c = {
+			a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
+			d = {
+				name = '+diagnostic',
+				n = { vim.diagnostic.goto_next, 'next' },
+				p = { vim.diagnostic.goto_prev, 'previous' },
+				h = { vim.diagnostic.open_float, 'show' },
+			},
+			l = { vim.lsp.codelens.refresh, 'codelens' },
+			r = { vim.lsp.buf.rename, 'rename' },
+		},
+		g = {
+			d = { vim.lsp.buf.definition, 'definition' },
+			D = { vim.lsp.buf.declaration, 'declaration' },
+			i = { vim.lsp.buf.implementation, 'implementation' },
+			r = { vim.lsp.buf.references, 'references' },
+		},
+		H = { vim.lsp.buf.hover, 'hover' },
+	}, {
+		prefix = '<leader>',
+		buffer = bufnr,
+	})
 end
 
 function M:on_attach_go(ev)
