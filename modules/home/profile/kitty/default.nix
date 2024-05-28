@@ -16,7 +16,10 @@
   hash-dir = path:
     lib.pipe (builtins.readDir path) [
       attrsToList
-      (map ({ name, value }:
+      (map ({
+        name,
+        value,
+      }:
         if value == "regular"
         then hash-file name
         else if value == "directory"
@@ -26,7 +29,6 @@
     ];
 
   config-hash = substring 0 6 (hash-dir ./.);
-
   # kitty = pkgs.runCommand "kitty-wrapped" {
   #   nativeBuildInputs = [ pkgs.makeWrapper ];
   # } ''

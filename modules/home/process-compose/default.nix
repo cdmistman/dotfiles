@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.programs.process-compose;
 
   inherit (lib) genAttrs literalExpression mapAttrs' mkEnableOption mkPackageOption mkIf mkOption types;
@@ -16,9 +19,7 @@ let
   };
 
   mkColorOptions = colors: genAttrs colors (_: mkColorOption);
-in
-
-{
+in {
   options.programs.process-compose = {
     enable = mkEnableOption "process-compose";
 
@@ -52,7 +53,10 @@ in
               default value here becomes `"Custom Style"`.
             '';
             type = types.string;
-            default = if cfg.themes ? "*" then "Custom Style" else "Default";
+            default =
+              if cfg.themes ? "*"
+              then "Custom Style"
+              else "Default";
             defaultText = literalExpression ''if config.process-compose.themes ? "*" then "Custom Style" else "Default"'';
           };
         };
@@ -150,13 +154,19 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = [cfg.package];
 
-    xdg.configFile = {
-      "process-compose/settings.yaml".text = toYAML cfg.settings;
-    } // mapAttrs' (name: value: {
-      name = if name == "*" then "process-compose/theme.yaml" else "process-compose/themes/${name}.yaml";
-      value.text = toYAML { style = value; };
-    }) cfg.themes;
+    xdg.configFile =
+      {
+        "process-compose/settings.yaml".text = toYAML cfg.settings;
+      }
+      // mapAttrs' (name: value: {
+        name =
+          if name == "*"
+          then "process-compose/theme.yaml"
+          else "process-compose/themes/${name}.yaml";
+        value.text = toYAML {style = value;};
+      })
+      cfg.themes;
   };
 }

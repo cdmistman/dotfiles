@@ -93,7 +93,9 @@
     },
     "flake-utils": {
       "inputs": {
-        "systems": "systems"
+        "systems": [
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1710146030,
@@ -131,7 +133,7 @@
     },
     "flake-utils_2": {
       "inputs": {
-        "systems": "systems_2"
+        "systems": "systems"
       },
       "locked": {
         "lastModified": 1710146030,
@@ -332,6 +334,36 @@
         "type": "github"
       }
     },
+    "rio": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1716475921,
+        "narHash": "sha256-pnU2wxgopHMWgJ7JGdO2P/MCfxqCY7MTEE39qtD0XKw=",
+        "owner": "raphamorim",
+        "repo": "rio",
+        "rev": "1a7a9c18aa1f8fe2932b78e9e01fe17c4a9bd99c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "raphamorim",
+        "ref": "v0.0.39",
+        "repo": "rio",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
@@ -347,8 +379,10 @@
         "nix-index-db": "nix-index-db",
         "nixd": "nixd",
         "nixpkgs": "nixpkgs",
+        "rio": "rio",
         "rust-overlay": "rust-overlay",
         "snowfall-lib": "snowfall-lib",
+        "systems": "systems_2",
         "tokyonight": "tokyonight"
       }
     },
@@ -379,11 +413,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715307487,
-        "narHash": "sha256-yuDAys3JuJmhQUQGMMsl3BDQNZUYZDw0eA71OVh9FeY=",
+        "lastModified": 1717121863,
+        "narHash": "sha256-/3sxIe7MZqF/jw1RTQCSmgTjwVod43mmrk84m50MJQ4=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "ec7a7caf50877bc32988c82653d6b3e6952a8c3f",
+        "rev": "2a7b53172ed08f856b8382d7dcfd36a4e0cbd866",
         "type": "github"
       },
       "original": {

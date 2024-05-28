@@ -24,9 +24,9 @@ return {
 					n = { '<cmd>bn<cr>', 'next' },
 					p = { '<cmd>bp<cr>', 'previous' },
 				},
-				f = {
-					l = { "<cmd>Neotree toggle left<cr>", "list" },
-				},
+				-- f = {
+				-- 	l = { "<cmd>Neotree toggle left<cr>", "list" },
+				-- },
 			},
 
 			['<leader>'] = {

@@ -41,6 +41,7 @@ in {
     ./editorconfig.nix
     ./kitty
     ./process-compose.nix
+    ./rio.nix
     ./ssh.nix
     ./starship
     ./tmux
@@ -68,26 +69,28 @@ in {
       stateVersion = "23.11";
       username = "colton";
 
-      packages = (with pkgs; [
-        _1password
-        cachix
-        comma
-        difftastic
-        du-dust
-        fd
-        fswatch
-        home-manager
-        jless
-        jq
-        niv
-        procs
-        ripgrep
-        sd
-        tokei
-        watchman
-      ]) ++ (lib.optionals cfg.gui-apps [
-        pkgs.discord
-      ]);
+      packages =
+        (with pkgs; [
+          _1password
+          cachix
+          comma
+          difftastic
+          du-dust
+          fd
+          fswatch
+          home-manager
+          jless
+          jq
+          niv
+          procs
+          ripgrep
+          sd
+          tokei
+          watchman
+        ])
+        ++ (lib.optionals cfg.gui-apps [
+          pkgs.discord
+        ]);
 
       sessionPath = [
         "$HOME/bin"
@@ -100,31 +103,52 @@ in {
       };
     };
 
-    nix = {
-      settings.nix-path = ["nixpkgs=${inputs.nixpkgs}"];
+    nix =
+      {
+        settings.nix-path = ["nixpkgs=${inputs.nixpkgs}"];
 
-      registry.me = {
-        from = {
-          type = "indirect";
-          id = "me";
+        registry.me = {
+          from = {
+            type = "indirect";
+            id = "me";
+          };
+
+          to = {
+            type = "github";
+            owner = "cdmistman";
+            repo = "dotfiles";
+          };
+        };
+      }
+      // lib.pipe inputs [
+        (lib.filterAttrs (_: input: input ? _type && input._type == "flake"))
+        (lib.mapAttrs (name: input: {
+          flake = input;
+          from = {
+            type = "indirect";
+            id = name;
+          };
+        }))
+        (inputs-reg: {registry = inputs-reg;})
+      ];
+
+    nixpkgs.overlays = [
+      (self: super: let
+        rust-toolchain = pkgs.rust-bin.stable.latest;
+
+        new-rustPlatform = pkgs.makeRustPlatform {
+          inherit (rust-toolchain) rustc cargo;
         };
 
-        to = {
-          type = "github";
-          owner = "cdmistman";
-          repo = "dotfiles";
-        };
-      };
-    } // lib.pipe inputs [
-      (lib.filterAttrs (_: input: input ? _type && input._type == "flake"))
-      (lib.mapAttrs (name: input: {
-        flake = input;
-        from = {
-          type = "indirect";
-          id = name;
-        };
-      }))
-      (inputs-reg: { registry = inputs-reg; })
+        fixed-rustPlatform =
+          new-rustPlatform
+          // {
+            buildRustPackage = args: new-rustPlatform.buildRustPackage args;
+          };
+      in {
+        inherit (rust-toolchain) rustc cargo;
+        rustPlatform = fixed-rustPlatform;
+      })
     ];
 
     programs = {
@@ -139,6 +163,7 @@ in {
       direnv.enable = true;
       nix-index.enable = true;
       process-compose.enable = true;
+      rio.enable = cfg.gui-apps;
       skim.enable = true;
       ssh.enable = true;
       starship.enable = true;
@@ -303,8 +328,8 @@ in {
         enforce_root_files = true;
         idle_reap_age_seconds = 86400; # 1 day instead of 5
         prefer_split_fsevents_watcher = true;
-        root_files = [ ".git" ".jj" ];
-        root_restrict_files = [ ".git" ".jj" ];
+        root_files = [".git" ".jj"];
+        root_restrict_files = [".git" ".jj"];
 
         ignore_dirs = [
           ".direnv"

@@ -2,6 +2,7 @@
   inputs = {
     # kinda sick of git breaking semi-often tbh...
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    systems.url = "github:nix-systems/default";
 
     # it's a snowfall flake
     snowfall-lib = {
@@ -49,6 +50,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    rio = {
+      url = "github:raphamorim/rio/v0.0.39";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.rust-overlay.follows = "rust-overlay";
+      inputs.systems.follows = "systems";
+    };
+
     tokyonight = {
       url = "github:folke/tokyonight.nvim";
       flake = false;
@@ -67,7 +76,10 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     flake-utils-plus = {
       url = "github:gytis-ivaskevicius/flake-utils-plus";
@@ -89,9 +101,11 @@
 
   outputs = inputs:
     inputs.snowfall-lib.mkFlake {
-      inputs = inputs // {
-        jujutsu-version = "v0.17.0";
-      };
+      inputs =
+        inputs
+        // {
+          jujutsu-version = "v0.17.0";
+        };
 
       src = ./.;
       snowfall.namespace = "mistman";

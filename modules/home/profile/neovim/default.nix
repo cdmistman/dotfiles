@@ -22,7 +22,7 @@
     "cmp_luasnip"
     "copilot-cmp"
     "copilot.lua"
-    # "direnv.vim"
+    "direnv.vim"
     # "flash.nvim"
     "formatter.nvim"
     "lualine.nvim"

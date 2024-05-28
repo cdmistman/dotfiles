@@ -1,14 +1,16 @@
-{ config, inputs, lib, pkgs, ... }:
-
-let
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.services.dark-mode-notify;
 
   inherit (builtins) abort map toJSON;
   inherit (lib) concatLines mkEnableOption mkIf mkOption mkPackageOption types;
   inherit (inputs.home-manager.lib) hm;
-in
-
-{
+in {
   options.services.dark-mode-notify = {
     enable = mkEnableOption "dark-mode-notify, a tool that automatically runs scripts when macOS changes themes.";
 
@@ -24,12 +26,12 @@ in
       type = hm.types.dagOf types.str;
       default = {};
       description = "Scripts to run when macOS changes themes.";
-      example = lib.literalExpression ''{
-         myThemeAction = lib.hm.dag.entryAfter ["kitty"] '''
-           run ln -s $VERBOSE_ARG \
-               ''${builtins.toPath ./link-me-directly} $HOME
-         ''';
-      }'';
+      example = lib.literalExpression ''        {
+                 myThemeAction = lib.hm.dag.entryAfter ["kitty"] '''
+                   run ln -s $VERBOSE_ARG \
+                       ''${builtins.toPath ./link-me-directly} $HOME
+                 ''';
+              }'';
     };
 
     script = mkOption {
@@ -40,12 +42,18 @@ in
   };
 
   config = mkIf (pkgs.stdenv.isDarwin && cfg.enable) {
-    home.packages = [ cfg.package ];
+    home.packages = [cfg.package];
 
     services.dark-mode-notify.script = lib.pipe cfg.scripts [
       hm.dag.topoSort
-      (s: if s ? result then s.result else abort ("Dependency cycle in activation script: " + toJSON cfg.scripts))
-      (map ({ name, data }: ''
+      (s:
+        if s ? result
+        then s.result
+        else abort ("Dependency cycle in activation script: " + toJSON cfg.scripts))
+      (map ({
+        name,
+        data,
+      }: ''
         echo 'running hook for "${name}"'
         ${data}
       ''))
@@ -58,7 +66,7 @@ in
       config = {
         KeepAlive = true;
         Label = "ke.bou.dark-mode-notify";
-        ProgramArguments = [ "${cfg.package}/bin/dark-mode-notify" "${cfg.script.outPath}" ];
+        ProgramArguments = ["${cfg.package}/bin/dark-mode-notify" "${cfg.script.outPath}"];
         StandardOutPath = cfg.logPath + ".stdout";
         StandardErrorPath = cfg.logPath + ".stderr";
       };

@@ -1,13 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   cfg = config.services.watchman;
 
   inherit (builtins) toJSON;
   inherit (lib) mkEnableOption mkIf mkOption mkPackageOption optional types;
-in
-
-{
+in {
   options.services.watchman = {
     enable = mkEnableOption "watchman";
 
@@ -26,7 +27,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ] ++ optional cfg.pywatchman.enable cfg.pywatchman.package;
+    home.packages = [cfg.package] ++ optional cfg.pywatchman.enable cfg.pywatchman.package;
 
     home.sessionVariables.WATCHMAN_CONFIG_FILE = "${config.xdg.configHome}/watchman.json";
 

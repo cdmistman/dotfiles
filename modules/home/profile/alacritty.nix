@@ -34,7 +34,7 @@ lib.mkIf (config.mistman.profile.alacritty) {
 
     settings.font = {
       normal = {
-        family = "FiraCode Nerd Font Mono";
+        family = "Fira Code Nerd Font Mono";
         style = "Regular";
       };
 

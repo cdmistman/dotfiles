@@ -1,12 +1,13 @@
-{ config, lib, theme, ... }:
-
-let
+{
+  config,
+  lib,
+  theme,
+  ...
+}: let
   cfg = config.mistman.profile;
 
   inherit (lib) mkIf;
-in
-
-{
+in {
   config = mkIf cfg.enable {
     programs.process-compose = {
       themes."*" = with theme.dark; {
