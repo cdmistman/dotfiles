@@ -96,6 +96,10 @@ in {
         "$HOME/bin"
       ];
 
+      sessionVariables = {
+        JJ_CONFIG = "/Users/colton/.config/jj/config.toml";
+      };
+
       shellAliases = {
         k = "clear";
         kn = "clear && printf '\\e[3J'";

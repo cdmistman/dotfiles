@@ -14,7 +14,7 @@
 
     # config inputs
     home-manager = {
-      url = "github:cdmistman/home-manager/jj-darwin-config-file-location";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
