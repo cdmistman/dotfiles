@@ -208,42 +208,50 @@ function M:on_attach(bufnr, client)
 	-- 	})
 	-- end
 
-	local wk = require('which-key')
+	local function code_diagnostics_binding()
+		local diagnostics = vim.diagnostic.get(bufnr, {
+			severity = vim.diagnostic.severity.HINT,
+		})
+	end
+
+	require('which-key').register({
+		gd = { vim.lsp.buf.declaration, 'declaration' },
+		gm = { vim.lsp.buf.implementation, 'implementation' },
+		gr = { vim.lsp.buf.references, 'references' },
+
+		['<leader>'] = {
+			c = { name = '+code' },
+			ca = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
+			-- cd = { vim.api.nvim_buf_add_highlight, '' },
+		},
+	}, {
+		buffer = bufnr,
+	})
 
 	-- wk.register({
+	-- 	c = {
+	-- 		name = 'code',
+	-- 		a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
+	-- 		d = {
+	-- 			name = '+diagnostic',
+	-- 			n = { vim.diagnostic.goto_next, 'next' },
+	-- 			p = { vim.diagnostic.goto_prev, 'previous' },
+	-- 			h = { vim.diagnostic.open_float, 'show' },
+	-- 		},
+	-- 		l = { vim.lsp.codelens.refresh, 'codelens' },
+	-- 		r = { vim.lsp.buf.rename, 'rename' },
+	-- 	},
 	-- 	g = {
 	-- 		d = { vim.lsp.buf.definition, 'definition' },
 	-- 		D = { vim.lsp.buf.declaration, 'declaration' },
 	-- 		i = { vim.lsp.buf.implementation, 'implementation' },
 	-- 		r = { vim.lsp.buf.references, 'references' },
 	-- 	},
+	-- 	H = { vim.lsp.buf.hover, 'hover' },
 	-- }, {
-	-- 	buffer = ev.buf,
+	-- 	prefix = '<leader>',
+	-- 	buffer = bufnr,
 	-- })
-
-	wk.register({
-		c = {
-			a = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
-			d = {
-				name = '+diagnostic',
-				n = { vim.diagnostic.goto_next, 'next' },
-				p = { vim.diagnostic.goto_prev, 'previous' },
-				h = { vim.diagnostic.open_float, 'show' },
-			},
-			l = { vim.lsp.codelens.refresh, 'codelens' },
-			r = { vim.lsp.buf.rename, 'rename' },
-		},
-		g = {
-			d = { vim.lsp.buf.definition, 'definition' },
-			D = { vim.lsp.buf.declaration, 'declaration' },
-			i = { vim.lsp.buf.implementation, 'implementation' },
-			r = { vim.lsp.buf.references, 'references' },
-		},
-		H = { vim.lsp.buf.hover, 'hover' },
-	}, {
-		prefix = '<leader>',
-		buffer = bufnr,
-	})
 end
 
 function M:on_attach_go(ev)

@@ -1,7 +1,5 @@
 return {
-	'comment.nvim',
-	enabled = false,
-	event = 'BufRead',
-	main = 'Comment',
+	'Comment.nvim',
+	lazy = false,
 	config = true,
 }
