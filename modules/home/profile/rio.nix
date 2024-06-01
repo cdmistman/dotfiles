@@ -1,19 +1,18 @@
 {
-  inputs,
   pkgs,
-  system,
+  inputs,
   ...
 }: {
   programs.rio = {
-    # package = pkgs.rio.override {
-    #   rustPlatform.buildRustPackage = arg: let
-    #     arg-overrides = {
-    #       version = "0.0.39";
-    #       src = inputs.rio.outPath;
-    #       cargoHash = "sha256-GwI2zHX1YcR4pC+qtkDoxx2U+zipbqqxsCI8/XNg2BU=";
-    #     };
-    #   in pkgs.rustPlatform.buildRustPackage (arg // arg-overrides);
-    # };
+    package = pkgs.rio.override {
+      rustPlatform.buildRustPackage = arg: let
+        arg-overrides = {
+          version = "0.0.39";
+          src = inputs.rio.outPath;
+          cargoHash = "sha256-GwI2zHX1YcR4pC+qtkDoxx2U+zipbqqxsCI8/XNg2BU=";
+        };
+      in pkgs.rustPlatform.buildRustPackage (arg // arg-overrides);
+    };
 
     settings = {
       editor = "nvim";
@@ -26,7 +25,7 @@
       };
 
       fonts = {
-        family = "FiraMono Nerd Font";
+        family = "FiraCode Nerd Font Mono";
         size = 20;
       };
 

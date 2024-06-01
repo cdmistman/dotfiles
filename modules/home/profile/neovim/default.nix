@@ -25,9 +25,9 @@
     "direnv.vim"
     "flash.nvim"
     "formatter.nvim"
+    "lualine.nvim"
     "lsp-format.nvim"
     "lspkind.nvim"
-    "lualine.nvim"
     "neo-tree.nvim"
     "neoscroll.nvim"
     "noice.nvim"
@@ -46,7 +46,6 @@
     "telescope.nvim"
     "todo-comments.nvim"
     "vim-gitgutter"
-    "vim-snippets"
     "which-key.nvim"
     "yanky.nvim"
   ];
@@ -68,6 +67,7 @@
     "fish"
     "go"
     "go-mod"
+    "haskell"
     "heex"
     "http"
     "java"
@@ -84,7 +84,6 @@
     "solidity"
     "svelte"
     "templ"
-    "vue"
   ];
 
   language-to-nixpkgs = {
@@ -109,6 +108,7 @@
     // {
       # broken
       tree-sitter-ql-dbscheme = null;
+      tree-sitter-vue = null;
 
       # typescript is special
       tree-sitter-tsx = pkgs.tree-sitter-grammars."tree-sitter-tsx".overrideAttrs {

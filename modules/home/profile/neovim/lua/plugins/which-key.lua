@@ -17,16 +17,14 @@ return {
 			g = {
 				name = '+go',
 				noremap = false,
-				b = {
+				B = {
 					name = '+buffer',
 					noremap = false,
 					-- l = { }, TODO: buffer list
 					n = { '<cmd>bn<cr>', 'next' },
 					p = { '<cmd>bp<cr>', 'previous' },
 				},
-				-- f = {
-				-- 	l = { "<cmd>Neotree toggle left<cr>", "list" },
-				-- },
+				F = { "<cmd>Neotree toggle left<cr>", "list" },
 			},
 
 			['<leader>'] = {
@@ -43,8 +41,10 @@ return {
 					j = { '<cmd>wincmd j<cr>', 'down' },
 					k = { '<cmd>wincmd k<cr>', 'up' },
 					l = { '<cmd>wincmd l<cr>', 'right' },
-					S = { '<cmd>split<cr>', 'split' },
-					s = { '<cmd>vsplit<cr>', 'vsplit' },
+
+					s = { '<cmd>vsp<cr>', 'split' },
+					S = { '<cmd>sp<cr>', 'horizontal split' },
+
 					d = { '<cmd>close<cr>', 'close' },
 				}
 			}

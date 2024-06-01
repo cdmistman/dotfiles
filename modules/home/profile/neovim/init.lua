@@ -2,6 +2,9 @@ vim.g.editorconfig = true
 vim.g.mapleader = ' '
 -- TODO: i should set some buffer-local mappings
 vim.g.maplocalleader = '\\'
+vim.g.loaded_node_provider = false
+vim.g.loaded_python3_provider = false
+vim.g.loaded_ruby_provider = false
 
 -- TODO: include lines seem handy, needs buffer-local handling
 -- TODO: set some more options
@@ -15,6 +18,7 @@ vim.opt.listchars = { lead = '␣', tab = '> ' }
 vim.opt.magic = false
 vim.opt.number = true
 vim.opt.smartcase = true
+vim.opt.splitright = true
 vim.opt.signcolumn = 'yes'
 vim.opt.sol = true
 vim.opt.tabstop = 4
