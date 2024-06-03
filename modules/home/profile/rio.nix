@@ -25,7 +25,7 @@
       };
 
       fonts = {
-        family = "FiraCode Nerd Font Mono";
+        family = "FiraCode Nerd Font";
         size = 20;
       };
 

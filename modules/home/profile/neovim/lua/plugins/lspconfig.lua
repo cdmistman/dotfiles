@@ -223,6 +223,8 @@ function M:on_attach(bufnr, client)
 			c = { name = '+code' },
 			ca = { vim.lsp.buf.code_action, 'action', mode = { 'n', 'v' } },
 			-- cd = { vim.api.nvim_buf_add_highlight, '' },
+			cl = { vim.lsp.codelens.refresh, 'lens' },
+			cr = { vim.lsp.buf.rename, 'rename' },
 		},
 	}, {
 		buffer = bufnr,
