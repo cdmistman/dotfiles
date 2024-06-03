@@ -23,14 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # program inputs
-    jujutsu = {
-      url = "github:martinvonz/jj/v0.18.0";
-      inputs.flake-utils.follows = "flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.flake-compat.follows = "flake-compat";
@@ -50,13 +42,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rio = {
-      url = "github:raphamorim/rio/v0.0.39";
-      flake = false;
-    };
-
     tokyonight = {
-      url = "github:folke/tokyonight.nvim";
+      url = "github:cdmistman/tokyonight.nvim";
       flake = false;
     };
 
@@ -92,17 +79,26 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zig = {
+      url = "github:mitchellh/zig-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
       inputs.flake-utils.follows = "flake-utils";
+    };
+
+    zls = {
+      url = "github:zigtools/zls";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.zig-overlay.follows = "zig";
     };
   };
 
   outputs = inputs:
     inputs.snowfall-lib.mkFlake {
-      inputs =
-        inputs
-        // {
-          jujutsu-version = "v0.17.0";
-        };
+      inherit inputs;
 
       src = ./.;
       snowfall.namespace = "mistman";

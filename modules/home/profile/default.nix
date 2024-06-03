@@ -229,18 +229,6 @@ in {
         ];
       };
 
-      jujutsu.package = pkgs.jujutsu.override {
-        rustPlatform.buildRustPackage = args: let
-          overridenArgs =
-            args
-            // {
-              version = inputs.jujutsu-version;
-              src = inputs.jujutsu.outPath;
-              cargoHash = "sha256-ZaBl7dWPUP1gIz7RKDnOWigOF+XTr4pM5dF/zDQ1gfg=";
-            };
-        in
-          pkgs.rustPlatform.buildRustPackage overridenArgs;
-      };
 
       jujutsu.settings = {
         core = {
@@ -303,7 +291,7 @@ in {
         enableZshIntegration = true;
         defaultOptions = let
           fzf_default_opts = pkgs.runCommand "FZF_DEFAULT_OPTS.txt" {} ''
-            source "${inputs.tokyonight}/extras/fzf/tokyonight_night.zsh"
+            source "${inputs.tokyonight}/extras/fzf/tokyonight_night.sh"
             echo "$FZF_DEFAULT_OPTS" >$out
           '';
         in [

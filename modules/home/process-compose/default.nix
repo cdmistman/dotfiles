@@ -63,6 +63,14 @@ in {
       };
     };
 
+    themeFiles = mkOption {
+      description = ''
+        List of files containing theme data to include in `$XDG_CONFIG_HOME/process-compose/themes`.
+      '';
+      default = [];
+      type = types.listOf types.path;
+    };
+
     themes = mkOption {
       description = ''
         Attribute set of themes to put in the `$XDG_CONFIG_HOME/process-compose/themes` directory.

@@ -155,25 +155,29 @@ in
       enable = true;
 
       tools = [
+        pkgs.marksman
+        pkgs.nixd
+        pkgs.taplo
+      ];
+
+      fallback-tools = [
+        # TODO: astro :(
         pkgs.gofumpt
         pkgs.gopls
         pkgs.gotools
         pkgs.haskell-language-server
         pkgs.htmx-lsp
+        pkgs.fenix.rust-analyzer
+        pkgs.fenix.stable.toolchain
         pkgs.lua-language-server
-        pkgs.marksman
-        pkgs.nixd
+        pkgs.nodejs_22
         pkgs.prettierd
         pkgs.tailwindcss-language-server
-        pkgs.taplo
         pkgs.vscode-langservers-extracted
-        pkgs.zls
-
-        pkgs.fenix.rust-analyzer
+        inputs.zls.packages.${system}.zls
 
         (pkgs.symlinkJoin {
           name = "nvim-nodePackages-tools";
-          # TODO: astro :(
           paths = [
             pkgs.nodePackages_latest.graphql-language-service-cli
             pkgs.nodePackages_latest.svelte-language-server
@@ -190,11 +194,6 @@ in
             done
           '';
         })
-      ];
-
-      fallback-tools = [
-        pkgs.fenix.stable.toolchain
-        pkgs.nodejs_22
       ];
 
       plugins =

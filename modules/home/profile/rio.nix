@@ -1,18 +1,10 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{ pkgs, ... }: {
   programs.rio = {
-    package = pkgs.rio.override {
-      rustPlatform.buildRustPackage = arg: let
-        arg-overrides = {
-          version = "0.0.39";
-          src = inputs.rio.outPath;
-          cargoHash = "sha256-GwI2zHX1YcR4pC+qtkDoxx2U+zipbqqxsCI8/XNg2BU=";
-        };
-      in pkgs.rustPlatform.buildRustPackage (arg // arg-overrides);
-    };
+    package = pkgs.rio.overrideAttrs (prev: {
+      meta = prev.meta // {
+        broken = false;
+      };
+    });
 
     settings = {
       editor = "nvim";

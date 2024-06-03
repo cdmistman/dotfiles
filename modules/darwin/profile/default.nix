@@ -17,18 +17,15 @@ in {
       loginShell = "/bin/zsh";
     };
 
-    fonts = {
-      fontDir.enable = true;
-      fonts = [
-        (pkgs.nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "FiraMono"
-            "Hack"
-          ];
-        })
-      ];
-    };
+    fonts.packages = [
+      (pkgs.nerdfonts.override {
+        fonts = [
+          "FiraCode"
+          "FiraMono"
+          "Hack"
+        ];
+      })
+    ];
 
     nix = {
       package = pkgs.nixVersions.nix_2_21;
