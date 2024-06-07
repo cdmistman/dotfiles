@@ -236,7 +236,7 @@ in {
             // {
               version = inputs.jujutsu-version;
               src = inputs.jujutsu.outPath;
-              cargoHash = "sha256-o5r4U2TImdwoVJ48gdHhK8/ct+INDyK+ka8ORkmVnGU=";
+              cargoHash = "sha256-ZaBl7dWPUP1gIz7RKDnOWigOF+XTr4pM5dF/zDQ1gfg=";
             };
         in
           pkgs.rustPlatform.buildRustPackage overridenArgs;
