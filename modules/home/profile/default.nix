@@ -81,6 +81,7 @@ in {
           home-manager
           jless
           jq
+          nil
           niv
           procs
           ripgrep

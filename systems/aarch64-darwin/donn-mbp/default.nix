@@ -2,7 +2,7 @@
   mistman.profile.enable = true;
 
   users.users.admin = {
-    createHome = true;
+    createHome = false;
   };
 
   users.users.colton = {
