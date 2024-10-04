@@ -70,6 +70,11 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    git-branchless = {
+      url = "github:arxanas/git-branchless";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hercules-ci-effects = {
       url = "github:hercules-ci/hercules-ci-effects";
       inputs.flake-parts.follows = "flake-parts";
@@ -108,6 +113,7 @@
         inputs.neovim-nightly-overlay.overlays.default
         inputs.nixd.overlays.default
         (import (inputs.home-manager + /overlay.nix))
+        inputs.git-branchless.overlays.default
       ];
 
       channels-config = {

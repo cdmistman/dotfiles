@@ -13,6 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+    system.stateVersion = 5;
     environment = {
       loginShell = "/bin/zsh";
     };
@@ -28,7 +29,7 @@ in {
     ];
 
     nix = {
-      package = pkgs.nixVersions.nix_2_21;
+      package = pkgs.nixVersions.nix_2_23;
       settings = {
         auto-optimise-store = true;
         experimental-features = "nix-command flakes";

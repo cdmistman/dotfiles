@@ -1,22 +1,23 @@
-{
-  config,
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, inputs
+, lib
+, pkgs
+, ...
+}:
+let
   inherit (lib) importTOML mkEnableOption mkIf;
 
   email = "colton@donn.io";
   name = "Colton Donnelly";
 
   themes-data =
-    pkgs.runCommand "my-themes-dir" {
-      buildInputs = [
-        pkgs.neovim-unwrapped
-        pkgs.yq
-      ];
-    } ''
+    pkgs.runCommand "my-themes-dir"
+      {
+        buildInputs = [
+          pkgs.neovim-unwrapped
+          pkgs.yq
+        ];
+      } ''
       tmp=$(mktemp -d)
       mkdir -p $tmp
       pushd $tmp
@@ -33,13 +34,15 @@
   tokyonight-theme.dark = importTOML "${themes-data.outPath}/tokyonight_night.toml";
 
   cfg = config.mistman.profile;
-in {
+in
+{
   imports = [
-    ./alacritty.nix
+    # ./alacritty.nix
     ./bat
     ./direnv.nix
     ./editorconfig.nix
-    ./kitty
+    ./jujutsu.nix
+    # ./kitty
     ./process-compose.nix
     ./rio.nix
     ./ssh.nix
@@ -50,9 +53,9 @@ in {
 
   options.mistman.profile = {
     enable = mkEnableOption "my home dir configuration";
-    alacritty = mkEnableOption "alacritty package" // {default = cfg.gui-apps;};
+    alacritty = mkEnableOption "alacritty package" // { default = cfg.gui-apps; };
     gui-apps = mkEnableOption "GUI application packages";
-    vscode = mkEnableOption "vscode package" // {default = false;};
+    vscode = mkEnableOption "vscode package";
   };
 
   config = mkIf cfg.enable {
@@ -66,7 +69,7 @@ in {
     };
 
     home = {
-      stateVersion = "23.11";
+      stateVersion = "24.11";
       username = "colton";
 
       packages =
@@ -78,11 +81,13 @@ in {
           du-dust
           fd
           fswatch
+          # git-branchless
           home-manager
           jless
           jq
           nil
           niv
+          nixpkgs-fmt
           procs
           ripgrep
           sd
@@ -97,10 +102,6 @@ in {
         "$HOME/bin"
       ];
 
-      sessionVariables = {
-        JJ_CONFIG = "/Users/colton/.config/jj/config.toml";
-      };
-
       shellAliases = {
         k = "clear";
         kn = "clear && printf '\\e[3J'";
@@ -110,7 +111,7 @@ in {
 
     nix =
       {
-        settings.nix-path = ["nixpkgs=${inputs.nixpkgs}"];
+        settings.nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
 
         registry.me = {
           from = {
@@ -134,26 +135,28 @@ in {
             id = name;
           };
         }))
-        (inputs-reg: {registry = inputs-reg;})
+        (inputs-reg: { registry = inputs-reg; })
       ];
 
     nixpkgs.overlays = [
-      (self: super: let
-        rust-toolchain = pkgs.rust-bin.stable.latest;
+      (self: super:
+        let
+          rust-toolchain = pkgs.rust-bin.stable.latest;
 
-        new-rustPlatform = pkgs.makeRustPlatform {
-          inherit (rust-toolchain) rustc cargo;
-        };
-
-        fixed-rustPlatform =
-          new-rustPlatform
-          // {
-            buildRustPackage = args: new-rustPlatform.buildRustPackage args;
+          new-rustPlatform = pkgs.makeRustPlatform {
+            inherit (rust-toolchain) rustc cargo;
           };
-      in {
-        inherit (rust-toolchain) rustc cargo;
-        rustPlatform = fixed-rustPlatform;
-      })
+
+          fixed-rustPlatform =
+            new-rustPlatform
+            // {
+              buildRustPackage = args: new-rustPlatform.buildRustPackage args;
+            };
+        in
+        {
+          inherit (rust-toolchain) rustc cargo;
+          rustPlatform = fixed-rustPlatform;
+        })
     ];
 
     programs = {
@@ -164,7 +167,6 @@ in {
       eza.enable = true;
       gh.enable = true;
       git.enable = true;
-      jujutsu.enable = true;
       direnv.enable = true;
       nix-index.enable = true;
       process-compose.enable = true;
@@ -188,7 +190,7 @@ in {
         enableBashIntegration = true;
         enableNushellIntegration = true;
         enableZshIntegration = true;
-        extraOptions = ["--group-directories-first"];
+        extraOptions = [ "--group-directories-first" ];
         icons = true;
         git = true;
       };
@@ -230,58 +232,6 @@ in {
         ];
       };
 
-
-      jujutsu.settings = {
-        core = {
-          fsmonitor = "watchman";
-        };
-
-        git = {
-          push-branch-prefix = "cad/push-";
-        };
-
-        revsets = {
-          log = "stacks | trunk()";
-          short-prefixes = "stacks";
-        };
-
-        revset-aliases = {
-          stack = "descendants(roots(stacks & ::@ ~ ::trunk()))";
-          stacks = "mine() & branches():: & ::visible_heads() ~ ::trunk()";
-          stack-roots = "roots(stacks) ~ trunk()";
-        };
-
-        template-aliases = {
-          dense = ''
-            concat(
-            )
-          '';
-
-          starship = ''
-            concat(
-              format_short_change_id_with_hidden_and_divergent_info(self),
-              surround(" ", "", local_branches.join(" ")),
-              surround(
-                " ",
-                "",
-                parents.map(|parent| "~" ++ parent.local_branches().join(" ")).join(" "),
-              ),
-            )
-          '';
-        };
-
-        ui = {
-          always-allow-large-revsets = true;
-          default-command = ["log" "-r" "stack"];
-          diff.tool = ["difft" "--color=always" "$left" "$right"];
-          editor = "nvim";
-        };
-
-        user = {
-          inherit email name;
-        };
-      };
-
       nix-index = {
         enableBashIntegration = true;
         enableZshIntegration = true;
@@ -290,14 +240,16 @@ in {
       skim = {
         enableBashIntegration = true;
         enableZshIntegration = true;
-        defaultOptions = let
-          fzf_default_opts = pkgs.runCommand "FZF_DEFAULT_OPTS.txt" {} ''
-            source "${inputs.tokyonight}/extras/fzf/tokyonight_night.sh"
-            echo "$FZF_DEFAULT_OPTS" >$out
-          '';
-        in [
-          (builtins.readFile fzf_default_opts)
-        ];
+        defaultOptions =
+          let
+            fzf_default_opts = pkgs.runCommand "FZF_DEFAULT_OPTS.txt" { } ''
+              source "${inputs.tokyonight}/extras/fzf/tokyonight_night.sh"
+              echo "$FZF_DEFAULT_OPTS" >$out
+            '';
+          in
+          [
+            (builtins.readFile fzf_default_opts)
+          ];
       };
 
       zoxide = {
@@ -321,8 +273,8 @@ in {
         enforce_root_files = true;
         idle_reap_age_seconds = 86400; # 1 day instead of 5
         prefer_split_fsevents_watcher = true;
-        root_files = [".git" ".jj"];
-        root_restrict_files = [".git" ".jj"];
+        root_files = [ ".git" ".jj" ];
+        root_restrict_files = [ ".git" ".jj" ];
 
         ignore_dirs = [
           ".direnv"

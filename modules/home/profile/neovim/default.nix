@@ -152,7 +152,7 @@
 in
   lib.mkIf config.mistman.profile.enable {
     vanillinvim = {
-      enable = true;
+      # enable = true;
 
       tools = [
         pkgs.marksman
